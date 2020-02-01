@@ -9,6 +9,20 @@ import java.io.IOException;
 %column
 %unicode
 
+%{
 
+
+%}
+
+%eof{
+
+%eof}
+
+%%
+
+<YYINITIAL> {
+
+
+}
 
 
