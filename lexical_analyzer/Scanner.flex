@@ -9,20 +9,77 @@ import java.io.IOException;
 %column
 %unicode
 
+%eof{
+    return new Symbol("$");
+%eof}
+
 %{
 
 
 %}
 
-%eof{
+/* Patterns */
+letter = [A-Za-z]
+digit = [0-9]
+whitespace = [ \n\t\f\r\v]
 
-%eof}
+
+
 
 %%
 
 <YYINITIAL> {
+ "{"
+ "}"
+ "("
+ ")"
+ "["
+ "]"
+ ";"
+ ","
+ "+"
+ "-"
+ "*"
+ "<"
+ ">"
+ ">="
+ "<="
+ "="
+ ":="
+ "%"
+ "|"
+ "^"
+ "&"
+ "/"
+ "~"
+
+ "char"
+ "integer"
+ "boolean"
+ "array"
+ "assign"
+ "break"
+ "begin"
+ "char"
+ "continue"
+ "do"
+ "else"
+ "end"
+ "false"
+ "function"
+ "procedure"
+ "if"
+ "integer"
+ "of"
+ "real"
+ "return"
+ "string"
+ "true"
+ "while"
+ "var"
 
 
 }
+[^]   { throw new Error("Illegal character <" + yytext() + "> at line " + yyline);  }
 
 
