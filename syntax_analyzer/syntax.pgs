@@ -1972,5 +1972,115 @@
       }
     ],
     "start": 99
+  },
+  {
+    "name": "ARRAY_VAR",
+    "nodes": [
+      {
+        "x": 74.66666666666666,
+        "y": 384.66666666666663,
+        "id": 104,
+        "isFinal": false
+      },
+      {
+        "x": 196.66666666666666,
+        "y": 380.0,
+        "id": 105,
+        "isFinal": false
+      },
+      {
+        "x": 336.0,
+        "y": 376.66666666666663,
+        "id": 106,
+        "isFinal": false
+      },
+      {
+        "x": 482.0,
+        "y": 373.33333333333337,
+        "id": 107,
+        "isFinal": false
+      },
+      {
+        "x": 631.3333333333333,
+        "y": 372.66666666666663,
+        "id": 108,
+        "isFinal": false
+      },
+      {
+        "x": 755.3333333333333,
+        "y": 370.0,
+        "id": 109,
+        "isFinal": false
+      },
+      {
+        "x": 976.6666666666666,
+        "y": 368.0,
+        "id": 110,
+        "isFinal": true
+      }
+    ],
+    "edges": [
+      {
+        "start": 104,
+        "end": 105,
+        "token": "IDENTIFIER",
+        "func": "",
+        "anchorX": 135.66666666666666,
+        "anchorY": 382.3333333333333,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 105,
+        "end": 106,
+        "token": "COLON",
+        "func": "",
+        "anchorX": 266.3333333333333,
+        "anchorY": 378.3333333333333,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 106,
+        "end": 107,
+        "token": "ARRAY",
+        "func": "",
+        "anchorX": 409.0,
+        "anchorY": 375.0,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 107,
+        "end": 108,
+        "token": "TYPE",
+        "func": "",
+        "anchorX": 556.6666666666666,
+        "anchorY": 373.0,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 108,
+        "end": 109,
+        "token": "OF",
+        "func": "",
+        "anchorX": 693.3333333333333,
+        "anchorY": 371.3333333333333,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 109,
+        "end": 110,
+        "token": "ARRAY_DIMENSION",
+        "func": "",
+        "anchorX": 866.0,
+        "anchorY": 369.0,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 104
   }
 ]
