@@ -112,12 +112,12 @@ comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
  {comment}      { /* do nothing */ }
 
  {identifier}   { return sym("id", yytext()); }
- {string}       { return sym("const_string", yytext()); }
+ {string}       { return sym("string_const", yytext()); }
 
  {int}          { return sym("int_const", Integer.valueOf(yytext())); }
  {real}         { return sym("real_const", Double.valueOf(yytext())); }
  {character}    { return sym("char_const", yytext().charAt(1)); }
- {hex}          { return sym("hex_const", Integer.decode(yytext())); }
+ {hex}          { return sym("int_const", Integer.decode(yytext())); }
 
 
 }

@@ -1,0 +1,86 @@
+[
+  {
+    "name": "MAIN",
+    "nodes": [],
+    "edges": [],
+    "start": -1
+  },
+  {
+    "name": "CONSTANT",
+    "nodes": [
+      {
+        "x": 234.00000000000006,
+        "y": 271.20000000000005,
+        "id": 0,
+        "isFinal": false
+      },
+      {
+        "x": 516.0000000000001,
+        "y": 104.39999999999998,
+        "id": 1,
+        "isFinal": true
+      },
+      {
+        "x": 516.0,
+        "y": 208.80000000000007,
+        "id": 2,
+        "isFinal": true
+      },
+      {
+        "x": 514.8,
+        "y": 355.2,
+        "id": 3,
+        "isFinal": true
+      },
+      {
+        "x": 509.2,
+        "y": 471.19999999999993,
+        "id": 4,
+        "isFinal": true
+      }
+    ],
+    "edges": [
+      {
+        "start": 0,
+        "end": 1,
+        "token": "INT_CONST",
+        "func": "push_integer_const",
+        "anchorX": 334.9999999999964,
+        "anchorY": 137.39999999999833,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 0,
+        "end": 2,
+        "token": "REAL_CONST",
+        "func": "push_real_const",
+        "anchorX": 352.5999999999991,
+        "anchorY": 231.19999999999874,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 0,
+        "end": 3,
+        "token": "CHAR_CONST",
+        "func": "push_char_const",
+        "anchorX": 349.9999999999993,
+        "anchorY": 336.1999999999948,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 0,
+        "end": 4,
+        "token": "STRING_CONST",
+        "func": "push_string_const",
+        "anchorX": 334.3999999999994,
+        "anchorY": 436.39999999999736,
+        "isGraph": false,
+        "isGlobal": false
+      }
+    ],
+    "start": 0
+  }
+]
