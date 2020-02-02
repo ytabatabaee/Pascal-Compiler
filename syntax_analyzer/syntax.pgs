@@ -2141,8 +2141,96 @@
   },
   {
     "name": "TYPE",
-    "nodes": [],
-    "edges": [],
-    "start": -1
+    "nodes": [
+      {
+        "x": 127.33333333333334,
+        "y": 296.0,
+        "id": 114,
+        "isFinal": false
+      },
+      {
+        "x": 570.6666666666666,
+        "y": 80.66666666666667,
+        "id": 115,
+        "isFinal": true
+      },
+      {
+        "x": 573.3333333333333,
+        "y": 184.66666666666666,
+        "id": 116,
+        "isFinal": true
+      },
+      {
+        "x": 573.3333333333333,
+        "y": 270.00000000000006,
+        "id": 117,
+        "isFinal": true
+      },
+      {
+        "x": 573.3333333333333,
+        "y": 349.33333333333337,
+        "id": 118,
+        "isFinal": true
+      },
+      {
+        "x": 578.0,
+        "y": 438.6666666666667,
+        "id": 119,
+        "isFinal": true
+      }
+    ],
+    "edges": [
+      {
+        "start": 114,
+        "end": 115,
+        "token": "INTEGER",
+        "func": "",
+        "anchorX": 348.99999999999983,
+        "anchorY": 188.33333333333334,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 114,
+        "end": 116,
+        "token": "STRING",
+        "func": "",
+        "anchorX": 350.33333333333326,
+        "anchorY": 240.33333333333334,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 114,
+        "end": 117,
+        "token": "REAL",
+        "func": "",
+        "anchorX": 350.33333333333326,
+        "anchorY": 283.0,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 114,
+        "end": 118,
+        "token": "BOOLEAN",
+        "func": "",
+        "anchorX": 350.33333333333326,
+        "anchorY": 322.6666666666667,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 114,
+        "end": 119,
+        "token": "CHAR",
+        "func": "",
+        "anchorX": 352.66666666666663,
+        "anchorY": 367.3333333333333,
+        "isGraph": false,
+        "isGlobal": false
+      }
+    ],
+    "start": 114
   }
 ]
