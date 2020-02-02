@@ -1854,5 +1854,45 @@
       }
     ],
     "start": 92
+  },
+  {
+    "name": "VAR_DCL",
+    "nodes": [
+      {
+        "x": 167.99999999999997,
+        "y": 338.66666666666663,
+        "id": 97,
+        "isFinal": false
+      },
+      {
+        "x": 524.0,
+        "y": 338.0,
+        "id": 98,
+        "isFinal": true
+      }
+    ],
+    "edges": [
+      {
+        "start": 97,
+        "end": 98,
+        "token": "SIMPLE_VAR",
+        "func": "",
+        "anchorX": 346.0,
+        "anchorY": 258.33333333333337,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 97,
+        "end": 98,
+        "token": "ARRAY_VAR",
+        "func": "",
+        "anchorX": 338.66666666666663,
+        "anchorY": 421.6666666666667,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 97
   }
 ]
