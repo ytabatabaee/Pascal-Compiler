@@ -1664,5 +1664,61 @@
       }
     ],
     "start": 79
+  },
+  {
+    "name": "ARGUMENT",
+    "nodes": [
+      {
+        "x": 225.99999999999997,
+        "y": 366.66666666666663,
+        "id": 86,
+        "isFinal": false
+      },
+      {
+        "x": 421.33333333333326,
+        "y": 368.0,
+        "id": 87,
+        "isFinal": true
+      },
+      {
+        "x": 614.0,
+        "y": 366.66666666666663,
+        "id": 88,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 86,
+        "end": 87,
+        "token": "VAR_DCL",
+        "func": "",
+        "anchorX": 323.66666666666663,
+        "anchorY": 367.3333333333333,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 87,
+        "end": 88,
+        "token": "SEMICOLON",
+        "func": "",
+        "anchorX": 517.6666666666666,
+        "anchorY": 367.3333333333333,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 88,
+        "end": 87,
+        "token": "VAR_DCL",
+        "func": "",
+        "anchorX": 520.3333333333334,
+        "anchorY": 280.6666666666667,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 86
   }
 ]
