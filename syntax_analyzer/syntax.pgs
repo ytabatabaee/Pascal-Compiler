@@ -1249,7 +1249,7 @@
       {
         "start": 60,
         "end": 55,
-        "token": "ID",
+        "token": "IDENTIFIER",
         "func": "",
         "anchorX": 766.3333333333334,
         "anchorY": 348.0000000000004,
