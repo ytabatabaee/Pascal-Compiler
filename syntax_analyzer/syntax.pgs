@@ -1766,5 +1766,93 @@
       }
     ],
     "start": 89
+  },
+  {
+    "name": "BULK_ASSIGNMENT",
+    "nodes": [
+      {
+        "x": 90.66666666666666,
+        "y": 359.33333333333337,
+        "id": 92,
+        "isFinal": false
+      },
+      {
+        "x": 258.66666666666663,
+        "y": 360.66666666666663,
+        "id": 93,
+        "isFinal": false
+      },
+      {
+        "x": 490.0,
+        "y": 363.3333333333333,
+        "id": 94,
+        "isFinal": false
+      },
+      {
+        "x": 746.6666666666666,
+        "y": 354.66666666666663,
+        "id": 95,
+        "isFinal": true
+      },
+      {
+        "x": 450.66666666666663,
+        "y": 477.33333333333337,
+        "id": 96,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 92,
+        "end": 93,
+        "token": "L_PAREN",
+        "func": "",
+        "anchorX": 174.66666666666663,
+        "anchorY": 360.0,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 93,
+        "end": 94,
+        "token": "EXPR_OR_L",
+        "func": "",
+        "anchorX": 351.6666666666655,
+        "anchorY": 360.3333333333328,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 94,
+        "end": 95,
+        "token": "R_PAREN",
+        "func": "",
+        "anchorX": 595.6666666666666,
+        "anchorY": 357.33333333333286,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 94,
+        "end": 96,
+        "token": "COMMA",
+        "func": "",
+        "anchorX": 473.66666666666384,
+        "anchorY": 420.00000000000006,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 96,
+        "end": 94,
+        "token": "EXPR_OR_L",
+        "func": "",
+        "anchorX": 307.66666666666663,
+        "anchorY": 456.0000000000001,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 92
   }
 ]
