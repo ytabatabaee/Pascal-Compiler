@@ -277,7 +277,7 @@
       {
         "start": 14,
         "end": 15,
-        "token": "BITWISE_OR",
+        "token": "EX_ADD",
         "func": "",
         "anchorX": 570.3333333333273,
         "anchorY": 259.99999999999966,
@@ -287,8 +287,8 @@
       {
         "start": 15,
         "end": 14,
-        "token": "EXPR_EX_ADD",
-        "func": "bitwise_or",
+        "token": "EXPR_AND_B",
+        "func": "exclusive_add",
         "anchorX": 566.9999999999977,
         "anchorY": 192.66666666666598,
         "isGraph": true,
@@ -297,7 +297,7 @@
       {
         "start": 16,
         "end": 14,
-        "token": "EXPR_EX_ADD",
+        "token": "EXPR_AND_B",
         "func": "",
         "anchorX": 356.6666666666666,
         "anchorY": 229.99999999999991,
@@ -305,6 +305,62 @@
         "isGlobal": false
       }
     ],
-    "start": -1
+    "start": 16
+  },
+  {
+    "name": "EXPR_AND_B",
+    "nodes": [
+      {
+        "x": 458.66666666666663,
+        "y": 227.33333333333326,
+        "id": 17,
+        "isFinal": true
+      },
+      {
+        "x": 685.3333333333334,
+        "y": 223.33333333333334,
+        "id": 18,
+        "isFinal": false
+      },
+      {
+        "x": 253.99999999999994,
+        "y": 231.33333333333334,
+        "id": 19,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 17,
+        "end": 18,
+        "token": "EX_ADD",
+        "func": "",
+        "anchorX": 570.3333333333273,
+        "anchorY": 259.99999999999966,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 18,
+        "end": 17,
+        "token": "EXPR_AND_B",
+        "func": "exclusive_add",
+        "anchorX": 566.9999999999977,
+        "anchorY": 192.66666666666598,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 19,
+        "end": 17,
+        "token": "EXPR_AND_B",
+        "func": "",
+        "anchorX": 356.6666666666666,
+        "anchorY": 229.99999999999991,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 16
   }
 ]
