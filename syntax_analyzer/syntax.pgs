@@ -1720,5 +1720,51 @@
       }
     ],
     "start": 86
+  },
+  {
+    "name": "ASSIGNMENT",
+    "nodes": [
+      {
+        "x": 182.66666666666666,
+        "y": 377.33333333333337,
+        "id": 89,
+        "isFinal": false
+      },
+      {
+        "x": 386.66666666666663,
+        "y": 377.33333333333337,
+        "id": 90,
+        "isFinal": false
+      },
+      {
+        "x": 634.6666666666666,
+        "y": 378.66666666666663,
+        "id": 91,
+        "isFinal": true
+      }
+    ],
+    "edges": [
+      {
+        "start": 89,
+        "end": 90,
+        "token": "COLON_EQ",
+        "func": "",
+        "anchorX": 284.66666666666663,
+        "anchorY": 377.33333333333337,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 90,
+        "end": 91,
+        "token": "EXPR_OR_L",
+        "func": "",
+        "anchorX": 510.66666666666663,
+        "anchorY": 378.0,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 89
   }
 ]
