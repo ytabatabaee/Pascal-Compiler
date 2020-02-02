@@ -1,3 +1,5 @@
+package syntax_analyzer;
+
 public class PTCell {
     private int action;
     private int index;
