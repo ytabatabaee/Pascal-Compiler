@@ -2387,8 +2387,122 @@
   },
   {
     "name": "PROC_DEF",
-    "nodes": [],
-    "edges": [],
-    "start": -1
+    "nodes": [
+      {
+        "x": 82.66666666666666,
+        "y": 228.66666666666663,
+        "id": 129,
+        "isFinal": false
+      },
+      {
+        "x": 225.99999999999997,
+        "y": 224.66666666666663,
+        "id": 130,
+        "isFinal": false
+      },
+      {
+        "x": 372.66666666666663,
+        "y": 223.33333333333331,
+        "id": 131,
+        "isFinal": false
+      },
+      {
+        "x": 520.0,
+        "y": 219.33333333333331,
+        "id": 132,
+        "isFinal": false
+      },
+      {
+        "x": 678.6666666666666,
+        "y": 216.0,
+        "id": 133,
+        "isFinal": false
+      },
+      {
+        "x": 598.0,
+        "y": 133.33333333333331,
+        "id": 134,
+        "isFinal": false
+      },
+      {
+        "x": 883.9999999999999,
+        "y": 210.66666666666663,
+        "id": 135,
+        "isFinal": true
+      }
+    ],
+    "edges": [
+      {
+        "start": 129,
+        "end": 130,
+        "token": "PROCEDURE",
+        "func": "",
+        "anchorX": 154.33333333333331,
+        "anchorY": 226.66666666666663,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 130,
+        "end": 131,
+        "token": "IDENTIFIER",
+        "func": "",
+        "anchorX": 299.3333333333333,
+        "anchorY": 223.99999999999991,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 131,
+        "end": 132,
+        "token": "L_PAREN",
+        "func": "",
+        "anchorX": 446.3333333333333,
+        "anchorY": 221.33333333333331,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 132,
+        "end": 134,
+        "token": "ARGUMENT",
+        "func": "",
+        "anchorX": 527.6666666666667,
+        "anchorY": 141.66666666666663,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 132,
+        "end": 133,
+        "token": "R_PAREN",
+        "func": "",
+        "anchorX": 599.3333333333334,
+        "anchorY": 217.66666666666666,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 133,
+        "end": 135,
+        "token": "BLOCK",
+        "func": "",
+        "anchorX": 781.3333333333333,
+        "anchorY": 213.33333333333331,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 134,
+        "end": 133,
+        "token": "R_PAREN",
+        "func": "",
+        "anchorX": 673.0000000000001,
+        "anchorY": 144.66666666666666,
+        "isGraph": false,
+        "isGlobal": false
+      }
+    ],
+    "start": 129
   }
 ]
