@@ -333,7 +333,7 @@
       {
         "start": 17,
         "end": 18,
-        "token": "EX_ADD",
+        "token": "BITWISE_AND",
         "func": "",
         "anchorX": 570.3333333333273,
         "anchorY": 259.99999999999966,
@@ -343,8 +343,8 @@
       {
         "start": 18,
         "end": 17,
-        "token": "EXPR_AND_B",
-        "func": "exclusive_add",
+        "token": "EXPR_EQ",
+        "func": "bitwise_and",
         "anchorX": 566.9999999999977,
         "anchorY": 192.66666666666598,
         "isGraph": true,
@@ -353,7 +353,7 @@
       {
         "start": 19,
         "end": 17,
-        "token": "EXPR_AND_B",
+        "token": "EXPR_EQ",
         "func": "",
         "anchorX": 356.6666666666666,
         "anchorY": 229.99999999999991,
@@ -361,6 +361,62 @@
         "isGlobal": false
       }
     ],
-    "start": 16
+    "start": 19
+  },
+  {
+    "name": "EXPR_EQ",
+    "nodes": [
+      {
+        "x": 458.66666666666663,
+        "y": 227.33333333333326,
+        "id": 20,
+        "isFinal": true
+      },
+      {
+        "x": 685.3333333333334,
+        "y": 223.33333333333334,
+        "id": 21,
+        "isFinal": false
+      },
+      {
+        "x": 253.99999999999994,
+        "y": 231.33333333333334,
+        "id": 22,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 20,
+        "end": 21,
+        "token": "BITWISE_AND",
+        "func": "",
+        "anchorX": 570.3333333333273,
+        "anchorY": 259.99999999999966,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 21,
+        "end": 20,
+        "token": "EXPR_EQ",
+        "func": "bitwise_and",
+        "anchorX": 566.9999999999977,
+        "anchorY": 192.66666666666598,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 22,
+        "end": 20,
+        "token": "EXPR_EQ",
+        "func": "",
+        "anchorX": 356.6666666666666,
+        "anchorY": 229.99999999999991,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 19
   }
 ]
