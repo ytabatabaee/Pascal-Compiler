@@ -84,7 +84,7 @@
     "start": 0
   },
   {
-    "name": "EXPR_OR",
+    "name": "EXPR_OR_L",
     "nodes": [
       {
         "x": 253.99999999999994,
@@ -140,9 +140,171 @@
     "start": 5
   },
   {
-    "name": "EXPR_AND",
-    "nodes": [],
-    "edges": [],
-    "start": -1
+    "name": "EXPR_AND_L",
+    "nodes": [
+      {
+        "x": 458.66666666666663,
+        "y": 227.33333333333326,
+        "id": 8,
+        "isFinal": true
+      },
+      {
+        "x": 685.3333333333334,
+        "y": 223.33333333333334,
+        "id": 9,
+        "isFinal": false
+      },
+      {
+        "x": 253.99999999999994,
+        "y": 231.33333333333334,
+        "id": 10,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 8,
+        "end": 9,
+        "token": "BITWISE_OR",
+        "func": "",
+        "anchorX": 570.3333333333273,
+        "anchorY": 259.99999999999966,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 9,
+        "end": 8,
+        "token": "EXPR_OR_B",
+        "func": "and",
+        "anchorX": 566.9999999999977,
+        "anchorY": 192.66666666666598,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 10,
+        "end": 8,
+        "token": "EXPR_OR_B",
+        "func": "",
+        "anchorX": 356.6666666666666,
+        "anchorY": 229.99999999999991,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 10
+  },
+  {
+    "name": "EXPR_OR_B",
+    "nodes": [
+      {
+        "x": 458.66666666666663,
+        "y": 227.33333333333326,
+        "id": 11,
+        "isFinal": true
+      },
+      {
+        "x": 685.3333333333334,
+        "y": 223.33333333333334,
+        "id": 12,
+        "isFinal": false
+      },
+      {
+        "x": 253.99999999999994,
+        "y": 231.33333333333334,
+        "id": 13,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 11,
+        "end": 12,
+        "token": "BITWISE_OR",
+        "func": "",
+        "anchorX": 570.3333333333273,
+        "anchorY": 259.99999999999966,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 12,
+        "end": 11,
+        "token": "EXPR_AND_B",
+        "func": "bitwise_or",
+        "anchorX": 566.9999999999977,
+        "anchorY": 192.66666666666598,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 13,
+        "end": 11,
+        "token": "EXPR_AND_B",
+        "func": "",
+        "anchorX": 356.6666666666666,
+        "anchorY": 229.99999999999991,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 13
+  },
+  {
+    "name": "EXPR_AND_B",
+    "nodes": [
+      {
+        "x": 458.66666666666663,
+        "y": 227.33333333333326,
+        "id": 14,
+        "isFinal": true
+      },
+      {
+        "x": 685.3333333333334,
+        "y": 223.33333333333334,
+        "id": 15,
+        "isFinal": false
+      },
+      {
+        "x": 253.99999999999994,
+        "y": 231.33333333333334,
+        "id": 16,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 14,
+        "end": 15,
+        "token": "BITWISE_OR",
+        "func": "",
+        "anchorX": 570.3333333333273,
+        "anchorY": 259.99999999999966,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 15,
+        "end": 14,
+        "token": "EXPR_AND_B",
+        "func": "bitwise_or",
+        "anchorX": 566.9999999999977,
+        "anchorY": 192.66666666666598,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 16,
+        "end": 14,
+        "token": "EXPR_AND_B",
+        "func": "",
+        "anchorX": 356.6666666666666,
+        "anchorY": 229.99999999999991,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 13
   }
 ]
