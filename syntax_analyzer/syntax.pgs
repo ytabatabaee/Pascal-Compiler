@@ -2082,5 +2082,67 @@
       }
     ],
     "start": 104
+  },
+  {
+    "name": "ARRAY_DIMENSION",
+    "nodes": [
+      {
+        "x": 173.99999999999997,
+        "y": 250.66666666666663,
+        "id": 111,
+        "isFinal": false
+      },
+      {
+        "x": 363.33333333333326,
+        "y": 253.33333333333331,
+        "id": 112,
+        "isFinal": true
+      },
+      {
+        "x": 543.3333333333333,
+        "y": 247.33333333333331,
+        "id": 113,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 111,
+        "end": 112,
+        "token": "INT_CONST",
+        "func": "",
+        "anchorX": 268.66666666666663,
+        "anchorY": 251.99999999999991,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 112,
+        "end": 113,
+        "token": "COMMA",
+        "func": "",
+        "anchorX": 453.33333333333326,
+        "anchorY": 250.33333333333331,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 113,
+        "end": 112,
+        "token": "INT_CONST",
+        "func": "",
+        "anchorX": 450.0,
+        "anchorY": 182.99999999999994,
+        "isGraph": false,
+        "isGlobal": false
+      }
+    ],
+    "start": 111
+  },
+  {
+    "name": "TYPE",
+    "nodes": [],
+    "edges": [],
+    "start": -1
   }
 ]
