@@ -687,13 +687,19 @@
         "y": 356.00000000000006,
         "id": 37,
         "isFinal": false
+      },
+      {
+        "x": 823.3333333333334,
+        "y": 219.33333333333331,
+        "id": 38,
+        "isFinal": false
       }
     ],
     "edges": [
       {
         "start": 34,
         "end": 35,
-        "token": "PLUS",
+        "token": "MULT",
         "func": "",
         "anchorX": 581.6666666666595,
         "anchorY": 134.66666666666544,
@@ -703,7 +709,7 @@
       {
         "start": 34,
         "end": 37,
-        "token": "MINUS",
+        "token": "MOD",
         "func": "",
         "anchorX": 566.0,
         "anchorY": 291.66666666666663,
@@ -711,10 +717,20 @@
         "isGlobal": false
       },
       {
+        "start": 34,
+        "end": 38,
+        "token": "DIVIDE",
+        "func": "",
+        "anchorX": 648.3333333333331,
+        "anchorY": 169.99999999999997,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
         "start": 35,
         "end": 34,
-        "token": "EXPR_MULT",
-        "func": "add",
+        "token": "EXPR_UNARY",
+        "func": "mult",
         "anchorX": 472.99999999999784,
         "anchorY": 65.99999999999865,
         "isGraph": true,
@@ -723,7 +739,7 @@
       {
         "start": 36,
         "end": 34,
-        "token": "EXPR_MULT",
+        "token": "EXPR_UNARY",
         "func": "",
         "anchorX": 356.6666666666666,
         "anchorY": 229.99999999999991,
@@ -733,14 +749,30 @@
       {
         "start": 37,
         "end": 34,
-        "token": "EXPR_MULT",
-        "func": "subtract",
+        "token": "EXPR_UNARY",
+        "func": "mod",
         "anchorX": 480.6666666666667,
         "anchorY": 367.0,
         "isGraph": true,
         "isGlobal": false
+      },
+      {
+        "start": 38,
+        "end": 34,
+        "token": "EXPR_UNARY",
+        "func": "divide",
+        "anchorX": 646.3333333333334,
+        "anchorY": 267.33333333333337,
+        "isGraph": true,
+        "isGlobal": false
       }
     ],
-    "start": 32
+    "start": 36
+  },
+  {
+    "name": "EXPR_UNARY",
+    "nodes": [],
+    "edges": [],
+    "start": -1
   }
 ]
