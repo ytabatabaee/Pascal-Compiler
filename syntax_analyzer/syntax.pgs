@@ -373,8 +373,8 @@
         "isFinal": true
       },
       {
-        "x": 685.3333333333334,
-        "y": 223.33333333333334,
+        "x": 668.0,
+        "y": 62.0,
         "id": 21,
         "isFinal": false
       },
@@ -383,40 +383,148 @@
         "y": 231.33333333333334,
         "id": 22,
         "isFinal": false
+      },
+      {
+        "x": 673.3333333333333,
+        "y": 356.00000000000006,
+        "id": 23,
+        "isFinal": false
       }
     ],
     "edges": [
       {
         "start": 20,
         "end": 21,
-        "token": "BITWISE_AND",
+        "token": "EQ",
         "func": "",
-        "anchorX": 570.3333333333273,
-        "anchorY": 259.99999999999966,
+        "anchorX": 581.6666666666595,
+        "anchorY": 134.66666666666544,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 20,
+        "end": 23,
+        "token": "NEQ",
+        "func": "",
+        "anchorX": 566.0,
+        "anchorY": 291.66666666666663,
         "isGraph": false,
         "isGlobal": false
       },
       {
         "start": 21,
         "end": 20,
-        "token": "EXPR_EQ",
-        "func": "bitwise_and",
-        "anchorX": 566.9999999999977,
-        "anchorY": 192.66666666666598,
+        "token": "EXPR_COMPARE",
+        "func": "is_equal",
+        "anchorX": 472.99999999999784,
+        "anchorY": 65.99999999999865,
         "isGraph": true,
         "isGlobal": false
       },
       {
         "start": 22,
         "end": 20,
-        "token": "EXPR_EQ",
+        "token": "EXPR_COMPARE",
         "func": "",
         "anchorX": 356.6666666666666,
         "anchorY": 229.99999999999991,
         "isGraph": true,
         "isGlobal": false
+      },
+      {
+        "start": 23,
+        "end": 20,
+        "token": "EXPR_COMPARE",
+        "func": "is_not_equal",
+        "anchorX": 480.6666666666667,
+        "anchorY": 367.0,
+        "isGraph": true,
+        "isGlobal": false
       }
     ],
-    "start": 19
+    "start": 22
+  },
+  {
+    "name": "EXPR_COMPARE",
+    "nodes": [
+      {
+        "x": 458.66666666666663,
+        "y": 227.33333333333326,
+        "id": 24,
+        "isFinal": true
+      },
+      {
+        "x": 668.0,
+        "y": 62.0,
+        "id": 25,
+        "isFinal": false
+      },
+      {
+        "x": 253.99999999999994,
+        "y": 231.33333333333334,
+        "id": 26,
+        "isFinal": false
+      },
+      {
+        "x": 673.3333333333333,
+        "y": 356.00000000000006,
+        "id": 27,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 24,
+        "end": 25,
+        "token": "EQ",
+        "func": "",
+        "anchorX": 581.6666666666595,
+        "anchorY": 134.66666666666544,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 24,
+        "end": 27,
+        "token": "NEQ",
+        "func": "",
+        "anchorX": 566.0,
+        "anchorY": 291.66666666666663,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 25,
+        "end": 24,
+        "token": "EXPR_COMPARE",
+        "func": "is_equal",
+        "anchorX": 472.99999999999784,
+        "anchorY": 65.99999999999865,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 26,
+        "end": 24,
+        "token": "EXPR_COMPARE",
+        "func": "",
+        "anchorX": 356.6666666666666,
+        "anchorY": 229.99999999999991,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 27,
+        "end": 24,
+        "token": "EXPR_COMPARE",
+        "func": "is_not_equal",
+        "anchorX": 480.6666666666667,
+        "anchorY": 367.0,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 22
   }
 ]
