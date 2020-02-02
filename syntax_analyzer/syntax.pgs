@@ -611,7 +611,7 @@
       {
         "start": 30,
         "end": 31,
-        "token": "EQ",
+        "token": "PLUS",
         "func": "",
         "anchorX": 581.6666666666595,
         "anchorY": 134.66666666666544,
@@ -621,7 +621,7 @@
       {
         "start": 30,
         "end": 33,
-        "token": "NEQ",
+        "token": "MINUS",
         "func": "",
         "anchorX": 566.0,
         "anchorY": 291.66666666666663,
@@ -631,8 +631,8 @@
       {
         "start": 31,
         "end": 30,
-        "token": "EXPR_COMPARE",
-        "func": "is_equal",
+        "token": "EXPR_MULT",
+        "func": "add",
         "anchorX": 472.99999999999784,
         "anchorY": 65.99999999999865,
         "isGraph": true,
@@ -641,7 +641,7 @@
       {
         "start": 32,
         "end": 30,
-        "token": "EXPR_COMPARE",
+        "token": "EXPR_MULT",
         "func": "",
         "anchorX": 356.6666666666666,
         "anchorY": 229.99999999999991,
@@ -651,8 +651,90 @@
       {
         "start": 33,
         "end": 30,
-        "token": "EXPR_COMPARE",
-        "func": "is_not_equal",
+        "token": "EXPR_MULT",
+        "func": "subtract",
+        "anchorX": 480.6666666666667,
+        "anchorY": 367.0,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 32
+  },
+  {
+    "name": "EXPR_MULT",
+    "nodes": [
+      {
+        "x": 458.66666666666663,
+        "y": 227.33333333333326,
+        "id": 34,
+        "isFinal": true
+      },
+      {
+        "x": 668.0,
+        "y": 62.0,
+        "id": 35,
+        "isFinal": false
+      },
+      {
+        "x": 253.99999999999994,
+        "y": 231.33333333333334,
+        "id": 36,
+        "isFinal": false
+      },
+      {
+        "x": 673.3333333333333,
+        "y": 356.00000000000006,
+        "id": 37,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 34,
+        "end": 35,
+        "token": "PLUS",
+        "func": "",
+        "anchorX": 581.6666666666595,
+        "anchorY": 134.66666666666544,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 34,
+        "end": 37,
+        "token": "MINUS",
+        "func": "",
+        "anchorX": 566.0,
+        "anchorY": 291.66666666666663,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 35,
+        "end": 34,
+        "token": "EXPR_MULT",
+        "func": "add",
+        "anchorX": 472.99999999999784,
+        "anchorY": 65.99999999999865,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 36,
+        "end": 34,
+        "token": "EXPR_MULT",
+        "func": "",
+        "anchorX": 356.6666666666666,
+        "anchorY": 229.99999999999991,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 37,
+        "end": 34,
+        "token": "EXPR_MULT",
+        "func": "subtract",
         "anchorX": 480.6666666666667,
         "anchorY": 367.0,
         "isGraph": true,
