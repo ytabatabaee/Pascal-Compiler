@@ -82,5 +82,67 @@
       }
     ],
     "start": 0
+  },
+  {
+    "name": "EXPR_OR",
+    "nodes": [
+      {
+        "x": 253.99999999999994,
+        "y": 231.33333333333334,
+        "id": 5,
+        "isFinal": false
+      },
+      {
+        "x": 458.66666666666663,
+        "y": 227.33333333333326,
+        "id": 6,
+        "isFinal": true
+      },
+      {
+        "x": 685.3333333333334,
+        "y": 223.33333333333334,
+        "id": 7,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 5,
+        "end": 6,
+        "token": "EXPR_AND",
+        "func": "",
+        "anchorX": 356.6666666666666,
+        "anchorY": 229.99999999999991,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 6,
+        "end": 7,
+        "token": "OR",
+        "func": "",
+        "anchorX": 570.3333333333273,
+        "anchorY": 259.99999999999966,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 7,
+        "end": 6,
+        "token": "EXPR_AND",
+        "func": "or",
+        "anchorX": 566.9999999999977,
+        "anchorY": 192.66666666666598,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 5
+  },
+  {
+    "name": "EXPR_AND",
+    "nodes": [],
+    "edges": [],
+    "start": -1
   }
 ]
