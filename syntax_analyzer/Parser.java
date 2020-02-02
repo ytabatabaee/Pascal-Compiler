@@ -1,6 +1,8 @@
 package syntax_analyzer;
 
 import java.util.Stack;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import lexical_analyzer.Scanner;
 import semantic_analyzer.CodeGenerator;
@@ -19,11 +21,21 @@ public class Parser {
         parse_stack = new Stack<>();
     }
 
+    public void load_parse_table(String path) {
+        if (!Files.exists(Paths.get(nptPath))) {
+            throw new RuntimeException("Invalid parse table path: " + nptPath);
+        }
+
+    }
+
     public void parse() {
 
     }
 
-    public void call_cg() {
+    public void call_cg(String function) {
+        if (function.equals("NoSem")) {
+            return;
+        }
 
     }
 
