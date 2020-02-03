@@ -34,20 +34,21 @@ public class Parser {
             this.symbols = sc.nextLine().trim().split(" ");
             this.parse_table = new PTCell[row_size][col_size];
             for (int i = 0; i < row_size; i++) {
+                if (!sc.hasNext())
+                    throw new Exception("Ivalid .npt file");
                 tmp_arr = sc.nextLine().trim().split(" ");
-                for (int j = 0; j < col_size; j++) {
-
+                if (tmp_arr.length == 1) {
+                    System.out.println("Anomally in .npt file, skipping one line");
+                    continue;
                 }
+                if (tmp_arr.length != col_size * 3)
+                    throw new Exception("Ivalid line in .npt file");
+                for (int j = 0; j < col_size; j++)
+                    this.parse_table[i][j] = new PTCell(Integer.valueOf(tmp_arr[j * 3]), Integer.valueOf(tmp_arr[j * 3 + 1]), tmp_arr[j * 3 + 2]);
             }
-
-
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void parse() {

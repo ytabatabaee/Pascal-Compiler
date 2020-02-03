@@ -1,6 +1,15 @@
 package syntax_analyzer;
 
 public class PTCell {
+    static class Action {
+        static final int Error = 0;
+        static final int Shift = 1;
+        static final int Goto = 2;
+        static final int PushGoto = 3;
+        static final int Reduce = 4;
+        static final int Accept = 5;
+    }
+
     private int action;
     private int index;
     private String semantic_function;
