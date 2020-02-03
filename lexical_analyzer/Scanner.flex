@@ -20,6 +20,10 @@ import java.io.IOException;
         System.out.println(token);
         return new Symbol(token, val);
     }
+
+    public int line_number(){
+        return yyline;
+    }
 %}
 
 %eofval{

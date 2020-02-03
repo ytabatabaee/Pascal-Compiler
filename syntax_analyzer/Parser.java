@@ -52,45 +52,49 @@ public class Parser {
     }
 
     public void parse() {
-        boolean accepted = false;
-        int token_id = next_token_id();
-        int cur_node = start;
-        while (!accepted) {
-            String token = symbols[token_id];
-            PTCell cell = parse_table[cur_node][token_id];
-            switch (cell.getAction()) {
-                case PTCell.Action.Error:
-                    throw new Exception(String.format("Compile Error (" + token + ") at line " + scanner.lineNumber + " @ " + cur_node));
+        try {
+            boolean accepted = false;
+            int token_id = next_token_id();
+            int cur_node = start;
+            while (!accepted) {
+                String token = symbols[token_id];
+                PTCell cell = parse_table[cur_node][token_id];
+                switch (cell.getAction()) {
+                    case PTCell.Action.Error:
+                        throw new Exception(String.format("Compile Error (" + token + ") at line " + scanner.line_number() + " @ " + cur_node));
 
-                case PTCell.Action.Shift:
-                    call_cg(cell.getSemantic_function());
-                    token_id = next_token_id();
-                    cur_node = cell.getIndex();
-                    break;
+                    case PTCell.Action.Shift:
+                        call_cg(cell.getSemantic_function());
+                        token_id = next_token_id();
+                        cur_node = cell.getIndex();
+                        break;
 
-                case PTCell.Action.Goto:
-                    call_cg(cell.getSemantic_function());
-                    cur_node = cell.getIndex();
-                    break;
+                    case PTCell.Action.Goto:
+                        call_cg(cell.getSemantic_function());
+                        cur_node = cell.getIndex();
+                        break;
 
-                case PTCell.Action.PushGoto:
-                    parse_stack.push(cur_node);
-                    cur_node = cell.getIndex();
-                    break;
+                    case PTCell.Action.PushGoto:
+                        parse_stack.push(cur_node);
+                        cur_node = cell.getIndex();
+                        break;
 
-                case PTCell.Action.Reduce:
-                    if (parse_stack.size() == 0)
-                        throw new Exception(String.format("Compile Error (" + token + ") at line " + scanner.lineNumber + " @ " + cur_node));
-                    cur_node = parse_stack.pop();
-                    cell = parse_table[cur_node][cell.getIndex()];
-                    call_cg(cell.getSemantic_function());
-                    cur_node = cell.getIndex();
-                    break;
+                    case PTCell.Action.Reduce:
+                        if (parse_stack.size() == 0)
+                            throw new Exception(String.format("Compile Error (" + token + ") at line " + scanner.line_number() + " @ " + cur_node));
+                        cur_node = parse_stack.pop();
+                        cell = parse_table[cur_node][cell.getIndex()];
+                        call_cg(cell.getSemantic_function());
+                        cur_node = cell.getIndex();
+                        break;
 
-                case PTCell.Action.Accept:
-                    accepted = true;
-                    break;
+                    case PTCell.Action.Accept:
+                        accepted = true;
+                        break;
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

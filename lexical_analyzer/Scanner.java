@@ -385,6 +385,10 @@ public class Scanner {
         return new Symbol(token, val);
     }
 
+    public int line_number(){
+        return yyline;
+    }
+
 
   /**
    * Creates a new scanner
@@ -933,7 +937,7 @@ public class Scanner {
             // fall through
           case 90: break;
           case 36: 
-            { return sym("hex_const", Integer.decode(yytext()));
+            { return sym("int_const", Integer.decode(yytext()));
             } 
             // fall through
           case 91: break;
@@ -943,7 +947,7 @@ public class Scanner {
             // fall through
           case 92: break;
           case 38: 
-            { return sym("const_string", yytext());
+            { return sym("string_const", yytext());
             } 
             // fall through
           case 93: break;
