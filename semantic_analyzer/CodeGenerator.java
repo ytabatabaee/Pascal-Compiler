@@ -13,7 +13,7 @@ public class CodeGenerator {
         semantic_stack = new Stack<>();
     }
 
-    public void generate_code() {
+    public void generate_code(String func) {
 
     }
 
