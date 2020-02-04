@@ -14,6 +14,9 @@ public class CodeGenerator {
     }
 
     public void generate_code(String func) {
+        switch (func) {
+
+        }
 
     }
 
