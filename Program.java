@@ -1,5 +1,4 @@
 import java.io.FileReader;
-import java.io.IOException;
 
 import lexical_analyzer.Scanner;
 import syntax_analyzer.Parser;
@@ -17,7 +16,8 @@ public class Program {
             Parser parser = new Parser(scanner, code_generator, parse_table_path);
             parser.parse();
             System.out.println("Compilation to LLVM ended successfully.");
-        } catch (IOException e) {
+        } catch (Exception e) {
+            System.out.println("Compilation Failed");
             e.printStackTrace();
         }
 

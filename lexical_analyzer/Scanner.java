@@ -375,6 +375,7 @@ public class Scanner {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
+    private Symbol current = null;
     private Symbol sym(String token) {
         System.out.println(token);
         return new Symbol(token);
@@ -388,6 +389,16 @@ public class Scanner {
     public int line_number(){
         return yyline;
     }
+
+    public Symbol get_current(){
+        return current;
+    }
+
+    public String read_token() throws Exception{
+        current = yylex();
+        return current.getToken();
+    }
+
 
 
   /**

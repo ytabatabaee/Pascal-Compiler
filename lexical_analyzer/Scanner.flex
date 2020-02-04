@@ -11,6 +11,7 @@ import java.io.IOException;
 %unicode
 
 %{
+    private Symbol current = null;
     private Symbol sym(String token) {
         System.out.println(token);
         return new Symbol(token);
@@ -24,6 +25,16 @@ import java.io.IOException;
     public int line_number(){
         return yyline;
     }
+
+    public Symbol get_current(){
+        return current;
+    }
+
+    public String read_token() throws Exception{
+        current = yylex();
+        return current.getToken();
+    }
+
 %}
 
 %eofval{

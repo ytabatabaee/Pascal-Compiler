@@ -12,4 +12,12 @@ public class Symbol {
     public Symbol(String token) {
         this.token = token;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public Object getVal() {
+        return val;
+    }
 }
