@@ -940,7 +940,7 @@
         "token": "L_PAREN",
         "func": "",
         "anchorX": 293.9999999999999,
-        "anchorY": 264.66666666666555,
+        "anchorY": 264.6666666666652,
         "isGraph": false,
         "isGlobal": false
       },
@@ -1889,30 +1889,62 @@
         "isFinal": false
       },
       {
-        "x": 524.0,
-        "y": 338.0,
+        "x": 808.4,
+        "y": 317.2,
         "id": 100,
         "isFinal": true
+      },
+      {
+        "x": 354.80000000000007,
+        "y": 334.8,
+        "id": 101,
+        "isFinal": false
+      },
+      {
+        "x": 516.8000000000001,
+        "y": 335.2,
+        "id": 102,
+        "isFinal": false
       }
     ],
     "edges": [
       {
         "start": 99,
-        "end": 100,
-        "token": "SIMPLE_VAR",
+        "end": 101,
+        "token": "IDENTIFIER",
         "func": "",
-        "anchorX": 346.0,
-        "anchorY": 258.33333333333337,
+        "anchorX": 211.79999999999956,
+        "anchorY": 337.533333333329,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 101,
+        "end": 102,
+        "token": "COLON",
+        "func": "",
+        "anchorX": 426.99999999999636,
+        "anchorY": 335.7999999999955,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 102,
+        "end": 100,
+        "token": "ARRAY_VAR",
+        "func": "",
+        "anchorX": 676.9999999999999,
+        "anchorY": 428.5999999999999,
         "isGraph": true,
         "isGlobal": false
       },
       {
-        "start": 99,
+        "start": 102,
         "end": 100,
-        "token": "ARRAY_VAR",
+        "token": "SIMPLE_VAR",
         "func": "",
-        "anchorX": 338.66666666666663,
-        "anchorY": 421.6666666666667,
+        "anchorX": 663.8,
+        "anchorY": 237.7999999999999,
         "isGraph": true,
         "isGlobal": false
       }
@@ -1923,20 +1955,8 @@
     "name": "SIMPLE_VAR",
     "nodes": [
       {
-        "x": 149.99999999999997,
-        "y": 388.0,
-        "id": 101,
-        "isFinal": false
-      },
-      {
-        "x": 306.0,
-        "y": 384.66666666666663,
-        "id": 102,
-        "isFinal": false
-      },
-      {
-        "x": 464.0,
-        "y": 390.0,
+        "x": 459.5999999999999,
+        "y": 388.4,
         "id": 103,
         "isFinal": false
       },
@@ -1955,31 +1975,11 @@
     ],
     "edges": [
       {
-        "start": 101,
-        "end": 102,
-        "token": "IDENTIFIER",
-        "func": "",
-        "anchorX": 228.0,
-        "anchorY": 386.3333333333333,
-        "isGraph": false,
-        "isGlobal": false
-      },
-      {
-        "start": 102,
-        "end": 103,
-        "token": "COLON",
-        "func": "",
-        "anchorX": 385.0,
-        "anchorY": 387.3333333333333,
-        "isGraph": false,
-        "isGlobal": false
-      },
-      {
         "start": 103,
         "end": 104,
         "token": "TYPE",
         "func": "",
-        "anchorX": 543.6666666666666,
+        "anchorX": 543.6666666666665,
         "anchorY": 389.0,
         "isGraph": true,
         "isGlobal": false
@@ -1995,7 +1995,7 @@
         "isGlobal": false
       }
     ],
-    "start": 101
+    "start": 103
   },
   {
     "name": "ARRAY_VAR",
