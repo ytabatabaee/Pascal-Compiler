@@ -3,10 +3,11 @@ package semantic_analyzer;
 import java.util.Stack;
 
 import lexical_analyzer.Scanner;
+import lexical_analyzer.Symbol;
 
 public class CodeGenerator {
     private Scanner scanner;
-    private Stack<String> semantic_stack;
+    private Stack<Symbol> semantic_stack;
 
     public CodeGenerator(Scanner scanner) {
         this.scanner = scanner;
@@ -14,39 +15,31 @@ public class CodeGenerator {
     }
 
     public void generate_code(String func) {
-        String res, expr1, expr2;
+        Symbol res, expr1, expr2, tmp;
 
         switch (func) {
             case "push_int":
-                semantic_stack.push(scanner.get_current().getVal());
+                tmp = scanner.get_current();
+                tmp.setToken("i32");
+                semantic_stack.push(tmp);
                 break;
 
             case "push_real":
-                semantic_stack.push(scanner.get_current().getVal());
+                //similar to int
                 break;
 
             case "multiply":
                 expr1 = semantic_stack.pop();
                 expr2 = semantic_stack.pop();
-                res = expr1 + " * " + expr2;
+                res = new Symbol(expr1.getToken(), "mul " + expr1.getToken() + expr1 + "," + expr2);
                 semantic_stack.push(res);
                 break;
 
             case "add":
-                expr1 = semantic_stack.pop();
-                expr2 = semantic_stack.pop();
-                res = expr1 + " + " + expr2;
-                semantic_stack.push(res);
+                //similar to mult
                 break;
         }
 
-    }
-
-    public void generate_binary_expr(String operator) {
-        String expr1 = semantic_stack.pop();
-        String expr2 = semantic_stack.pop();
-        String res = expr1 + operator + expr2;
-        semantic_stack.push(res);
     }
 
 
