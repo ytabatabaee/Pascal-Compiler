@@ -2,9 +2,9 @@ package lexical_analyzer;
 
 public class Symbol {
     private String token;
-    private Object val;
+    private String val;
 
-    public Symbol(String token, Object val) {
+    public Symbol(String token, String val) {
         this.token = token;
         this.val = val;
     }
@@ -17,7 +17,7 @@ public class Symbol {
         return token;
     }
 
-    public Object getVal() {
+    public String getVal() {
         return val;
     }
 }

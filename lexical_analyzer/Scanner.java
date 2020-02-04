@@ -59,12 +59,12 @@ public class Scanner {
     "\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25"+
     "\1\26\1\27\1\30\1\31\15\2\1\0\1\2\5\0"+
     "\1\32\1\33\1\34\1\35\3\2\1\36\1\37\1\40"+
-    "\4\2\1\41\13\2\1\42\1\43\1\44\1\45\1\46"+
-    "\1\0\1\47\10\2\1\50\11\2\1\0\2\2\1\51"+
-    "\2\2\1\52\1\2\1\53\1\54\7\2\1\0\1\55"+
-    "\5\2\1\56\1\57\3\2\1\60\1\4\1\35\1\61"+
-    "\3\2\1\62\3\2\1\63\1\64\2\2\1\65\1\66"+
-    "\1\2\1\67";
+    "\4\2\1\41\13\2\1\42\1\43\1\3\1\44\1\45"+
+    "\1\0\1\46\10\2\1\47\11\2\1\0\2\2\1\50"+
+    "\2\2\1\51\1\2\1\52\1\53\7\2\1\0\1\54"+
+    "\5\2\1\55\1\56\3\2\1\57\1\4\1\35\1\60"+
+    "\3\2\1\61\3\2\1\62\1\63\2\2\1\64\1\65"+
+    "\1\2\1\66";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[149];
@@ -381,7 +381,7 @@ public class Scanner {
         return new Symbol(token);
     }
 
-    private Symbol sym(String token, Object val) {
+    private Symbol sym(String token, String val) {
         System.out.println(token);
         return new Symbol(token, val);
     }
@@ -776,277 +776,272 @@ public class Scanner {
             { throw new Error("Illegal character <" + yytext() + "> at line " + yyline);
             } 
             // fall through
-          case 56: break;
+          case 55: break;
           case 2: 
             { return sym("id", yytext());
             } 
             // fall through
-          case 57: break;
+          case 56: break;
           case 3: 
-            { return sym("int_const", Integer.valueOf(yytext()));
+            { return sym("int_const", yytext());
             } 
             // fall through
-          case 58: break;
+          case 57: break;
           case 4: 
             { /* do nothing */
             } 
             // fall through
-          case 59: break;
+          case 58: break;
           case 5: 
             { return sym("minus");
             } 
             // fall through
-          case 60: break;
+          case 59: break;
           case 6: 
             { return sym("divide");
             } 
             // fall through
-          case 61: break;
+          case 60: break;
           case 7: 
             { return sym("less");
             } 
             // fall through
-          case 62: break;
+          case 61: break;
           case 8: 
             { return sym("greater");
             } 
             // fall through
-          case 63: break;
+          case 62: break;
           case 9: 
             { return sym("lbrace");
             } 
             // fall through
-          case 64: break;
+          case 63: break;
           case 10: 
             { return sym("rbrace");
             } 
             // fall through
-          case 65: break;
+          case 64: break;
           case 11: 
             { return sym("lparen");
             } 
             // fall through
-          case 66: break;
+          case 65: break;
           case 12: 
             { return sym("rparen");
             } 
             // fall through
-          case 67: break;
+          case 66: break;
           case 13: 
             { return sym("lbracket");
             } 
             // fall through
-          case 68: break;
+          case 67: break;
           case 14: 
             { return sym("rbracket");
             } 
             // fall through
-          case 69: break;
+          case 68: break;
           case 15: 
             { return sym("semicolon");
             } 
             // fall through
-          case 70: break;
+          case 69: break;
           case 16: 
             { return sym("comma");
             } 
             // fall through
-          case 71: break;
+          case 70: break;
           case 17: 
             { return sym("plus");
             } 
             // fall through
-          case 72: break;
+          case 71: break;
           case 18: 
             { return sym("multiply");
             } 
             // fall through
-          case 73: break;
+          case 72: break;
           case 19: 
             { return sym("mod");
             } 
             // fall through
-          case 74: break;
+          case 73: break;
           case 20: 
             { return sym("equal");
             } 
             // fall through
-          case 75: break;
+          case 74: break;
           case 21: 
             { return sym("colon");
             } 
             // fall through
-          case 76: break;
+          case 75: break;
           case 22: 
             { return sym("bitwise_or");
             } 
             // fall through
-          case 77: break;
+          case 76: break;
           case 23: 
             { return sym("exclusive_add");
             } 
             // fall through
-          case 78: break;
+          case 77: break;
           case 24: 
             { return sym("bitwise_and");
             } 
             // fall through
-          case 79: break;
+          case 78: break;
           case 25: 
             { return sym("not");
             } 
             // fall through
-          case 80: break;
+          case 79: break;
           case 26: 
             { return sym("neq");
             } 
             // fall through
-          case 81: break;
+          case 80: break;
           case 27: 
             { return sym("leq");
             } 
             // fall through
-          case 82: break;
+          case 81: break;
           case 28: 
             { return sym("geq");
             } 
             // fall through
-          case 83: break;
+          case 82: break;
           case 29: 
             { return sym("assign");
             } 
             // fall through
-          case 84: break;
+          case 83: break;
           case 30: 
             { return sym("do");
             } 
             // fall through
-          case 85: break;
+          case 84: break;
           case 31: 
             { return sym("or");
             } 
             // fall through
-          case 86: break;
+          case 85: break;
           case 32: 
             { return sym("of");
             } 
             // fall through
-          case 87: break;
+          case 86: break;
           case 33: 
             { return sym("if");
             } 
             // fall through
-          case 88: break;
+          case 87: break;
           case 34: 
-            { return sym("real_const", Double.valueOf(yytext()));
+            { return sym("real_const", yytext());
             } 
             // fall through
-          case 89: break;
+          case 88: break;
           case 35: 
             { return sym("var");
             } 
             // fall through
-          case 90: break;
+          case 89: break;
           case 36: 
-            { return sym("int_const", Integer.decode(yytext()));
+            { return sym("char_const", Character.toString(yytext().charAt(1)));
             } 
             // fall through
-          case 91: break;
+          case 90: break;
           case 37: 
-            { return sym("char_const", yytext().charAt(1));
-            } 
-            // fall through
-          case 92: break;
-          case 38: 
             { return sym("string_const", yytext());
             } 
             // fall through
-          case 93: break;
-          case 39: 
+          case 91: break;
+          case 38: 
             { return sym("and");
             } 
             // fall through
-          case 94: break;
-          case 40: 
+          case 92: break;
+          case 39: 
             { return sym("end");
             } 
             // fall through
-          case 95: break;
-          case 41: 
+          case 93: break;
+          case 40: 
             { return sym("real");
             } 
             // fall through
-          case 96: break;
-          case 42: 
+          case 94: break;
+          case 41: 
             { return sym("char");
             } 
             // fall through
-          case 97: break;
-          case 43: 
-            { return sym("bool_const", Boolean.valueOf(yytext()));
+          case 95: break;
+          case 42: 
+            { return sym("bool_const", yytext());
             } 
             // fall through
-          case 98: break;
-          case 44: 
+          case 96: break;
+          case 43: 
             { return sym("else");
             } 
             // fall through
-          case 99: break;
-          case 45: 
+          case 97: break;
+          case 44: 
             { return sym("array");
             } 
             // fall through
-          case 100: break;
-          case 46: 
+          case 98: break;
+          case 45: 
             { return sym("break");
             } 
             // fall through
-          case 101: break;
-          case 47: 
+          case 99: break;
+          case 46: 
             { return sym("begin");
             } 
             // fall through
-          case 102: break;
-          case 48: 
+          case 100: break;
+          case 47: 
             { return sym("while");
             } 
             // fall through
-          case 103: break;
-          case 49: 
+          case 101: break;
+          case 48: 
             { return sym("return");
             } 
             // fall through
-          case 104: break;
-          case 50: 
+          case 102: break;
+          case 49: 
             { return sym("string");
             } 
             // fall through
-          case 105: break;
-          case 51: 
+          case 103: break;
+          case 50: 
             { return sym("integer");
             } 
             // fall through
-          case 106: break;
-          case 52: 
+          case 104: break;
+          case 51: 
             { return sym("boolean");
             } 
             // fall through
-          case 107: break;
-          case 53: 
+          case 105: break;
+          case 52: 
             { return sym("continue");
             } 
             // fall through
-          case 108: break;
-          case 54: 
+          case 106: break;
+          case 53: 
             { return sym("function");
             } 
             // fall through
-          case 109: break;
-          case 55: 
+          case 107: break;
+          case 54: 
             { return sym("procedure");
             } 
             // fall through
-          case 110: break;
+          case 108: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

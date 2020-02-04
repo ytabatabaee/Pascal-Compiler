@@ -17,7 +17,7 @@ import java.io.IOException;
         return new Symbol(token);
     }
 
-    private Symbol sym(String token, Object val) {
+    private Symbol sym(String token, String val) {
         System.out.println(token);
         return new Symbol(token, val);
     }
@@ -121,7 +121,7 @@ comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
  "string"       { return sym("string"); }
  "while"        { return sym("while"); }
  "var"          { return sym("var"); }
- "true"|"false" { return sym("bool_const", Boolean.valueOf(yytext())); }
+ "true"|"false" { return sym("bool_const", yytext()); }
 
  {whitespace}   { /* do nothing */ }
  {comment}      { /* do nothing */ }
@@ -129,10 +129,10 @@ comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
  {identifier}   { return sym("id", yytext()); }
  {string}       { return sym("string_const", yytext()); }
 
- {int}          { return sym("int_const", Integer.valueOf(yytext())); }
- {real}         { return sym("real_const", Double.valueOf(yytext())); }
- {character}    { return sym("char_const", yytext().charAt(1)); }
- {hex}          { return sym("int_const", Integer.decode(yytext())); }
+ {int}          { return sym("int_const", yytext()); }
+ {real}         { return sym("real_const", yytext()); }
+ {character}    { return sym("char_const", Character.toString(yytext().charAt(1))); }
+ {hex}          { return sym("int_const", yytext()); }
 
 
 }
