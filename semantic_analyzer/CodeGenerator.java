@@ -8,10 +8,12 @@ import lexical_analyzer.Symbol;
 public class CodeGenerator {
     private Scanner scanner;
     private Stack<Symbol> semantic_stack;
+    private int variable_count;
 
     public CodeGenerator(Scanner scanner) {
         this.scanner = scanner;
         semantic_stack = new Stack<>();
+        variable_count = 1;
     }
 
     public String resolve_type(String type1, String type2) {
@@ -32,6 +34,11 @@ public class CodeGenerator {
         String type, inst;
 
         switch (func) {
+            case "push_id":
+                tmp = scanner.get_current();
+                semantic_stack.push(tmp);
+                break;
+
             case "push_integer_const":
                 tmp = scanner.get_current();
                 tmp.setToken("i32");
@@ -162,6 +169,40 @@ public class CodeGenerator {
                 }
                 res = new Symbol("float", "fneg " + "float " + expr1.getVal());
                 semantic_stack.push(res);
+                break;
+
+            case "set_type":
+                tmp = semantic_stack.pop();
+                type = scanner.get_current().getVal();
+                switch (type) {
+                    case "boolean":
+                    case "char":
+                        tmp.setToken("i8");
+                        res = new Symbol("dcl", tmp.getVal() + " = alloca i8, align 1");
+                        semantic_stack.push(res);
+                        break;
+                    case "integer":
+                        tmp.setToken("i32");
+                        res = new Symbol("dcl", tmp.getVal() + " = alloca i32, align 4");
+                        semantic_stack.push(res);
+                        break;
+                    case "long":
+                        tmp.setToken("i64");
+                        res = new Symbol("dcl", tmp.getVal() + " = alloca i64, align 8");
+                        semantic_stack.push(res);
+                        break;
+                    case "real":
+                        tmp.setToken("float");
+                        res = new Symbol("dcl", tmp.getVal() + " = alloca float, align 4");
+                        semantic_stack.push(res);
+                        break;
+                    case "string":
+                        // TODO: I REALLY DON'T KNOW
+                        break;
+                    default:
+                        System.out.println("There is no such type!");
+                        return;
+                }
                 break;
         }
 
