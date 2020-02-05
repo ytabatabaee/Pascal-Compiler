@@ -35,13 +35,6 @@ public class CodeGenerator {
                 semantic_stack.push(tmp);
                 break;
 
-            case "multiply":
-                expr2 = semantic_stack.pop();
-                expr1 = semantic_stack.pop();
-                res = new Symbol(expr1.getToken(), "mul " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
-                semantic_stack.push(res);
-                break;
-
             case "add":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
@@ -56,6 +49,13 @@ public class CodeGenerator {
                 semantic_stack.push(res);
                 break;
 
+            case "multiply":
+                expr2 = semantic_stack.pop();
+                expr1 = semantic_stack.pop();
+                res = new Symbol(expr1.getToken(), "mul " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                semantic_stack.push(res);
+                break;
+
             case "divide":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
@@ -67,6 +67,35 @@ public class CodeGenerator {
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
                 res = new Symbol("i32", "srem " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                semantic_stack.push(res);
+                break;
+
+            case "bitwise_and":
+            case "logical_and":
+                expr2 = semantic_stack.pop();
+                expr1 = semantic_stack.pop();
+                res = new Symbol("i32", "and " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                semantic_stack.push(res);
+                break;
+
+            case "bitwise_or":
+            case "logical_or":
+                expr2 = semantic_stack.pop();
+                expr1 = semantic_stack.pop();
+                res = new Symbol("i32", "or " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                semantic_stack.push(res);
+                break;
+
+            case "xor":
+                expr2 = semantic_stack.pop();
+                expr1 = semantic_stack.pop();
+                res = new Symbol("i32", "xor " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                semantic_stack.push(res);
+                break;
+
+            case "negate":
+                expr1 = semantic_stack.pop();
+                res = new Symbol("float", "fneg" + expr1.getToken() + expr1.getVal());
                 semantic_stack.push(res);
                 break;
         }
