@@ -2,6 +2,7 @@ package syntax_analyzer;
 
 import java.io.FileInputStream;
 import java.util.Stack;
+import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -30,16 +31,19 @@ public class Parser {
         int row_size = Integer.valueOf(tmp_arr[0]);
         int col_size = Integer.valueOf(tmp_arr[1]);
         this.start = Integer.valueOf(sc.nextLine());
-        this.symbols = sc.nextLine().trim().split(" ");
+        this.symbols = sc.nextLine().trim().split(",");
+        // System.out.println(Arrays.toString(symbols));
         this.parse_table = new PTCell[row_size][col_size];
         for (int i = 0; i < row_size; i++) {
             if (!sc.hasNext())
                 throw new Exception("Ivalid .npt file");
-            tmp_arr = sc.nextLine().trim().split(" ");
+            tmp_arr = sc.nextLine().trim().split(",| ");
+            // System.out.println(Arrays.toString(tmp_arr));
             if (tmp_arr.length == 1) {
                 System.out.println("Anomally in .npt file, skipping one line");
                 continue;
             }
+            // System.out.println(i);
             if (tmp_arr.length != col_size * 3)
                 throw new Exception("Ivalid line in .npt file");
             for (int j = 0; j < col_size; j++)
@@ -54,6 +58,8 @@ public class Parser {
         while (!accepted) {
             String token = symbols[token_id];
             PTCell cell = parse_table[cur_node][token_id];
+            System.out.println(token);
+            System.out.println(cell.getAction());
             switch (cell.getAction()) {
                 case PTCell.Action.Error:
                     throw new Exception(String.format("Compile Error (" + token + ") at line " + scanner.line_number() + " @ " + cur_node));
@@ -98,8 +104,12 @@ public class Parser {
             code_generator.generate_code(func);
     }
 
-    public int next_token_id() {
-        return 0;
+    public int next_token_id() throws Exception{
+        String token = scanner.read_token();
+        for (int i = 0; i < symbols.length; i++)
+            if (symbols[i].equalsIgnoreCase(token))
+                return i;
+        throw new RuntimeException("Undefined token: " + token + " at line " + scanner.line_number());
     }
 
 }
