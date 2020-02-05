@@ -250,6 +250,70 @@ public class CodeGenerator {
                 res = new Symbol(type, inst + " ne " + type + " " + expr1.getVal() + ", " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
+
+            case "is_less_than":
+                expr2 = semantic_stack.pop();
+                expr1 = semantic_stack.pop();
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (type.equals("float"))
+                    inst = "fcmp";
+                else if (type.equals("i32"))
+                    inst = "icmp";
+                else {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol(type, inst + " slt " + type + " " + expr1.getVal() + ", " + expr2.getVal());
+                semantic_stack.push(res);
+                break;
+
+            case "is_less_than_equal":
+                expr2 = semantic_stack.pop();
+                expr1 = semantic_stack.pop();
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (type.equals("float"))
+                    inst = "fcmp";
+                else if (type.equals("i32"))
+                    inst = "icmp";
+                else {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol(type, inst + " sle " + type + " " + expr1.getVal() + ", " + expr2.getVal());
+                semantic_stack.push(res);
+                break;
+
+            case "is_greater_than":
+                expr2 = semantic_stack.pop();
+                expr1 = semantic_stack.pop();
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (type.equals("float"))
+                    inst = "fcmp";
+                else if (type.equals("i32"))
+                    inst = "icmp";
+                else {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol(type, inst + " sgt " + type + " " + expr1.getVal() + ", " + expr2.getVal());
+                semantic_stack.push(res);
+                break;
+
+            case "is_greater_than_equal":
+                expr2 = semantic_stack.pop();
+                expr1 = semantic_stack.pop();
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (type.equals("float"))
+                    inst = "fcmp";
+                else if (type.equals("i32"))
+                    inst = "icmp";
+                else {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol(type, inst + " sge " + type + " " + expr1.getVal() + ", " + expr2.getVal());
+                semantic_stack.push(res);
+                break;
         }
         System.out.println("_______________________");
         System.out.println(func);
