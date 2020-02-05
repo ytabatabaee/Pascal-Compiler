@@ -1,0 +1,20 @@
+
+procedure print(input : integer)
+begin
+    write("the number is : ") ;
+    write(input) ;
+    write("\n") ;
+end
+
+function main() : integer
+begin
+    index : integer := 0 ;
+
+    while index <> 20 do 
+    begin
+        print(index) ;
+        index := index + 1 ;
+    end 
+
+    return 0 ;
+end 

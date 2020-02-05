@@ -1,0 +1,13 @@
+function main() : integer
+begin
+    a : integer := 2 ;
+    b : integer := 3 ;
+    c : float ; 
+    c := b / a ; 
+    if c <> 1 then
+    begin 
+        write("not equal ! ") ;
+    end 
+    
+    return 0 ;
+end 

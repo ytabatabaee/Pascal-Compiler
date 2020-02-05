@@ -1,0 +1,5 @@
+function main() : integer
+begin
+    write("hello world !") ;
+    return 0 ;
+end 
