@@ -1253,7 +1253,7 @@
       {
         "start": 63,
         "end": 62,
-        "token": "ID",
+        "token": "INT_CONST",
         "func": "",
         "anchorX": 748.3333333333345,
         "anchorY": 383.60000000000076,

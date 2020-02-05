@@ -66,10 +66,10 @@ comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
 <YYINITIAL> {
  "{"            { return sym("lbrace"); }
  "}"            { return sym("rbrace"); }
- "("            { return sym("lparen"); }
- ")"            { return sym("rparen"); }
- "["            { return sym("lbracket"); }
- "]"            { return sym("rbracket"); }
+ "("            { return sym("l_paren"); }
+ ")"            { return sym("r_paren"); }
+ "["            { return sym("l_bracket"); }
+ "]"            { return sym("r_bracket"); }
  ";"            { return sym("semicolon"); }
  ","            { return sym("comma"); }
 
@@ -88,7 +88,7 @@ comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
  "<="           { return sym("leq"); }
  "="            { return sym("equal"); }
 
- ":="           { return sym("assign"); }
+ ":="           { return sym("colon_eq"); }
  ":"           { return sym("colon"); }
 
 

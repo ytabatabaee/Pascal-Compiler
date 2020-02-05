@@ -100,8 +100,10 @@ public class Parser {
         if (semantic.equals("NoSem"))
             return;
         String[] functions = semantic.substring(1).split("[;]");
-        for (String func : functions)
-            code_generator.generate_code(func);
+        for (String func : functions) {
+            System.out.println(func);
+            // code_generator.generate_code(func);
+        }
     }
 
     public int next_token_id() throws Exception{
