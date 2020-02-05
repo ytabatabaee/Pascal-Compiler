@@ -2682,5 +2682,61 @@
       }
     ],
     "start": 140
+  },
+  {
+    "name": "BULK_EXPR",
+    "nodes": [
+      {
+        "x": 159.2,
+        "y": 318.8,
+        "id": 144,
+        "isFinal": false
+      },
+      {
+        "x": 356.40000000000015,
+        "y": 319.6,
+        "id": 145,
+        "isFinal": true
+      },
+      {
+        "x": 558.3999999999999,
+        "y": 318.0,
+        "id": 146,
+        "isFinal": false
+      }
+    ],
+    "edges": [
+      {
+        "start": 144,
+        "end": 145,
+        "token": "EXPR_OR_L",
+        "func": "",
+        "anchorX": 245.00000000000063,
+        "anchorY": 319.399999999999,
+        "isGraph": true,
+        "isGlobal": false
+      },
+      {
+        "start": 145,
+        "end": 146,
+        "token": "COMMA",
+        "func": "",
+        "anchorX": 458.79999999999666,
+        "anchorY": 319.5999999999997,
+        "isGraph": false,
+        "isGlobal": false
+      },
+      {
+        "start": 146,
+        "end": 145,
+        "token": "EXPR_OR_L",
+        "func": "",
+        "anchorX": 467.7999999999984,
+        "anchorY": 244.99999999999977,
+        "isGraph": true,
+        "isGlobal": false
+      }
+    ],
+    "start": 144
   }
 ]
