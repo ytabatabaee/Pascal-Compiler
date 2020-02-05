@@ -31,11 +31,13 @@ public class CodeGenerator {
 
     public void generate_code(String func) {
         Symbol res, expr1, expr2, tmp;
-        String type, inst;
+        String type, inst, value;
 
         switch (func) {
             case "push_id":
                 tmp = scanner.get_current();
+                System.out.println("token: " + tmp.getToken());
+                System.out.println("val: " + tmp.getVal());
                 semantic_stack.push(tmp);
                 break;
 
@@ -173,7 +175,12 @@ public class CodeGenerator {
 
             case "set_type":
                 tmp = semantic_stack.pop();
-                type = scanner.get_current().getVal();
+                expr1 = scanner.get_current();
+                System.out.println("token: " + tmp.getToken());
+                System.out.println("val: " + tmp.getVal());
+                System.out.println("token: " + expr1.getToken());
+                System.out.println("val: " + expr1.getVal());
+                type = scanner.get_current().getToken();
                 switch (type) {
                     case "boolean":
                     case "char":
@@ -201,10 +208,52 @@ public class CodeGenerator {
                         break;
                     default:
                         System.out.println("There is no such type!");
-                        return;
+                        break;
                 }
+                System.out.println("type : " + type);
+                break;
+
+            case "assign":
+//                tmp = semantic_stack.pop();
+//                value = scanner.get_current().getVal();
+
+                break;
+
+            case "is_equal":
+                expr2 = semantic_stack.pop();
+                expr1 = semantic_stack.pop();
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (type.equals("float"))
+                    inst = "fcmp";
+                else if (type.equals("i32"))
+                    inst = "icmp";
+                else {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol(type, inst + " eq " + type + " " + expr1.getVal() + ", " + expr2.getVal());
+                semantic_stack.push(res);
+                break;
+
+            case "is_not_equal":
+                expr2 = semantic_stack.pop();
+                expr1 = semantic_stack.pop();
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (type.equals("float"))
+                    inst = "fcmp";
+                else if (type.equals("i32"))
+                    inst = "icmp";
+                else {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol(type, inst + " ne " + type + " " + expr1.getVal() + ", " + expr2.getVal());
+                semantic_stack.push(res);
                 break;
         }
+        System.out.println("_______________________");
+        System.out.println(func);
+        System.out.println("_______________________");
 
     }
 
