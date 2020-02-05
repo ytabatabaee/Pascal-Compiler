@@ -32,13 +32,13 @@ public class CodeGenerator {
         String type, inst;
 
         switch (func) {
-            case "push_int":
+            case "push_integer_const":
                 tmp = scanner.get_current();
                 tmp.setToken("i32");
                 semantic_stack.push(tmp);
                 break;
 
-            case "push_real":
+            case "push_real_const":
                 tmp = scanner.get_current();
                 tmp.setToken("float");
                 semantic_stack.push(tmp);
@@ -117,7 +117,7 @@ public class CodeGenerator {
                 break;
 
             case "bitwise_and":
-            case "logical_and":
+            case "and":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
                 type = resolve_type(expr1.getToken(), expr2.getToken());
@@ -130,7 +130,7 @@ public class CodeGenerator {
                 break;
 
             case "bitwise_or":
-            case "logical_or":
+            case "or":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
                 type = resolve_type(expr1.getToken(), expr2.getToken());
@@ -142,7 +142,7 @@ public class CodeGenerator {
                 semantic_stack.push(res);
                 break;
 
-            case "xor":
+            case "exclusive_add":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
                 type = resolve_type(expr1.getToken(), expr2.getToken());
