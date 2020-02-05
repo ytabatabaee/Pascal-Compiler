@@ -15,12 +15,21 @@ public class CodeGenerator {
     }
 
     public String resolve_type(String type1, String type2) {
+        if (type1.equals("i32") && type2.equals("i32"))
+            return "i32";
+        if (type1.equals("float") && type2.equals("i32"))
+            return "float";
+        if (type1.equals("i32") && type2.equals("float"))
+            return "float";
+        if (type1.equals("float") && type2.equals("float"))
+            return "float";
 
         return "";
     }
 
     public void generate_code(String func) {
         Symbol res, expr1, expr2, tmp;
+        String type, inst;
 
         switch (func) {
             case "push_int":
@@ -38,35 +47,72 @@ public class CodeGenerator {
             case "add":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                res = new Symbol(expr1.getToken(), "add " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (type.equals("float"))
+                    inst = "fadd";
+                else if (type.equals("i32"))
+                    inst = "add";
+                else {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol(type, inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
 
             case "subtract":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                res = new Symbol(expr1.getToken(), "sub " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (type.equals("float"))
+                    inst = "fsub";
+                else if (type.equals("i32"))
+                    inst = "sub";
+                else {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol(type, inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
 
             case "multiply":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                res = new Symbol(expr1.getToken(), "mul " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (type.equals("float"))
+                    inst = "fmul";
+                else if (type.equals("i32"))
+                    inst = "mul";
+                else {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol(type, inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
 
             case "divide":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                res = new Symbol("float", "fdiv " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (!(type.equals("i32") || type.equals("float"))) {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol("float", "fdiv " + "float " + expr1.getVal() + ", " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
 
             case "mode":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                res = new Symbol("i32", "srem " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (!type.equals("i32")) {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol("i32", "srem " + "i32 " + expr1.getVal() + ", " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
 
@@ -74,7 +120,12 @@ public class CodeGenerator {
             case "logical_and":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                res = new Symbol("i32", "and " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (!type.equals("i32")) {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol("i32", "and " + "i32 " + expr1.getVal() + ", " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
 
@@ -82,20 +133,34 @@ public class CodeGenerator {
             case "logical_or":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                res = new Symbol("i32", "or " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (!type.equals("i32")) {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol("i32", "or " + "i32 " + expr1.getVal() + ", " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
 
             case "xor":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                res = new Symbol("i32", "xor " + expr1.getToken() + expr1.getVal() + "," + expr2.getVal());
+                type = resolve_type(expr1.getToken(), expr2.getToken());
+                if (!type.equals("i32")) {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol("i32", "xor " + "i32 " + expr1.getVal() + ", " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
 
             case "negate":
                 expr1 = semantic_stack.pop();
-                res = new Symbol("float", "fneg" + expr1.getToken() + expr1.getVal());
+                if (!(expr1.getToken().equals("i32") || expr1.getToken().equals("float"))) {
+                    System.out.println("This operation with these types is not possible.");
+                    return;
+                }
+                res = new Symbol("float", "fneg " + "float " + expr1.getVal());
                 semantic_stack.push(res);
                 break;
         }
