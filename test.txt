@@ -2,9 +2,9 @@ function main() : integer
 begin
     a : integer := 2 ;
     b : integer := 3 ;
-    c : real ; 
+    c : real; 
     c := b / a ; 
-    if c <> 1 then
+    if (c <> 1) then
     begin 
         write("not equal ! ") ;
     end 

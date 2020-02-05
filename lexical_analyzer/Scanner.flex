@@ -116,6 +116,7 @@ comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
  "function"     { return sym("function"); }
  "procedure"    { return sym("procedure"); }
  "if"           { return sym("if"); }
+ "then"         { return sym("then"); }
  "of"           { return sym("of"); }
  "return"       { return sym("return"); }
  "string"       { return sym("string"); }
