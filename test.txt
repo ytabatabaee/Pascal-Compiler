@@ -1,13 +1,8 @@
 function main() : integer
 begin
-    a : integer := 2 ;
-    b : integer := 3 ;
-    c : real; 
-    c := b / a ; 
-    if (c <> 1) then
-    begin 
-        write("not equal ! ") ;
-    end 
-    
+    a : integer;
+    b : integer;
+    c : real;
+
     return 0 ;
-end 
+end
