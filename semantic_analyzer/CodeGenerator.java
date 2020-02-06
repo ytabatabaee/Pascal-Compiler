@@ -62,7 +62,7 @@ public class CodeGenerator {
 
     public void generate_code(String func) {
         Symbol res, expr1, expr2, tmp;
-        String type, inst, value, cl;
+        String type, inst, value, cl = null;
         res = new Symbol(" ", " ");
         int size;
 
@@ -386,10 +386,10 @@ public class CodeGenerator {
                 break;
 
             case "set_func_type":
-//                expr1 = semantic_stack.pop(); // type
-//                expr2 = semantic_stack.pop(); // func def
-//                res = new Symbol("func", "define " + convert_type(expr1.getVal()) + " " + expr2.getVal() = " {\n");
-//                semantic_stack.push(res);
+                expr1 = semantic_stack.pop(); // type
+                expr2 = semantic_stack.pop(); // func def
+                res = new Symbol("func", "define " + convert_type(expr1.getVal()) + " " + expr2.getVal() + " {\n");
+                semantic_stack.push(res);
                 break;
 
 //            case ""
@@ -398,6 +398,7 @@ public class CodeGenerator {
         System.out.println("_______________________");
         System.out.println(func);
         System.out.println(res.getVal());
+        System.out.println(cl);
         System.out.println("_______________________");
 
     }
