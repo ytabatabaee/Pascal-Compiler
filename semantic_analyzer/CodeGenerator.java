@@ -29,6 +29,34 @@ public class CodeGenerator {
         return "";
     }
 
+    public String convert_type(String type) {
+        switch (type) {
+            case "integer":
+                return "i32";
+            case "real":
+                return "float";
+            case "long":
+                return "i64";
+            case "char":
+                return "i8";
+        }
+        return null;
+    }
+
+    public int type_size(String type) {
+        switch (type) {
+            case "integer":
+            case "real":
+                return 4;
+            case "long":
+                return 8;
+            case "char":
+            case "boolean":
+                return 1;
+        }
+        return 0;
+    }
+
     public void generate_code(String func) {
         Symbol res, expr1, expr2, tmp;
         String type, inst, value;
@@ -174,44 +202,25 @@ public class CodeGenerator {
                 semantic_stack.push(res);
                 break;
 
+            case "push_type":
+                res = scanner.get_current();
+                System.out.println(res.getVal());
+                res.setToken("type");
+                semantic_stack.push(res);
+                break;
+
+
             case "set_type":
-                tmp = semantic_stack.pop();
-                expr1 = scanner.get_current();
-                System.out.println("token: " + tmp.getToken());
-                System.out.println("val: " + tmp.getVal());
+                expr1 = semantic_stack.pop(); // type
+                expr2 = semantic_stack.pop(); // id
                 System.out.println("token: " + expr1.getToken());
                 System.out.println("val: " + expr1.getVal());
-                type = scanner.get_current().getToken();
-                switch (type) {
-                    case "boolean":
-                    case "char":
-                        tmp.setToken("i8");
-                        res = new Symbol("dcl", tmp.getVal() + " = alloca i8, align 1");
-                        semantic_stack.push(res);
-                        break;
-                    case "integer":
-                        tmp.setToken("i32");
-                        res = new Symbol("dcl", tmp.getVal() + " = alloca i32, align 4");
-                        semantic_stack.push(res);
-                        break;
-                    case "long":
-                        tmp.setToken("i64");
-                        res = new Symbol("dcl", tmp.getVal() + " = alloca i64, align 8");
-                        semantic_stack.push(res);
-                        break;
-                    case "real":
-                        tmp.setToken("float");
-                        res = new Symbol("dcl", tmp.getVal() + " = alloca float, align 4");
-                        semantic_stack.push(res);
-                        break;
-                    case "string":
-                        // TODO: I REALLY DON'T KNOW
-                        break;
-                    default:
-                        System.out.println("There is no such type!");
-                        break;
-                }
-                System.out.println("type : " + type);
+                System.out.println("token: " + expr2.getToken());
+                System.out.println("val: " + expr2.getVal());
+                type = convert_type(expr1.getVal());
+                int size = type_size(expr1.getVal());
+                res = new Symbol("dcl", expr2.getVal() + " = alloca " + type + ", align " + size);
+                semantic_stack.push(res);
                 break;
 
             case "assign":
@@ -329,9 +338,9 @@ public class CodeGenerator {
                 break;
 
             case "set_func_type":
-                //TODO THIS HAS TO BE LIKE SET_TYPE (SUPPORTING ALL TYPES)
-                tmp = semantic_stack.pop();
-                res = new Symbol("func", "define " + scanner.get_current().getToken() + " "+ tmp.getVal() );
+                expr1 = semantic_stack.pop(); // type
+                expr2 = semantic_stack.pop(); // func def
+                res = new Symbol("func", "define " + convert_type(expr1.getVal()) + " " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
 

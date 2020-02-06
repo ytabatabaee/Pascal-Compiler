@@ -11,6 +11,7 @@ public class Symbol {
 
     public Symbol(String token) {
         this.token = token;
+        this.val = token;
     }
 
     public String getToken() {
