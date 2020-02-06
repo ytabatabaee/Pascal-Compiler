@@ -1,5 +1,6 @@
 package semantic_analyzer;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import lexical_analyzer.Scanner;
@@ -8,11 +9,13 @@ import lexical_analyzer.Symbol;
 public class CodeGenerator {
     private Scanner scanner;
     private Stack<Symbol> semantic_stack;
+    private ArrayList<String> code;
     private int variable_count;
 
     public CodeGenerator(Scanner scanner) {
         this.scanner = scanner;
         semantic_stack = new Stack<>();
+        code = new ArrayList<>();
         variable_count = 1;
     }
 
@@ -59,7 +62,7 @@ public class CodeGenerator {
 
     public void generate_code(String func) {
         Symbol res, expr1, expr2, tmp;
-        String type, inst, value;
+        String type, inst, value, cl;
         res = new Symbol(" ", " ");
 
         switch (func) {
@@ -94,7 +97,14 @@ public class CodeGenerator {
                     System.out.println("This operation with these types is not possible.");
                     return;
                 }
-                res = new Symbol(type, inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal());
+                type = convert_type(expr1.getVal());
+                int size = type_size(expr1.getVal());
+//                cl = "%" + variable_count + " = alloca " + type + ", align " + size;
+//                code.add(cl);
+                cl = "%" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                code.add(cl);
+                res = new Symbol(type, "%" + variable_count);
+                variable_count++;
                 semantic_stack.push(res);
                 break;
 
@@ -338,13 +348,13 @@ public class CodeGenerator {
                 break;
 
             case "set_func_type":
-                expr1 = semantic_stack.pop(); // type
-                expr2 = semantic_stack.pop(); // func def
-                res = new Symbol("func", "define " + convert_type(expr1.getVal()) + " " + expr2.getVal() = " {\n");
-                semantic_stack.push(res);
+//                expr1 = semantic_stack.pop(); // type
+//                expr2 = semantic_stack.pop(); // func def
+//                res = new Symbol("func", "define " + convert_type(expr1.getVal()) + " " + expr2.getVal() = " {\n");
+//                semantic_stack.push(res);
                 break;
 
-            case ""
+//            case ""
 
         }
         System.out.println("_______________________");
