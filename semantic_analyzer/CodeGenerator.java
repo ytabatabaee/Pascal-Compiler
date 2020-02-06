@@ -493,21 +493,25 @@ public class CodeGenerator {
 
             case "start_function":
                 tmp = semantic_stack.pop();
-                res = new Symbol("func", "@" + tmp.getVal() + "(");
-                semantic_stack.push(res);
+                tmp.setVal(tmp.getVal().substring(1)); //removes the % before the name
+                cl = "@" + tmp.getVal() + "(";
+                code.add(cl);
+                sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
                 break;
 
             case "end_function":
-                tmp = semantic_stack.pop();
-                res = new Symbol("func", tmp.getVal() + ")");
-                semantic_stack.push(res);
+                cl = code.get(code.size() - 1);
+                code.remove(cl);
+                cl += ")";
+                code.add(cl);
                 break;
 
             case "set_func_type":
                 expr1 = semantic_stack.pop(); // type
-                expr2 = semantic_stack.pop(); // func def
-                res = new Symbol("func", "define " + convert_type(expr1.getVal()) + " " + expr2.getVal() + " {\n");
-                semantic_stack.push(res);
+                cl = code.get(code.size() - 1); // func def
+                code.remove(cl);
+                cl = "define " + convert_type(expr1.getVal()) + " " + cl + " {";
+                code.add(cl);
                 break;
 
             case "jump_to_then":
