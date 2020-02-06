@@ -73,6 +73,12 @@ public class CodeGenerator {
         return null;
     }
 
+    public String assign_type(String id_type, String val_type) {
+        if (id_type.equals(val_type))
+            return id_type;
+        return null;
+    }
+
     public void generate_code(String func) {
         Symbol res, expr1, expr2, tmp;
         String type, type1, type2, inst, value, cl = null;
@@ -321,9 +327,17 @@ public class CodeGenerator {
                 break;
 
             case "assign":
-//                tmp = semantic_stack.pop();
-//                value = scanner.get_current().getVal();
-
+                tmp = semantic_stack.pop();
+                value = scanner.get_current().getVal();
+                type = scanner.get_current().getToken();
+                type1 = tmp.getToken().equals("id") ? type_of_id_in_symtab(tmp.getVal()) : tmp.getToken();
+                type2 = type.equals("id") ? type_of_id_in_symtab(value) : type;
+                type = assign_type(type1, type2);
+                if (type == null) {
+                    System.out.println("You can't assign a value with this type to that variable.");
+                    return;
+                }
+                cl = "store " + type + " " + value + ", " + type + "* " + tmp + ", align " + type_size(type);
                 break;
 
             case "is_equal":
@@ -523,6 +537,11 @@ public class CodeGenerator {
         System.out.println(res.getVal());
         System.out.println(res.getToken());
         System.out.println(cl);
+        System.out.println("CODE:");
+        System.out.println("++++++++++++++++++++++++++++++");
+        for (String c : code)
+            System.out.println(c);
+        System.out.println("++++++++++++++++++++++++++++++");
         System.out.println("_______________________");
 
     }
