@@ -32,6 +32,7 @@ public class CodeGenerator {
     public void generate_code(String func) {
         Symbol res, expr1, expr2, tmp;
         String type, inst, value;
+        res = new Symbol(" ", " ");
 
         switch (func) {
             case "push_id":
@@ -314,9 +315,30 @@ public class CodeGenerator {
                 res = new Symbol(type, inst + " sge " + type + " " + expr1.getVal() + ", " + expr2.getVal());
                 semantic_stack.push(res);
                 break;
+
+            case "start_function":
+                tmp = semantic_stack.pop();
+                res = new Symbol("func", "@" + tmp.getVal() + "(");
+                semantic_stack.push(res);
+                break;
+
+            case "end_function":
+                tmp = semantic_stack.pop();
+                res = new Symbol("func", tmp.getVal() + ")");
+                semantic_stack.push(res);
+                break;
+
+            case "set_func_type":
+                //TODO THIS HAS TO BE LIKE SET_TYPE (SUPPORTING ALL TYPES)
+                tmp = semantic_stack.pop();
+                res = new Symbol("func", "define " + scanner.get_current().getToken() + " "+ tmp.getVal() );
+                semantic_stack.push(res);
+                break;
+
         }
         System.out.println("_______________________");
         System.out.println(func);
+        System.out.println(res.getVal());
         System.out.println("_______________________");
 
     }
