@@ -319,7 +319,7 @@ public class CodeGenerator {
                 expr2 = semantic_stack.pop(); // id
                 type = convert_type(expr1.getVal());
                 size = type_size(expr1.getVal());
-                cl = "%" + expr2.getVal() + " = alloca " + type + ", align " + size;
+                cl = expr2.getVal() + " = alloca " + type + ", align " + size;
                 code.add(cl);
                 res = new Symbol(type, "%" + expr2.getVal());
                 sym_tab.add(new SymTabCell(new Symbol(type, expr2.getVal()), new ArrayList()));
