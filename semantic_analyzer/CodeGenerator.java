@@ -219,7 +219,7 @@ public class CodeGenerator {
                 System.out.println("val: " + expr2.getVal());
                 type = convert_type(expr1.getVal());
                 int size = type_size(expr1.getVal());
-                res = new Symbol("dcl", expr2.getVal() + " = alloca " + type + ", align " + size);
+                res = new Symbol("dcl", "%" + expr2.getVal() + " = alloca " + type + ", align " + size);
                 semantic_stack.push(res);
                 break;
 
@@ -340,9 +340,11 @@ public class CodeGenerator {
             case "set_func_type":
                 expr1 = semantic_stack.pop(); // type
                 expr2 = semantic_stack.pop(); // func def
-                res = new Symbol("func", "define " + convert_type(expr1.getVal()) + " " + expr2.getVal());
+                res = new Symbol("func", "define " + convert_type(expr1.getVal()) + " " + expr2.getVal() = " {\n");
                 semantic_stack.push(res);
                 break;
+
+            case ""
 
         }
         System.out.println("_______________________");
