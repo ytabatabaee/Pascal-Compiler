@@ -495,7 +495,27 @@ public class CodeGenerator {
                 semantic_stack.push(res);
                 break;
 
-//            case ""
+            case "jump_to_then":
+                tmp = semantic_stack.pop();
+                cl = "br i1 " + tmp.getVal() + ", label %if.then" + variable_count + ", label %if.else" + variable_count;
+                code.add(cl);
+                cl = "if.then" + variable_count + ":";
+                code.add(cl);
+                break;
+            case "jump_to_endif_then":
+                cl = "br label %if.end" + variable_count;
+                code.add(cl);
+                cl = "if.else" + variable_count + ":";
+                code.add(cl);
+                break;
+
+            case "jump_to_endif_else":
+                cl = "br label %if.end" + variable_count;
+                code.add(cl);
+                cl = "if.end" + variable_count + ":";
+                code.add(cl);
+                variable_count++;
+                break;
 
         }
         System.out.println("_______________________");
