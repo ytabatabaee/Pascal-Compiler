@@ -1,6 +1,7 @@
 package semantic_analyzer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 import lexical_analyzer.Scanner;
@@ -10,12 +11,14 @@ public class CodeGenerator {
     private Scanner scanner;
     private Stack<Symbol> semantic_stack;
     private ArrayList<String> code;
+    private ArrayList<SymTabCell> sym_tab;
     private int variable_count;
 
     public CodeGenerator(Scanner scanner) {
         this.scanner = scanner;
         semantic_stack = new Stack<>();
         code = new ArrayList<>();
+        sym_tab = new ArrayList<>();
         variable_count = 1;
     }
 
@@ -60,9 +63,19 @@ public class CodeGenerator {
         return 0;
     }
 
+    public String type_of_id_in_symtab(String id) {
+        for (SymTabCell cell : sym_tab) {
+            Symbol symbol = cell.getSymbol();
+            if (id.equals(symbol.getVal())) {
+                return symbol.getToken();
+            }
+        }
+        return null;
+    }
+
     public void generate_code(String func) {
         Symbol res, expr1, expr2, tmp;
-        String type, inst, value, cl = null;
+        String type, type1, type2, inst, value, cl = null;
         res = new Symbol(" ", " ");
         int size;
 
@@ -89,12 +102,13 @@ public class CodeGenerator {
             case "add":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
-                System.out.println("type: " + type);
-                System.out.println(expr1.getVal());
-                System.out.println(expr2.getVal());
-                System.out.println(expr1.getToken());
-                System.out.println(expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (type.equals("float"))
                     inst = "fadd";
                 else if (type.equals("i32"))
@@ -256,6 +270,8 @@ public class CodeGenerator {
                 cl = "%" + expr2.getVal() + " = alloca " + type + ", align " + size;
                 code.add(cl);
                 res = new Symbol(type, "%" + expr2.getVal());
+                sym_tab.add(new SymTabCell(new Symbol(type, expr2.getVal()), new ArrayList()));
+                System.out.println("res.token: " + res.getToken());
                 semantic_stack.push(res);
                 break;
 
@@ -403,6 +419,7 @@ public class CodeGenerator {
         System.out.println("_______________________");
         System.out.println(func);
         System.out.println(res.getVal());
+        System.out.println(res.getToken());
         System.out.println(cl);
         System.out.println("_______________________");
 

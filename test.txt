@@ -3,7 +3,7 @@ begin
     a : integer;
     b : integer;
     c : real;
-    c := 2 + 3;
+    c := 2 + 3 + a;
 
     return 0 ;
 end
