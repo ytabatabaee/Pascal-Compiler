@@ -127,7 +127,13 @@ public class CodeGenerator {
             case "subtract":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (type.equals("float"))
                     inst = "fsub";
                 else if (type.equals("i32"))
@@ -139,13 +145,20 @@ public class CodeGenerator {
                 cl = "%" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
                 res = new Symbol(type, "%" + variable_count);
-                variable_count++;                semantic_stack.push(res);
+                variable_count++;
+                semantic_stack.push(res);
                 break;
 
             case "multiply":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (type.equals("float"))
                     inst = "fmul";
                 else if (type.equals("i32"))
@@ -157,13 +170,20 @@ public class CodeGenerator {
                 cl = "%" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
                 res = new Symbol(type, "%" + variable_count);
-                variable_count++;                semantic_stack.push(res);
+                variable_count++;
+                semantic_stack.push(res);
                 break;
 
             case "divide":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (!(type.equals("i32") || type.equals("float"))) {
                     System.out.println("This operation with these types is not possible.");
                     return;
@@ -178,7 +198,13 @@ public class CodeGenerator {
             case "mode":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (!type.equals("i32")) {
                     System.out.println("This operation with these types is not possible.");
                     return;
@@ -194,7 +220,13 @@ public class CodeGenerator {
             case "and":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (!type.equals("i32")) {
                     System.out.println("This operation with these types is not possible.");
                     return;
@@ -210,7 +242,13 @@ public class CodeGenerator {
             case "or":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (!type.equals("i32")) {
                     System.out.println("This operation with these types is not possible.");
                     return;
@@ -225,7 +263,13 @@ public class CodeGenerator {
             case "exclusive_add":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (!type.equals("i32")) {
                     System.out.println("This operation with these types is not possible.");
                     return;
@@ -239,7 +283,12 @@ public class CodeGenerator {
 
             case "negate":
                 expr1 = semantic_stack.pop();
-                if (!(expr1.getToken().equals("i32") || expr1.getToken().equals("float"))) {
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                if (type1 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                if (!(type1.equals("i32") || type1.equals("float"))) {
                     System.out.println("This operation with these types is not possible.");
                     return;
                 }
@@ -261,10 +310,6 @@ public class CodeGenerator {
             case "set_type":
                 expr1 = semantic_stack.pop(); // type
                 expr2 = semantic_stack.pop(); // id
-                System.out.println("token: " + expr1.getToken());
-                System.out.println("val: " + expr1.getVal());
-                System.out.println("token: " + expr2.getToken());
-                System.out.println("val: " + expr2.getVal());
                 type = convert_type(expr1.getVal());
                 size = type_size(expr1.getVal());
                 cl = "%" + expr2.getVal() + " = alloca " + type + ", align " + size;
@@ -284,7 +329,13 @@ public class CodeGenerator {
             case "is_equal":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (type.equals("float"))
                     inst = "fcmp";
                 else if (type.equals("i32"))
@@ -303,7 +354,13 @@ public class CodeGenerator {
             case "is_not_equal":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (type.equals("float"))
                     inst = "fcmp";
                 else if (type.equals("i32"))
@@ -322,7 +379,13 @@ public class CodeGenerator {
             case "is_less_than":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (type.equals("float"))
                     inst = "fcmp";
                 else if (type.equals("i32"))
@@ -341,7 +404,13 @@ public class CodeGenerator {
             case "is_less_than_equal":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (type.equals("float"))
                     inst = "fcmp";
                 else if (type.equals("i32"))
@@ -349,7 +418,8 @@ public class CodeGenerator {
                 else {
                     System.out.println("This operation with these types is not possible.");
                     return;
-                }cl = "%" + variable_count + " = " + inst + " sle " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                }
+                cl = "%" + variable_count + " = " + inst + " sle " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
                 res = new Symbol(type, "%" + variable_count);
                 variable_count++;
@@ -359,7 +429,13 @@ public class CodeGenerator {
             case "is_greater_than":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (type.equals("float"))
                     inst = "fcmp";
                 else if (type.equals("i32"))
@@ -378,7 +454,13 @@ public class CodeGenerator {
             case "is_greater_than_equal":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type = resolve_type(expr1.getToken(), expr2.getToken());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                if (type1 == null || type2 == null) {
+                    System.out.println("You didn't define this variable.");
+                    return;
+                }
+                type = resolve_type(type1, type2);
                 if (type.equals("float"))
                     inst = "fcmp";
                 else if (type.equals("i32"))
