@@ -102,7 +102,7 @@ public class Parser {
         String[] functions = semantic.substring(1).split("[;]");
         for (String func : functions) {
             System.out.println(func);
-            // code_generator.generate_code(func);
+            code_generator.generate_code(func);
         }
     }
 
