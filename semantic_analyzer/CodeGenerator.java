@@ -88,6 +88,7 @@ public class CodeGenerator {
         switch (func) {
             case "push_id":
                 tmp = scanner.get_current();
+                tmp.setVal("%" + tmp.getVal());
                 System.out.println("token: " + tmp.getToken());
                 System.out.println("val: " + tmp.getVal());
                 semantic_stack.push(tmp);
