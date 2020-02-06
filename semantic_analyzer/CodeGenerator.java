@@ -90,6 +90,11 @@ public class CodeGenerator {
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
                 type = resolve_type(expr1.getToken(), expr2.getToken());
+                System.out.println("type: " + type);
+                System.out.println(expr1.getVal());
+                System.out.println(expr2.getVal());
+                System.out.println(expr1.getToken());
+                System.out.println(expr2.getToken());
                 if (type.equals("float"))
                     inst = "fadd";
                 else if (type.equals("i32"))
