@@ -772,7 +772,8 @@ public class CodeGenerator {
                 tmp = semantic_stack.pop();
                 cl = "br i1 " + tmp.getVal() + ", label %if.then" + if_count + ", label %if.else" + if_count;
                 code.add(cl);
-
+                cl = "br label %if.then" + if_count;
+                code.add(cl);
                 cl = "if.then" + if_count + ":";
                 code.add(cl);
                 break;
@@ -780,7 +781,11 @@ public class CodeGenerator {
             case "jump_to_endif_then":
                 cl = "br label %if.end" + if_count;
                 code.add(cl);
+                cl = "br label %if.else" + if_count;
+                code.add(cl);
                 cl = "if.else" + if_count + ":";
+                code.add(cl);
+                cl = "br label %if.end" + if_count;
                 code.add(cl);
                 cl = "if.end" + if_count + ":";
                 code.add(cl);
@@ -788,6 +793,7 @@ public class CodeGenerator {
 
             case "jump_to_endif_else":
                 code.remove("if.end" + if_count + ":");
+                code.remove("br label %if.end" + if_count);
                 cl = "br label %if.end" + if_count;
                 code.add(cl);
                 cl = "if.end" + if_count + ":";
@@ -797,6 +803,8 @@ public class CodeGenerator {
 
 
             case "start_loop":
+                cl = "br label %while.start" + loop_count;
+                code.add(cl);
                 cl = "while.start" + loop_count + ":";
                 code.add(cl);
                 break;
@@ -805,12 +813,16 @@ public class CodeGenerator {
                 tmp = semantic_stack.pop();
                 cl = "br i1 " + tmp.getVal() + ", label %while.body" + loop_count + ", label %while.end" + loop_count;
                 code.add(cl);
+                cl = "br label %while.body" + loop_count;
+                code.add(cl);
                 cl = "while.body" + loop_count + ":";
                 code.add(cl);
                 break;
 
             case "end_loop":
                 cl = "br label %while.start" + loop_count;
+                code.add(cl);
+                cl = "br label %while.end" + loop_count;
                 code.add(cl);
                 cl = "while.end" + loop_count + ":";
                 code.add(cl);
