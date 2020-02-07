@@ -908,7 +908,7 @@ public class CodeGenerator {
                 if (expr1.getVal().equals("scanf")) {
                     cl += ")";
                     code.add(cl);
-                    cl = "%" + exprs.get(0).getVal() + " = load " + type1 + ", " + type1 + "* %var" + (variable_count - 2);
+                    cl = exprs.get(0).getVal() + " = load " + type1 + ", " + type1 + "* %var" + (variable_count - 2);
                     code.add(cl);
                 } else {
                     for (Symbol exp : exprs) {
