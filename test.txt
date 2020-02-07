@@ -5,6 +5,13 @@ begin
     write("\n") ;
 end
 
+function lili() : integer
+begin
+    write("hello world !") ;
+    return 0 ;
+end 
+
+
 function product(a : integer ; b : integer) : integer
 begin
     result : integer := a * b ;

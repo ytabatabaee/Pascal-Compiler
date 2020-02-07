@@ -91,6 +91,7 @@ public class CodeGenerator {
         Symbol res, expr1, expr2, tmp;
         String type, type1, type2, inst, value, cl = null, val1, val2;
         boolean flag1, flag2;
+        ArrayList<Symbol> exprs = new ArrayList<>();
         res = new Symbol(" ", " ");
         int size;
 
@@ -131,7 +132,7 @@ public class CodeGenerator {
                 tmp.setToken("string");
                 tmp.setVal("@.str" + string_count);
                 semantic_stack.push(tmp);
-                string_count ++;
+                string_count++;
                 code.add(0, cl);
                 break;
 
@@ -820,14 +821,21 @@ public class CodeGenerator {
                         tmp.setVal("scanf");
                     }
                 }
-                cl = "call " + tmp.getToken() + " @" + tmp.getVal() + "(";
-                code.add(cl);
+                semantic_stack.push(new Symbol("func", tmp.getVal()));
+                //cl = "call " + tmp.getToken() + " @" + tmp.getVal() + "(";
+                //code.add(cl);
                 sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
                 break;
 
             case "end_func_call":
-                cl = code.get(code.size() - 1);
-                code.remove(cl);
+                while (!semantic_stack.peek().getToken().equals("func"))
+                    exprs.add(semantic_stack.pop());
+                expr1 = semantic_stack.pop(); // func name
+                cl = "call " + expr1.getToken() + " @" + expr1.getVal() + "(";
+                for (Symbol exp : exprs) {
+                    cl += exp.getToken() + " " + exp.getVal() + ", ";
+                }
+                cl = cl.substring(0, cl.length() - 2);
                 cl += ")";
                 code.add(cl);
                 return;
