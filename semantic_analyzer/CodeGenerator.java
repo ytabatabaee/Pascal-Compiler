@@ -834,6 +834,26 @@ public class CodeGenerator {
                 code.add(cl + parts[3].replace(",", "") + " " + parts[0]);
                 break;
 
+            case "close_proc":
+                code.add("ret void");
+                code.add("}");
+                break;
+
+            case "start_proc":
+                tmp = semantic_stack.pop();
+                tmp.setVal(tmp.getVal().substring(1)); //removes the % before the name
+                cl = "@" + tmp.getVal() + "(";
+                code.add(cl);
+                sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
+                break;
+
+            case "close_proc_def":
+                cl = code.get(code.size() - 1); // func def
+                code.remove(cl);
+                cl = "define void" + " " + cl + ") {";
+                code.add(cl);
+                break;
+
         }
         System.out.println("_______________________");
         System.out.println(func);
