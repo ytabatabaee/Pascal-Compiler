@@ -125,8 +125,9 @@ public class CodeGenerator {
                 tmp = scanner.get_current();
                 cl = "@.str" + string_count;
                 cl += " = private constant ";
-                size = tmp.getVal().replace("\"", "").length() + 1;
-                cl += "[" + size + " x " + "i8] c \"" + tmp.getVal().replace("\"", "") + "\\" + "00" + "\"";
+                size = tmp.getVal().replace("\"", "").replace("\\n", "\n").length() + 1;
+
+                cl += "[" + size + " x " + "i8] c \"" + tmp.getVal().replace("\"", "").replace("\\n", "\\10") + "\\" + "00" + "\"";
                 tmp.setToken("string");
                 tmp.setVal("@.str" + string_count);
                 semantic_stack.push(tmp);
