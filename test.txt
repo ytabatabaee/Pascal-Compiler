@@ -16,6 +16,8 @@ begin
    begin
         a := a + 1;
    end;
+   write("hello");
+   read();
 
    // this is a comment 
 <-- hi 

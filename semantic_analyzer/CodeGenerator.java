@@ -108,6 +108,12 @@ public class CodeGenerator {
                 semantic_stack.push(tmp);
                 break;
 
+            case "push_long_const":
+                tmp = scanner.get_current();
+                tmp.setToken("i64");
+                semantic_stack.push(tmp);
+                break;
+
             case "push_real_const":
                 tmp = scanner.get_current();
                 tmp.setToken("float");
@@ -782,6 +788,30 @@ public class CodeGenerator {
                 code.add(cl);
                 break;
 
+            case "start_func_call":
+                //todo printf scanf strelen ezafe shan be symtable
+                //todo function call haie addi check shan ke to symbol table bashan
+                // tmp.getToken dar vaghe bayad type a function to symtab bashe
+                tmp = semantic_stack.pop();
+                tmp.setVal(tmp.getVal().substring(1)); //removes the % before the name
+                if (tmp.getVal().equals("write")) {
+                    code.add(0, "declare i32 @printf(i8* noalias nocapture, ...)\n");
+                    tmp.setVal("printf");
+                } else if (tmp.getVal().equals("read")) {
+                    code.add(0, "declare i32 @scanf(i8* noalias nocapture, ...)\n");
+                    tmp.setVal("scanf");
+                }
+                cl = "call " + tmp.getToken() + " @" + tmp.getVal() + "(";
+                code.add(cl);
+                sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
+                break;
+
+            case "end_func_call":
+                cl = code.get(code.size() - 1);
+                code.remove(cl);
+                cl += ")";
+                code.add(cl);
+                return;
         }
         System.out.println("_______________________");
         System.out.println(func);
