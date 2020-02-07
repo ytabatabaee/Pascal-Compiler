@@ -97,10 +97,18 @@ public class CodeGenerator {
         return null;
     }
 
+    public SymTabCell last_func() {
+        for (int i = sym_tab.size() - 1; i >= 0; i--)
+            if (sym_tab.get(i).getSymbol().getToken().equals("func"))
+                return sym_tab.get(i);
+        return null;
+    }
+
     public void generate_code(String func) throws Exception {
         Symbol res, expr1, expr2, tmp;
         String type, type1, type2, inst, value, cl = null, val1, val2;
         boolean flag1, flag2;
+        SymTabCell cell;
         ArrayList<Symbol> exprs = new ArrayList<>();
         res = new Symbol(" ", " ");
         int size;
@@ -729,7 +737,7 @@ public class CodeGenerator {
                 cl = "@" + tmp.getVal() + "(";
                 code.add(cl);
                 sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
-                semantic_stack.push(tmp); // save the name of func to set the type in symtab later
+//                semantic_stack.push(tmp); // save the name of func to set the type in symtab later
                 break;
 
             case "end_function":
@@ -741,13 +749,12 @@ public class CodeGenerator {
 
             case "set_func_type":
                 expr1 = semantic_stack.pop(); // type
-                expr2 = semantic_stack.pop(); // func name
                 cl = code.get(code.size() - 1); // func def
                 code.remove(cl);
                 type1 = convert_type(expr1.getVal());
                 cl = "define " + type1 + " " + cl + " {";
                 code.add(cl);
-                SymTabCell cell = get_cell(expr2.getVal());
+                cell = last_func();
                 cell.getDscp().add(type1); // first element of dscp of a func is its TYPE
                 break;
 
@@ -844,8 +851,8 @@ public class CodeGenerator {
                     tmp.setVal("scanf");
                 }
                 semantic_stack.push(new Symbol("func", tmp.getVal()));
-                //cl = "call " + tmp.getToken() + " @" + tmp.getVal() + "(";
-                //code.add(cl);
+//                cl = "call " + tmp.getToken() + " @" + tmp.getVal() + "(";
+//                code.add(cl);
                 sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
                 break;
 
