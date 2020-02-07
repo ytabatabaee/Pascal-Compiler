@@ -17,5 +17,9 @@ begin
         a := a + 1;
    end;
 
+   // this is a comment 
+<-- hi 
+i am a comment -->
+
     return 0 ;
 end

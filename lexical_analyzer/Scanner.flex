@@ -56,8 +56,8 @@ input_char          = [^\r\n]
 line_terminator     = \r|\n
 dash_comment        = "--" {input_char}* {line_terminator}
 regular_comment     = "//" {input_char}* {line_terminator}
-comment_content     = (.)*?
-multi_line_comment  = "<--" {comment_content} "-->"
+comment_content     = ([^])*?
+multi_line_comment  = "<--"{comment_content}"-->"
 comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
 
 
