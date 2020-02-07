@@ -1,7 +1,6 @@
 package semantic_analyzer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Stack;
 
 import lexical_analyzer.Scanner;
@@ -13,7 +12,8 @@ public class CodeGenerator {
     private ArrayList<String> code;
     private ArrayList<SymTabCell> sym_tab;
     private int variable_count;
-    private int label_count;
+    private int if_count;
+    private int loop_count;
 
     public CodeGenerator(Scanner scanner) {
         this.scanner = scanner;
@@ -21,7 +21,8 @@ public class CodeGenerator {
         code = new ArrayList<>();
         sym_tab = new ArrayList<>();
         variable_count = 1;
-        label_count = 1;
+        if_count = 1;
+        loop_count = 1;
     }
 
     public String resolve_type(String type1, String type2) {
@@ -496,50 +497,50 @@ public class CodeGenerator {
 
             case "jump_to_then":
                 tmp = semantic_stack.pop();
-                cl = "br i1 " + tmp.getVal() + ", label %if.then" + label_count + ", label %if.else" + label_count;
+                cl = "br i1 " + tmp.getVal() + ", label %if.then" + if_count + ", label %if.else" + if_count;
                 code.add(cl);
-                cl = "if.then" + label_count + ":";
+                cl = "if.then" + if_count + ":";
                 code.add(cl);
                 break;
 
             case "jump_to_endif_then":
-                cl = "br label %if.end" + label_count;
+                cl = "br label %if.end" + if_count;
                 code.add(cl);
-                cl = "if.else" + label_count + ":";
+                cl = "if.else" + if_count + ":";
                 code.add(cl);
-                cl = "if.end" + label_count + ":";
+                cl = "if.end" + if_count + ":";
                 code.add(cl);
                 break;
 
             case "jump_to_endif_else":
-                code.remove("if.end" + label_count + ":");
-                cl = "br label %if.end" + label_count;
+                code.remove("if.end" + if_count + ":");
+                cl = "br label %if.end" + if_count;
                 code.add(cl);
-                cl = "if.end" + label_count + ":";
+                cl = "if.end" + if_count + ":";
                 code.add(cl);
-                label_count++;
+                if_count++;
                 break;
 
 
             case "start_loop":
-                cl = "while.start" + label_count + ":";
+                cl = "while.start" + loop_count + ":";
                 code.add(cl);
                 break;
 
             case "loop_body":
                 tmp = semantic_stack.pop();
-                cl = "br i1 " + tmp.getVal() + ", label %while.body" + label_count + ", label %while.start" + label_count;
+                cl = "br i1 " + tmp.getVal() + ", label %while.body" + loop_count + ", label %while.start" + loop_count;
                 code.add(cl);
-                cl = "while.body" + label_count + ":";
+                cl = "while.body" + loop_count + ":";
                 code.add(cl);
                 break;
 
             case "end_loop":
-                cl = "br label %while.start" + label_count;
+                cl = "br label %while.start" + loop_count;
                 code.add(cl);
-                cl = "while.end" + label_count + ":";
+                cl = "while.end" + loop_count + ":";
                 code.add(cl);
-                label_count++;
+                loop_count++;
                 break;
 
 
