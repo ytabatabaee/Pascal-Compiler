@@ -823,10 +823,14 @@ public class CodeGenerator {
 
             case "start_func_call":
                 //todo printf scanf strelen ezafe shan be symtable
-                //todo function call haie addi check shan ke to symbol table bashan
+                // function call haie addi check shan ke to symbol table bashan
                 // tmp.getToken dar vaghe bayad type a function to symtab bashe
-                tmp = semantic_stack.pop();
+                tmp = semantic_stack.pop(); // func name
                 tmp.setVal(tmp.getVal().substring(1)); //removes the % before the name
+                cell = get_cell(tmp.getVal());
+                if (cell == null || !cell.getSymbol().getToken().equals("func")) {
+                    throw new Exception("The function is not defined.");
+                }
                 if (tmp.getVal().equals("write")) {
                     if (!code.contains("declare i32 @printf(i8* noalias nocapture, ...)\n")) {
                         code.add(0, "declare i32 @printf(i8* noalias nocapture, ...)\n");
@@ -849,7 +853,8 @@ public class CodeGenerator {
                 while (!semantic_stack.peek().getToken().equals("func"))
                     exprs.add(semantic_stack.pop());
                 expr1 = semantic_stack.pop(); // func name
-                cl = "call " + expr1.getToken() + " @" + expr1.getVal() + "(";
+                cell = get_cell(expr1.getVal());
+                cl = "call " + cell.getDscp().get(0) + " @" + expr1.getVal() + "(";
                 for (Symbol exp : exprs) {
                     cl += exp.getToken() + " " + exp.getVal() + ", ";
                 }
