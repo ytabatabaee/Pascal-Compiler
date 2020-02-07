@@ -71,6 +71,16 @@ public class CodeGenerator {
         return 0;
     }
 
+    public SymTabCell get_cell(String id) {
+        for (SymTabCell cell : sym_tab) {
+            Symbol symbol = cell.getSymbol();
+            if (id.equals(symbol.getVal())) {
+                return cell;
+            }
+        }
+        return null;
+    }
+
     public String type_of_id_in_symtab(String id) {
         for (SymTabCell cell : sym_tab) {
             Symbol symbol = cell.getSymbol();
@@ -719,6 +729,7 @@ public class CodeGenerator {
                 cl = "@" + tmp.getVal() + "(";
                 code.add(cl);
                 sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
+                semantic_stack.push(tmp); // save the name of func to set the type in symtab later
                 break;
 
             case "end_function":
@@ -730,10 +741,14 @@ public class CodeGenerator {
 
             case "set_func_type":
                 expr1 = semantic_stack.pop(); // type
+                expr2 = semantic_stack.pop(); // func name
                 cl = code.get(code.size() - 1); // func def
                 code.remove(cl);
-                cl = "define " + convert_type(expr1.getVal()) + " " + cl + " {";
+                type1 = convert_type(expr1.getVal());
+                cl = "define " + type1 + " " + cl + " {";
                 code.add(cl);
+                SymTabCell cell = get_cell(expr2.getVal());
+                cell.getDscp().add(type1); // first element of dscp of a func is its TYPE
                 break;
 
             case "close_function":
