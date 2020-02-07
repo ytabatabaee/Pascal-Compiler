@@ -834,21 +834,24 @@ public class CodeGenerator {
                 // tmp.getToken dar vaghe bayad type a function to symtab bashe
                 tmp = semantic_stack.pop(); // func name
                 tmp.setVal(tmp.getVal().substring(1)); //removes the % before the name
-                cell = get_cell(tmp.getVal());
-                if (cell == null || !cell.getSymbol().getToken().equals("func")) {
-                    throw new Exception("The function is not defined.");
-                }
                 if (tmp.getVal().equals("write")) {
-                    if (!code.contains("declare i32 @printf(i8* noalias nocapture, ...)\n")) {
-                        code.add(0, "declare i32 @printf(i8* noalias nocapture, ...)\n");
-
+                    if (type_of_id_in_symtab("printf") == null) {
+                        code.add(0, "declare i32 @printf(i8*, ...)");
+                        sym_tab.add(new SymTabCell(new Symbol("func", "printf"), new ArrayList()));
+                        sym_tab.get(sym_tab.size() - 1).getDscp().add("i32");
                     }
                     tmp.setVal("printf");
                 } else if (tmp.getVal().equals("read")) {
-                    if (!code.contains("declare i32 @scanf(i8* noalias nocapture, ...)\n")) {
-                        code.add(0, "declare i32 @scanf(i8* noalias nocapture, ...)\n");
+                    if (type_of_id_in_symtab("scanf") == null) {
+                        code.add(0, "declare i32 @scanf(i8*, ...)");
+                        sym_tab.add(new SymTabCell(new Symbol("func", "scanf"), new ArrayList()));
+                        sym_tab.get(sym_tab.size() - 1).getDscp().add("i32");
                     }
                     tmp.setVal("scanf");
+                }
+                cell = get_cell(tmp.getVal());
+                if (cell == null || !cell.getSymbol().getToken().equals("func")) {
+                    throw new Exception("The function is not defined.");
                 }
                 semantic_stack.push(new Symbol("func", tmp.getVal()));
 //                cl = "call " + tmp.getToken() + " @" + tmp.getVal() + "(";
