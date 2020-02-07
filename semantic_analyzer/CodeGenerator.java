@@ -128,6 +128,7 @@ public class CodeGenerator {
                 break;
 
             case "push_integer_const":
+            case "push_const_integer":
                 tmp = scanner.get_current();
                 tmp.setToken("i32");
                 semantic_stack.push(tmp);
