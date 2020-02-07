@@ -1716,9 +1716,9 @@
         "start": 89,
         "end": 90,
         "token": "EXPR_OR_L",
-        "func": "",
-        "anchorX": 510.66666666666663,
-        "anchorY": 378.0,
+        "func": "assign",
+        "anchorX": 465.86666666666656,
+        "anchorY": 380.0,
         "isGraph": true,
         "isGlobal": false
       }
@@ -2334,7 +2334,7 @@
         "start": 126,
         "end": 127,
         "token": "BLOCK",
-        "func": "",
+        "func": "close_function",
         "anchorX": 705.3333333333333,
         "anchorY": 399.3333333333333,
         "isGraph": true,
