@@ -907,6 +907,15 @@ public class CodeGenerator {
                 code.add(cl);
                 break;
 
+            case "set_array_dim":
+                while (semantic_stack.peek().getToken().equals("i32"))
+                    exprs.add(semantic_stack.pop());
+                for (Symbol exp : exprs) {
+                    cl += "[" + exp.getVal() + " x ";
+                }
+                code.add(cl);
+                break;
+
         }
         System.out.println("_______________________");
         System.out.println(func);
