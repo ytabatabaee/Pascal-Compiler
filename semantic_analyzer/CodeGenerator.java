@@ -152,10 +152,10 @@ public class CodeGenerator {
                 size = tmp.getVal().replace("\"", "").replace("\\n", "\n").length() + 1;
                 cl += "[" + size + " x " + "i8] c \"" + tmp.getVal().replace("\"", "").replace("\\n", "\\10") + "\\" + "00" + "\"";
                 code.add(0, cl);
-                cl = "@.str" + string_count + " = getelementptr inbounds " + "[" + size + " x " + "i8], " + "[" + size + " x " + "i8]* " + "@.const" + string_count + ", i32 0, i32 0";
+                cl = "%str" + string_count + " = getelementptr inbounds " + "[" + size + " x " + "i8], " + "[" + size + " x " + "i8]* " + "@.const" + string_count + ", i32 0, i32 0";
                 code.add(cl);
                 tmp.setToken("i8*");
-                tmp.setVal("@.str" + string_count);
+                tmp.setVal("%str" + string_count);
                 semantic_stack.push(tmp);
                 string_count++;
 
@@ -843,14 +843,14 @@ public class CodeGenerator {
                     if (type_of_id_in_symtab("printf") == null) {
                         code.add(0, "declare i32 @printf(i8*, ...)");
                         sym_tab.add(new SymTabCell(new Symbol("func", "printf"), new ArrayList()));
-                        sym_tab.get(sym_tab.size() - 1).getDscp().add("i32");
+                        sym_tab.get(sym_tab.size() - 1).getDscp().add("i32 (i8*, ...)");
                     }
                     tmp.setVal("printf");
                 } else if (tmp.getVal().equals("read")) {
                     if (type_of_id_in_symtab("scanf") == null) {
                         code.add(0, "declare i32 @scanf(i8*, ...)");
                         sym_tab.add(new SymTabCell(new Symbol("func", "scanf"), new ArrayList()));
-                        sym_tab.get(sym_tab.size() - 1).getDscp().add("i32");
+                        sym_tab.get(sym_tab.size() - 1).getDscp().add("i32 (i8*, ...)");
                     }
                     tmp.setVal("scanf");
                 }
