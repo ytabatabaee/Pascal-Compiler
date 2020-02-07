@@ -1,13 +1,13 @@
 procedure print(input : integer)
 begin
-    write("the number is : ") ;
-    write(input) ;
-    write("\n") ;
+  //  write("the number is : ") ;
+   // write(input) ;
+   // write("\n") ;
 end
 
 function lili() : integer
 begin
-    write("hello world !") ;
+   // write("hello world !") ;
     return 0 ;
 end 
 
@@ -36,10 +36,11 @@ begin
    begin
         a := a + 1;
    end;
-   write("hello");
-   read();
+  // write("hello");
+   //read();
+   lili();
 
-   // this is a comment 
+   // this is a comment
 <-- hi 
 i am a comment -->
 
