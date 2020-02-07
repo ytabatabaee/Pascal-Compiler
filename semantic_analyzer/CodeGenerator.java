@@ -150,7 +150,7 @@ public class CodeGenerator {
                 cl = "@.const" + string_count;
                 cl += " = private constant ";
                 size = tmp.getVal().replace("\"", "").replace("\\n", "\n").length() + 1;
-                cl += "[" + size + " x " + "i8] c \"" + tmp.getVal().replace("\"", "").replace("\\n", "\\10") + "\\" + "00" + "\"";
+                cl += "[" + size + " x " + "i8] c \"" + tmp.getVal().replace("\"", "").replace("\\n", "\\0A") + "\\" + "00" + "\"";
                 code.add(0, cl);
                 cl = "%str" + string_count + " = getelementptr inbounds " + "[" + size + " x " + "i8], " + "[" + size + " x " + "i8]* " + "@.const" + string_count + ", i32 0, i32 0";
                 code.add(cl);
@@ -771,6 +771,7 @@ public class CodeGenerator {
                 tmp = semantic_stack.pop();
                 cl = "br i1 " + tmp.getVal() + ", label %if.then" + if_count + ", label %if.else" + if_count;
                 code.add(cl);
+
                 cl = "if.then" + if_count + ":";
                 code.add(cl);
                 break;
