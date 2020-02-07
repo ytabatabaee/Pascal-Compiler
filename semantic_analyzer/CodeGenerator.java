@@ -24,6 +24,11 @@ public class CodeGenerator {
         variable_count = 1;
         if_count = 1;
         loop_count = 1;
+        code.add("@.const_d = private constant [3 x i8] c\"%d\\00\"");
+        code.add("@.const_s = private constant [3 x i8] c\"%s\\00\"");
+        code.add("@.const_c = private constant [3 x i8] c\"%c\\00\"");
+        code.add("@.const_f = private constant [3 x i8] c\"%f\\00\"");
+        code.add("@.const_l = private constant [4 x i8] c\"%ld\\00\"");
     }
 
     public String resolve_type(String type1, String type2) {
@@ -854,8 +859,6 @@ public class CodeGenerator {
                     throw new Exception("The function is not defined.");
                 }
                 semantic_stack.push(new Symbol("func", tmp.getVal()));
-//                cl = "call " + tmp.getToken() + " @" + tmp.getVal() + "(";
-//                code.add(cl);
                 sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
                 break;
 
@@ -864,7 +867,35 @@ public class CodeGenerator {
                     exprs.add(semantic_stack.pop());
                 expr1 = semantic_stack.pop(); // func name
                 cell = get_cell(expr1.getVal());
-                cl = "call " + cell.getDscp().get(0) + " @" + expr1.getVal() + "(";
+                type = (String) cell.getDscp().get(0);
+                inst = "";
+                if (expr1.getVal().equals("printf") || expr1.getVal().equals("scanf")) {
+                    value = "";
+                    size = 3;
+                    switch (type) {
+                        case "i64":
+                            value = "@.const_l";
+                            size = 4;
+                            break;
+                        case "i32":
+                            value = "@.const_d";
+                            break;
+                        case "i8":
+                            value = "@.const_c";
+                            break;
+                        case "float":
+                            value = "@.const_f";
+                            break;
+                        case "i8*":
+                            value = "@.const_s";
+                            break;
+                    }
+                    cl = "%var" + variable_count + " = " + "getelementptr inbounds [" + size + " x i8], [" + size + " x i8]* " + value + ", i32 0, i32 0";
+                    code.add(cl);
+                    inst = "i8* %var" + variable_count + ", ";
+                    variable_count++;
+                }
+                cl = "call " + type + " @" + expr1.getVal() + "(" + inst;
                 for (Symbol exp : exprs) {
                     cl += exp.getToken() + " " + exp.getVal() + ", ";
                 }
@@ -918,6 +949,30 @@ public class CodeGenerator {
                     cl += "[" + exp.getVal() + " x ";
                 }
                 code.add(cl);
+                break;
+
+            case "set_array_type":
+                cl = code.get(code.size() - 1); // func def
+                code.remove(cl);
+                expr1 = semantic_stack.pop(); // type
+                expr2 = semantic_stack.pop(); // array id
+                type = convert_type(expr1.getVal());
+                size = 0;
+                for (int i = 0; i < cl.length(); i++) {
+                    if (cl.charAt(i) == '[')
+                        size++;
+                }
+                cl = expr2.getVal() + " = alloca " + cl + convert_type(expr1.getVal());
+                for (int i = 0; i < size; i++) {
+                    cl = cl + "]";
+                }
+                size = 16;
+                cl += ", align " + size;
+                code.add(cl);
+                res = new Symbol("arr", "%" + expr2.getVal());
+                sym_tab.add(new SymTabCell(new Symbol(type, expr2.getVal()), new ArrayList()));
+                System.out.println("res.token: " + res.getToken());
+                semantic_stack.push(res);
                 break;
 
         }
