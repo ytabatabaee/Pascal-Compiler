@@ -824,7 +824,8 @@ public class CodeGenerator {
                 System.out.println("token: " + tmp.getToken());
                 System.out.println("val: " + tmp.getVal());
                 // set the right type for it with symtab; check if exists
-                cl = "ret " + tmp.getToken() + " " + tmp.getVal();
+                type = tmp.getToken().equals("id") ? type_of_id_in_symtab(tmp.getVal()) : tmp.getToken();
+                cl = "ret " + type + " " + tmp.getVal();
                 code.add(cl);
                 // todo bayad check konim ke type a func ba type a return yeki bashe
                 break;
