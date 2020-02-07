@@ -76,7 +76,7 @@ comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
  /* Calculation Operators */
  "+"            { return sym("plus"); }
  "-"            { return sym("minus"); }
- "*"            { return sym("multiply"); }
+ "*"            { return sym("mult"); }
  "/"            { return sym("divide"); }
  "%"            { return sym("mod"); }
 

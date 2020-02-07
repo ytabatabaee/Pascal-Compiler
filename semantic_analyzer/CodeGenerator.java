@@ -795,11 +795,15 @@ public class CodeGenerator {
                 tmp = semantic_stack.pop();
                 tmp.setVal(tmp.getVal().substring(1)); //removes the % before the name
                 if (tmp.getVal().equals("write")) {
-                    code.add(0, "declare i32 @printf(i8* noalias nocapture, ...)\n");
-                    tmp.setVal("printf");
+                    if (!code.contains("declare i32 @printf(i8* noalias nocapture, ...)\n")) {
+                        code.add(0, "declare i32 @printf(i8* noalias nocapture, ...)\n");
+                        tmp.setVal("printf");
+                    }
                 } else if (tmp.getVal().equals("read")) {
-                    code.add(0, "declare i32 @scanf(i8* noalias nocapture, ...)\n");
-                    tmp.setVal("scanf");
+                    if (!code.contains("declare i32 @scanf(i8* noalias nocapture, ...)\n")) {
+                        code.add(0, "declare i32 @scanf(i8* noalias nocapture, ...)\n");
+                        tmp.setVal("scanf");
+                    }
                 }
                 cl = "call " + tmp.getToken() + " @" + tmp.getVal() + "(";
                 code.add(cl);
@@ -825,9 +829,9 @@ public class CodeGenerator {
                 cl = code.get(code.size() - 1); // func def
                 code.remove(cl);
                 String[] parts = cl.trim().split(" ");
-                System.out.println(parts[3] + " " + parts[0]);
-                cl = parts[3] + " " + parts[0];
-                code.add(cl);
+                cl = code.get(code.size() - 1);
+                code.remove(cl);
+                code.add(cl + parts[3].replace(",", "") + " " + parts[0]);
                 break;
 
         }

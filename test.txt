@@ -6,6 +6,12 @@ begin
     return 0;
 end
 
+function product(a : integer ; b : integer) : integer
+begin
+    result : integer := a * b ;
+    return result ;
+end
+
 function main() : integer
 begin
     a : integer;

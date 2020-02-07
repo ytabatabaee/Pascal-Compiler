@@ -858,7 +858,7 @@ public class Scanner {
             // fall through
           case 73: break;
           case 18: 
-            { return sym("multiply");
+            { return sym("mult");
             } 
             // fall through
           case 74: break;
