@@ -198,7 +198,7 @@ public class CodeGenerator {
                 semantic_stack.push(res);
                 break;
 
-            case "multiply":
+            case "mult":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
                 flag1 = expr1.getToken().equals("id");
@@ -272,7 +272,7 @@ public class CodeGenerator {
                 semantic_stack.push(res);
                 break;
 
-            case "mode":
+            case "mod":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
                 flag1 = expr1.getToken().equals("id");
