@@ -141,13 +141,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -180,13 +180,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -219,13 +219,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -254,13 +254,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -289,13 +289,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -349,13 +349,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -384,13 +384,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -414,7 +414,7 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
@@ -482,13 +482,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -521,13 +521,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -560,13 +560,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -599,13 +599,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -638,13 +638,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
@@ -677,13 +677,13 @@ public class CodeGenerator {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flag1) {
-                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
                 if (flag2) {
-                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
                     variable_count++;
