@@ -81,12 +81,12 @@ comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
  "%"            { return sym("mod"); }
 
  /* Comparison Operators */
- "<"            { return sym("less"); }
- ">"            { return sym("greater"); }
- ">="           { return sym("geq"); }
+ "<"            { return sym("lt"); }
+ ">"            { return sym("gt"); }
+ ">="           { return sym("gte"); }
  "<>"           { return sym("neq"); }
- "<="           { return sym("leq"); }
- "="            { return sym("equal"); }
+ "<="           { return sym("lte"); }
+ "="            { return sym("eq"); }
 
  ":="           { return sym("colon_eq"); }
  ":"           { return sym("colon"); }

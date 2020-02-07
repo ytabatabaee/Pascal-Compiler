@@ -806,12 +806,12 @@ public class Scanner {
             // fall through
           case 62: break;
           case 7: 
-            { return sym("less");
+            { return sym("lt");
             } 
             // fall through
           case 63: break;
           case 8: 
-            { return sym("greater");
+            { return sym("gt");
             } 
             // fall through
           case 64: break;
@@ -871,7 +871,7 @@ public class Scanner {
             // fall through
           case 75: break;
           case 20: 
-            { return sym("equal");
+            { return sym("eq");
             } 
             // fall through
           case 76: break;
@@ -906,12 +906,12 @@ public class Scanner {
             // fall through
           case 82: break;
           case 27: 
-            { return sym("leq");
+            { return sym("lte");
             } 
             // fall through
           case 83: break;
           case 28: 
-            { return sym("geq");
+            { return sym("gte");
             } 
             // fall through
           case 84: break;

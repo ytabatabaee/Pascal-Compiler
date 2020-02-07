@@ -518,6 +518,46 @@ public class CodeGenerator {
                 variable_count++;
                 break;
 
+
+            case "start_loop":
+                cl = "while.start" + variable_count + ":";
+                code.add(cl);
+                break;
+
+            case "loop_body":
+                tmp = semantic_stack.pop();
+                cl = "br i1 " + tmp.getVal() + ", label %while.body" + variable_count + ", label %while.start" + variable_count;
+                code.add(cl);
+                cl = "while.body" + variable_count + ":";
+                code.add(cl);
+                break;
+
+            case "end_loop":
+                cl = "br label %while.start" + variable_count;
+                code.add(cl);
+                cl = "while.end" + variable_count + ":";
+                code.add(cl);
+                variable_count++;
+                break;
+
+
+            case "return_id":
+                tmp = scanner.get_current(); // return value (id)
+                tmp.setVal("%" + tmp.getVal());
+                System.out.println("token: " + tmp.getToken());
+                System.out.println("val: " + tmp.getVal());
+                // set the right type for it with symtab; check if exists
+                cl = "ret " + tmp.getToken() + " " + tmp.getVal();
+                code.add(cl);
+                // todo bayad check konim ke type a func ba type a return yeki bashe
+                break;
+
+            case "return_int":
+                tmp = scanner.get_current(); // return value
+                cl = "ret i32 " + tmp.getVal();
+                code.add(cl);
+                break;
+
         }
         System.out.println("_______________________");
         System.out.println(func);
