@@ -111,7 +111,7 @@ public class CodeGenerator {
 
     public void generate_code(String func) throws Exception {
         Symbol res, expr1, expr2, tmp;
-        String type, type1, type2, inst, value, cl = null, val1, val2;
+        String type, type1 = "", type2, inst, value, cl = null, val1, val2;
         boolean flag1, flag2;
         SymTabCell cell;
         ArrayList<Symbol> exprs = new ArrayList<>();
@@ -872,7 +872,8 @@ public class CodeGenerator {
                 if (expr1.getVal().equals("printf") || expr1.getVal().equals("scanf")) {
                     value = "";
                     size = 3;
-                    switch (type) {
+                    type1 = exprs.get(0).getToken().equals("id") ? type_of_id_in_symtab(exprs.get(0).getVal()) : exprs.get(0).getToken();
+                    switch (type1) {
                         case "i64":
                             value = "@.const_l";
                             size = 4;
@@ -890,19 +891,33 @@ public class CodeGenerator {
                             value = "@.const_s";
                             break;
                     }
+                    if (expr1.getVal().equals("scanf")) {
+                        cl = "%var" + variable_count + " = alloca " + type1 + ", align " + type_size(type1);
+                        code.add(cl);
+                        inst = type1 + "* %var" + variable_count;
+                        variable_count++;
+                    }
                     cl = "%var" + variable_count + " = " + "getelementptr inbounds [" + size + " x i8], [" + size + " x i8]* " + value + ", i32 0, i32 0";
                     code.add(cl);
-                    inst = "i8* %var" + variable_count + ", ";
+                    inst = "i8* %var" + variable_count + ", " + inst;
                     variable_count++;
                 }
                 cl = "call " + type + " @" + expr1.getVal() + "(" + inst;
-                for (Symbol exp : exprs) {
-                    cl += exp.getToken() + " " + exp.getVal() + ", ";
+                if (expr1.getVal().equals("scanf")) {
+                    cl += ")";
+                    code.add(cl);
+                    cl = "%" + exprs.get(0).getVal() + " = load " + type1 + ", " + type1 + "* %var" + (variable_count - 2);
+                    code.add(cl);
+                } else {
+                    for (Symbol exp : exprs) {
+                        cl += exp.getToken() + " " + exp.getVal() + ", ";
+                    }
+                    if (exprs.size() > 0)
+                        cl = cl.substring(0, cl.length() - 2);
+                    cl += ")";
+                    code.add(cl);
                 }
-                if (exprs.size() > 0)
-                    cl = cl.substring(0, cl.length() - 2);
-                cl += ")";
-                code.add(cl);
+
                 return;
 
             case "next_argument":
