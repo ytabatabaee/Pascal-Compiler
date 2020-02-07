@@ -743,7 +743,6 @@ public class CodeGenerator {
                 cl = "@" + tmp.getVal() + "(";
                 code.add(cl);
                 sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
-//                semantic_stack.push(tmp); // save the name of func to set the type in symtab later
                 break;
 
             case "end_function":
@@ -925,8 +924,16 @@ public class CodeGenerator {
                     code.add(cl);
                 } else {
                     for (Symbol exp : exprs) {
-                        type = exp.getToken().equals("id") ? type_of_id_in_symtab(exp.getVal()) : exp.getToken();
-                        cl += type + " " + exp.getVal() + ", ";
+                        flag1 = exp.getToken().equals("id");
+                        type1 = flag1 ? type_of_id_in_symtab(exp.getVal()) : exp.getToken();
+                        val1 = exp.getVal();
+                        if (flag1) {
+                            cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
+                            code.add(cl);
+                            val1 = "%var" + variable_count;
+                            variable_count++;
+                        }
+                        cl += type1 + " " + val1 + ", ";
                     }
                     if (exprs.size() > 0)
                         cl = cl.substring(0, cl.length() - 2);
