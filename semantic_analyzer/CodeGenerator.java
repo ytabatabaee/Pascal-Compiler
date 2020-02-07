@@ -865,7 +865,8 @@ public class CodeGenerator {
                 for (Symbol exp : exprs) {
                     cl += exp.getToken() + " " + exp.getVal() + ", ";
                 }
-                cl = cl.substring(0, cl.length() - 2);
+                if (exprs.size() > 0)
+                    cl = cl.substring(0, cl.length() - 2);
                 cl += ")";
                 code.add(cl);
                 return;
