@@ -756,7 +756,7 @@ public class CodeGenerator {
 
             case "loop_body":
                 tmp = semantic_stack.pop();
-                cl = "br i1 " + tmp.getVal() + ", label %while.body" + loop_count + ", label %while.start" + loop_count;
+                cl = "br i1 " + tmp.getVal() + ", label %while.body" + loop_count + ", label %while.end" + loop_count;
                 code.add(cl);
                 cl = "while.body" + loop_count + ":";
                 code.add(cl);
@@ -812,6 +812,24 @@ public class CodeGenerator {
                 cl += ")";
                 code.add(cl);
                 return;
+
+            case "next_argument":
+                cl = code.get(code.size() - 1);
+                code.remove(cl);
+                cl += "; ";
+                code.add(cl);
+                break;
+
+            case "add_argument":
+                // set_type is called before this
+                cl = code.get(code.size() - 1); // func def
+                code.remove(cl);
+                String[] parts = cl.trim().split(" ");
+                System.out.println(parts[3] + " " + parts[0]);
+                cl = parts[3] + " " + parts[0];
+                code.add(cl);
+                break;
+
         }
         System.out.println("_______________________");
         System.out.println(func);

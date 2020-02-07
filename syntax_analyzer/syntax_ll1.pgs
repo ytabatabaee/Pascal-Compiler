@@ -1662,7 +1662,7 @@
         "start": 85,
         "end": 86,
         "token": "VAR_DCL",
-        "func": "",
+        "func": "add_argument",
         "anchorX": 288.0666666666658,
         "anchorY": 368.1333333333327,
         "isGraph": true,
@@ -1672,7 +1672,7 @@
         "start": 86,
         "end": 87,
         "token": "SEMICOLON",
-        "func": "",
+        "func": "next_argument",
         "anchorX": 517.666666666666,
         "anchorY": 367.3333333333318,
         "isGraph": false,
@@ -1702,7 +1702,7 @@
         "start": 89,
         "end": 86,
         "token": "VAR_DCL",
-        "func": "",
+        "func": "add_argument",
         "anchorX": 468.86666666666633,
         "anchorY": 306.59999999999934,
         "isGraph": true,
@@ -1939,8 +1939,8 @@
         "end": 103,
         "token": "ASSIGNMENT",
         "func": "",
-        "anchorX": 723.0,
-        "anchorY": 388.3333333333333,
+        "anchorX": 674.6000000000001,
+        "anchorY": 386.7333333333333,
         "isGraph": true,
         "isGlobal": false
       }
@@ -2718,7 +2718,7 @@
         "token": "R_BRACKET",
         "func": "",
         "anchorX": 544.3999999999997,
-        "anchorY": 279.1999999999995,
+        "anchorY": 279.1999999999994,
         "isGraph": false,
         "isGlobal": false
       }

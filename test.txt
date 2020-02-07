@@ -1,3 +1,11 @@
+function print(input : integer) : integer
+begin
+    write("the number is : ") ;
+    write(input) ;
+    write("\n") ;
+    return 0;
+end
+
 function main() : integer
 begin
     a : integer;
