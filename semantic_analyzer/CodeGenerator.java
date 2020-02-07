@@ -14,6 +14,7 @@ public class CodeGenerator {
     private int variable_count;
     private int if_count;
     private int loop_count;
+    private int string_count;
 
     public CodeGenerator(Scanner scanner) {
         this.scanner = scanner;
@@ -118,6 +119,19 @@ public class CodeGenerator {
                 tmp = scanner.get_current();
                 tmp.setToken("float");
                 semantic_stack.push(tmp);
+                break;
+
+            case "push_string_const":
+                tmp = scanner.get_current();
+                cl = "@.str" + string_count;
+                cl += " = private constant ";
+                size = tmp.getVal().replace("\"", "").length() + 1;
+                cl += "[" + size + " x " + "i8] c \"" + tmp.getVal().replace("\"", "") + "\\" + "00" + "\"";
+                tmp.setToken("string");
+                tmp.setVal("@.str" + string_count);
+                semantic_stack.push(tmp);
+                string_count ++;
+                code.add(0, cl);
                 break;
 
             case "add":
