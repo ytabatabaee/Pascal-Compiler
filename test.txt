@@ -37,7 +37,7 @@ begin
         a := a + 1;
    end;
    write("hello");
-   read();
+   read(c);
    lili();
 
    // this is a comment
