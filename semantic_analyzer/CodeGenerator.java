@@ -971,6 +971,7 @@ public class CodeGenerator {
                 cl = "@" + tmp.getVal() + "(";
                 code.add(cl);
                 sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
+                sym_tab.get(sym_tab.size() - 1).getDscp().add("void");
                 break;
 
             case "close_proc_def":
