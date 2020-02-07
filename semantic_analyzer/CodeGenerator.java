@@ -129,9 +129,9 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol(type, "%" + variable_count);
+                res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -152,9 +152,9 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol(type, "%" + variable_count);
+                res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -175,9 +175,9 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol(type, "%" + variable_count);
+                res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -194,9 +194,9 @@ public class CodeGenerator {
                 if (!(type.equals("i32") || type.equals("float"))) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + "fdiv " + " " + "float" + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + "fdiv " + " " + "float" + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol("float", "%" + variable_count);
+                res = new Symbol("float", "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -213,9 +213,9 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + "srem " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + "srem " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol("i32", "%" + variable_count);
+                res = new Symbol("i32", "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -233,9 +233,9 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + "and " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + "and " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol("i32", "%" + variable_count);
+                res = new Symbol("i32", "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -253,9 +253,9 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + "or " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + "or " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol("i32", "%" + variable_count);
+                res = new Symbol("i32", "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -272,9 +272,9 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + "xor " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + "xor " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol("i32", "%" + variable_count);
+                res = new Symbol("i32", "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -288,9 +288,9 @@ public class CodeGenerator {
                 if (!(type1.equals("i32") || type1.equals("float"))) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + "fneg " + " " + "float" + " " + expr1.getVal();
+                cl = "%var" + variable_count + " = " + "fneg " + " " + "float" + " " + expr1.getVal();
                 code.add(cl);
-                res = new Symbol("float", "%" + variable_count);
+                res = new Symbol("float", "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -346,9 +346,9 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + inst + " eq " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + inst + " eq " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol(type, "%" + variable_count);
+                res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -369,9 +369,9 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + inst + " ne " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + inst + " ne " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol(type, "%" + variable_count);
+                res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -392,9 +392,9 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + inst + " slt " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + inst + " slt " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol(type, "%" + variable_count);
+                res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -415,9 +415,9 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + inst + " sle " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + inst + " sle " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol(type, "%" + variable_count);
+                res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -438,9 +438,9 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + inst + " sgt " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + inst + " sgt " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol(type, "%" + variable_count);
+                res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
@@ -461,9 +461,9 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%" + variable_count + " = " + inst + " sge " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                cl = "%var" + variable_count + " = " + inst + " sge " + type + " " + expr1.getVal() + ", " + expr2.getVal();
                 code.add(cl);
-                res = new Symbol(type, "%" + variable_count);
+                res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
