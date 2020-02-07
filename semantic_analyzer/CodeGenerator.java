@@ -124,16 +124,18 @@ public class CodeGenerator {
 
             case "push_string_const":
                 tmp = scanner.get_current();
-                cl = "@.str" + string_count;
+                cl = "@.const" + string_count;
                 cl += " = private constant ";
                 size = tmp.getVal().replace("\"", "").replace("\\n", "\n").length() + 1;
-
                 cl += "[" + size + " x " + "i8] c \"" + tmp.getVal().replace("\"", "").replace("\\n", "\\10") + "\\" + "00" + "\"";
-                tmp.setToken("string");
+                code.add(0, cl);
+                cl = "@.str" + string_count + " = getelementptr inbounds " + "[" + size + " x " + "i8], " + "[" + size + " x " + "i8]* " + "@.const" + string_count + ", i32 0, i32 0";
+                code.add(cl);
+                tmp.setToken("i8*");
                 tmp.setVal("@.str" + string_count);
                 semantic_stack.push(tmp);
                 string_count++;
-                code.add(0, cl);
+
                 break;
 
             case "add":
@@ -813,13 +815,14 @@ public class CodeGenerator {
                 if (tmp.getVal().equals("write")) {
                     if (!code.contains("declare i32 @printf(i8* noalias nocapture, ...)\n")) {
                         code.add(0, "declare i32 @printf(i8* noalias nocapture, ...)\n");
-                        tmp.setVal("printf");
+
                     }
+                    tmp.setVal("printf");
                 } else if (tmp.getVal().equals("read")) {
                     if (!code.contains("declare i32 @scanf(i8* noalias nocapture, ...)\n")) {
                         code.add(0, "declare i32 @scanf(i8* noalias nocapture, ...)\n");
-                        tmp.setVal("scanf");
                     }
+                    tmp.setVal("scanf");
                 }
                 semantic_stack.push(new Symbol("func", tmp.getVal()));
                 //cl = "call " + tmp.getToken() + " @" + tmp.getVal() + "(";
