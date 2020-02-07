@@ -86,9 +86,10 @@ public class CodeGenerator {
         return null;
     }
 
-    public void generate_code(String func) throws Exception{
+    public void generate_code(String func) throws Exception {
         Symbol res, expr1, expr2, tmp;
-        String type, type1, type2, inst, value, cl = null;
+        String type, type1, type2, inst, value, cl = null, val1, val2;
+        boolean flag1, flag2;
         res = new Symbol(" ", " ");
         int size;
 
@@ -116,8 +117,12 @@ public class CodeGenerator {
             case "add":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -129,7 +134,19 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + inst + " " + type + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
@@ -139,8 +156,12 @@ public class CodeGenerator {
             case "subtract":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -152,7 +173,19 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + inst + " " + type + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
@@ -162,8 +195,12 @@ public class CodeGenerator {
             case "multiply":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -175,7 +212,19 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + inst + " " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + inst + " " + type + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
@@ -185,8 +234,12 @@ public class CodeGenerator {
             case "divide":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -194,7 +247,19 @@ public class CodeGenerator {
                 if (!(type.equals("i32") || type.equals("float"))) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + "fdiv " + " " + "float" + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + "fdiv" + " " + "float" + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol("float", "%var" + variable_count);
                 variable_count++;
@@ -204,8 +269,12 @@ public class CodeGenerator {
             case "mode":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -213,7 +282,19 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + "srem " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + "srem" + " " + "i32" + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol("i32", "%var" + variable_count);
                 variable_count++;
@@ -224,8 +305,12 @@ public class CodeGenerator {
             case "and":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -244,8 +329,12 @@ public class CodeGenerator {
             case "or":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -253,7 +342,19 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + "or " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + "or" + " " + "i32" + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol("i32", "%var" + variable_count);
                 variable_count++;
@@ -263,8 +364,12 @@ public class CodeGenerator {
             case "exclusive_add":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -272,7 +377,19 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + "xor " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + "xor" + " " + "i32" + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol("i32", "%var" + variable_count);
                 variable_count++;
@@ -281,14 +398,22 @@ public class CodeGenerator {
 
             case "negate":
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                flag1 = expr1.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                val1 = expr1.getVal();
                 if (type1 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
                 if (!(type1.equals("i32") || type1.equals("float"))) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + "fneg " + " " + "float" + " " + expr1.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + "fneg" + " " + "float" + " " + val1;
                 code.add(cl);
                 res = new Symbol("float", "%var" + variable_count);
                 variable_count++;
@@ -333,8 +458,12 @@ public class CodeGenerator {
             case "is_equal":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -346,7 +475,19 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + inst + " eq " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + inst + " eq " + type + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
@@ -356,10 +497,14 @@ public class CodeGenerator {
             case "is_not_equal":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
-                    throw new Exception ("You didn't define this variable.");
+                    throw new Exception("You didn't define this variable.");
                 }
                 type = resolve_type(type1, type2);
                 if (type.equals("float"))
@@ -369,7 +514,19 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + inst + " ne " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + inst + " ne " + type + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
@@ -379,8 +536,12 @@ public class CodeGenerator {
             case "is_less_than":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -392,7 +553,19 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + inst + " slt " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + inst + " slt " + type + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
@@ -402,8 +575,12 @@ public class CodeGenerator {
             case "is_less_than_equal":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -415,7 +592,19 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + inst + " sle " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + inst + " sle " + type + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
@@ -425,8 +614,12 @@ public class CodeGenerator {
             case "is_greater_than":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -438,7 +631,19 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + inst + " sgt " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + inst + " sgt " + type + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
@@ -448,8 +653,12 @@ public class CodeGenerator {
             case "is_greater_than_equal":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = expr2.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flag1 = expr1.getToken().equals("id");
+                flag2 = expr2.getToken().equals("id");
+                type1 = flag1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = flag2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                val1 = expr1.getVal();
+                val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
@@ -461,7 +670,19 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + inst + " sge " + type + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flag1) {
+                    cl = "%var" + variable_count + " = load " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flag2) {
+                    cl = "%var" + variable_count + " = load " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + inst + " sge " + type + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
