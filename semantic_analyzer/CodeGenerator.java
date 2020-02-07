@@ -505,9 +505,12 @@ public class CodeGenerator {
                 code.add(cl);
                 cl = "if.else" + variable_count + ":";
                 code.add(cl);
+                cl = "if.end" + variable_count + ":";
+                code.add(cl);
                 break;
 
             case "jump_to_endif_else":
+                code.remove("if.end" + variable_count + ":");
                 cl = "br label %if.end" + variable_count;
                 code.add(cl);
                 cl = "if.end" + variable_count + ":";

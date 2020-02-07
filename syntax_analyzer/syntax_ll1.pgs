@@ -1391,8 +1391,8 @@
         "isFinal": false
       },
       {
-        "x": 546.8,
-        "y": 412.4000000000001,
+        "x": 465.2,
+        "y": 414.0000000000001,
         "id": 75,
         "isFinal": true
       }
@@ -1452,7 +1452,7 @@
         "start": 72,
         "end": 73,
         "token": "BLOCK",
-        "func": "jump_to_endif",
+        "func": "jump_to_endif_then",
         "anchorX": 879.8,
         "anchorY": 350.8,
         "isGraph": true,
@@ -1472,9 +1472,9 @@
         "start": 74,
         "end": 75,
         "token": "BLOCK",
-        "func": "jump_to_endif",
-        "anchorX": 628.2,
-        "anchorY": 411.8,
+        "func": "jump_to_endif_else",
+        "anchorX": 513.7999999999961,
+        "anchorY": 412.9999999999991,
         "isGraph": true,
         "isGlobal": false
       }
