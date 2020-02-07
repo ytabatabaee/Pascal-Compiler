@@ -5,9 +5,14 @@ begin
     c : real;
     b := 2 + 3 + a;
    if (b <> 1) then
-    begin 
+   begin 
         a := 2;
-    end;
+   end
+   else
+   begin
+        b := 2;
+   end;
+	
 
     return 0 ;
 end
