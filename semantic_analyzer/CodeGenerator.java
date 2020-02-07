@@ -13,6 +13,7 @@ public class CodeGenerator {
     private ArrayList<String> code;
     private ArrayList<SymTabCell> sym_tab;
     private int variable_count;
+    private int label_count;
 
     public CodeGenerator(Scanner scanner) {
         this.scanner = scanner;
@@ -20,6 +21,7 @@ public class CodeGenerator {
         code = new ArrayList<>();
         sym_tab = new ArrayList<>();
         variable_count = 1;
+        label_count = 1;
     }
 
     public String resolve_type(String type1, String type2) {
@@ -494,50 +496,50 @@ public class CodeGenerator {
 
             case "jump_to_then":
                 tmp = semantic_stack.pop();
-                cl = "br i1 " + tmp.getVal() + ", label %if.then" + variable_count + ", label %if.else" + variable_count;
+                cl = "br i1 " + tmp.getVal() + ", label %if.then" + label_count + ", label %if.else" + label_count;
                 code.add(cl);
-                cl = "if.then" + variable_count + ":";
+                cl = "if.then" + label_count + ":";
                 code.add(cl);
                 break;
 
             case "jump_to_endif_then":
-                cl = "br label %if.end" + variable_count;
+                cl = "br label %if.end" + label_count;
                 code.add(cl);
-                cl = "if.else" + variable_count + ":";
+                cl = "if.else" + label_count + ":";
                 code.add(cl);
-                cl = "if.end" + variable_count + ":";
+                cl = "if.end" + label_count + ":";
                 code.add(cl);
                 break;
 
             case "jump_to_endif_else":
-                code.remove("if.end" + variable_count + ":");
-                cl = "br label %if.end" + variable_count;
+                code.remove("if.end" + label_count + ":");
+                cl = "br label %if.end" + label_count;
                 code.add(cl);
-                cl = "if.end" + variable_count + ":";
+                cl = "if.end" + label_count + ":";
                 code.add(cl);
-                variable_count++;
+                label_count++;
                 break;
 
 
             case "start_loop":
-                cl = "while.start" + variable_count + ":";
+                cl = "while.start" + label_count + ":";
                 code.add(cl);
                 break;
 
             case "loop_body":
                 tmp = semantic_stack.pop();
-                cl = "br i1 " + tmp.getVal() + ", label %while.body" + variable_count + ", label %while.start" + variable_count;
+                cl = "br i1 " + tmp.getVal() + ", label %while.body" + label_count + ", label %while.start" + label_count;
                 code.add(cl);
-                cl = "while.body" + variable_count + ":";
+                cl = "while.body" + label_count + ":";
                 code.add(cl);
                 break;
 
             case "end_loop":
-                cl = "br label %while.start" + variable_count;
+                cl = "br label %while.start" + label_count;
                 code.add(cl);
-                cl = "while.end" + variable_count + ":";
+                cl = "while.end" + label_count + ":";
                 code.add(cl);
-                variable_count++;
+                label_count++;
                 break;
 
 
