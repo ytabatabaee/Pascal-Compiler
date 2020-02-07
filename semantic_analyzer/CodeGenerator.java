@@ -910,7 +910,8 @@ public class CodeGenerator {
                     code.add(cl);
                 } else {
                     for (Symbol exp : exprs) {
-                        cl += exp.getToken() + " " + exp.getVal() + ", ";
+                        type = exp.getToken().equals("id") ? type_of_id_in_symtab(exp.getVal()) : exp.getToken();
+                        cl += type + " " + exp.getVal() + ", ";
                     }
                     if (exprs.size() > 0)
                         cl = cl.substring(0, cl.length() - 2);
