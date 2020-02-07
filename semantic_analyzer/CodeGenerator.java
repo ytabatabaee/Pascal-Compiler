@@ -820,7 +820,7 @@ public class CodeGenerator {
             case "next_argument":
                 cl = code.get(code.size() - 1);
                 code.remove(cl);
-                cl += "; ";
+                cl += ", ";
                 code.add(cl);
                 break;
 
