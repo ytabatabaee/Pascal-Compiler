@@ -986,6 +986,13 @@ public class CodeGenerator {
                         sym_tab.get(sym_tab.size() - 1).getDscp().add("i32 (i8*, ...)");
                     }
                     tmp.setVal("scanf");
+                } else if (tmp.getVal().equals("strlen")) {
+                    if (type_of_id_in_symtab("strlen") == null) {
+                        code.add(0, "declare i64 @strlen(i8*)");
+                        sym_tab.add(new SymTabCell(new Symbol("func", "strlen"), new ArrayList()));
+                        sym_tab.get(sym_tab.size() - 1).getDscp().add("i64");
+                    }
+                    tmp.setVal("strlen");
                 }
                 cell = get_cell(tmp.getVal().substring(0, tmp.getVal().length() - global_block.length() - 1));
                 System.out.println(tmp.getVal().substring(0, tmp.getVal().length() - global_block.length() - 1));
