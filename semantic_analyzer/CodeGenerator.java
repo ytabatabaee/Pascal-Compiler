@@ -967,7 +967,11 @@ public class CodeGenerator {
                 }
                 if (exprs.size() > 0)
                     cl = cl.substring(0, cl.length() - 2);
+                cl = "%var" + variable_count + " = " + cl;
                 cl += ")";
+                res = new Symbol(type, "%var" + variable_count);
+                variable_count++;
+                semantic_stack.push(res);
                 code.add(cl);
 
                 return;
