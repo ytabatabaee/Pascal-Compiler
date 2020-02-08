@@ -621,6 +621,7 @@ public class CodeGenerator {
                     variable_count++;
                     code.add("call void @llvm.memcpy.p0i8.p0i8.i64(i8* " + "%var" + (variable_count - 1) + ", i8* " + expr1.getVal() + ", i64 " + get_cell(tmp.getVal()).getDscp().get(1) + ", i32 16, i1 false)");
                 }
+                value = type2; //store type2 before changing
                 type1 = type1.startsWith("arr") && !type1.equals("arr") ? type1.split(" ")[1] : type1;
                 type2 = type2.startsWith("arr") && !type2.equals("arr") ? type2.split(" ")[1] : type2;
                 type2 = type2.equals("func") ? (String) get_cell(expr1.getVal()).getDscp().get(0) : type2;
@@ -630,8 +631,10 @@ public class CodeGenerator {
                 val1 = vals[0];
                 if (type == null)
                     throw new Exception("You can't assign a value with this type to that variable.");
-                cl = "store " + type + " " + val1 + ", " + type + "* " + tmp.getVal() + ", align " + type_size(type);
-                code.add(cl);
+                if (!value.equals("i8*")) {
+                    cl = "store " + type + " " + val1 + ", " + type + "* " + tmp.getVal() + ", align " + type_size(type);
+                    code.add(cl);
+                }
                 break;
 
             case "is_equal":
@@ -1089,8 +1092,9 @@ public class CodeGenerator {
                     type1 = flagi1 ? type_of_id_in_symtab(exp.getVal()) : exp.getToken();
                     flaga1 = type1.startsWith("arr") && !type1.equals("arr");
                     type1 = flaga1 ? type1.split(" ")[1] : type1;
+                    type1 = type1.equals("arr") ? (String) get_cell(exp.getVal()).getDscp().get(0) : type1;
                     val1 = exp.getVal();
-                    if ((flagi1 || flaga1) && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("scanf") && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("printf")) {
+                    if ((flagi1 || flaga1) && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("scanf") && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("printf") && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("strlen")) {
                         code.add("%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1));
                         val1 = "%var" + variable_count;
                         variable_count++;
