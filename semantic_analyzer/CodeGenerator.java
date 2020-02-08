@@ -112,6 +112,13 @@ public class CodeGenerator {
             return id_type;
         } else if (id_type.equals(val_type)) {
             return id_type;
+        } else if ((id_type.equals("i32") || id_type.equals("integer")) && (val_type.equals("i64") || val_type.equals("long"))) {
+            code.add("%var" + variable_count + " = trunc i64 %var" + (variable_count + 1) + " to i32");
+            semantic_stack.pop();
+            variable_count++;
+            Symbol res = new Symbol("i32", "%var" + variable_count);
+            semantic_stack.push(res);
+            return id_type;
         }
         return null;
     }
@@ -550,7 +557,7 @@ public class CodeGenerator {
                 variable_count++;
                 semantic_stack.push(res);
                 break;
-                
+
 
             case "not":
                 expr1 = semantic_stack.pop();
@@ -1097,7 +1104,6 @@ public class CodeGenerator {
                 variable_count++;
                 semantic_stack.push(res);
                 code.add(cl);
-
                 return;
 
             case "next_argument":
