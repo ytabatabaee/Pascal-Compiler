@@ -999,7 +999,7 @@ public class CodeGenerator {
             case "set_array_type":
                 cl = code.get(code.size() - 1); // func def
                 code.remove(cl);
-                value = cl = cl.replace(']', ' ').replace('[', ' ').replace('x', ' ');
+                value = cl.replace(']', ' ').replace('[', ' ').replace('x', ' ');
                 expr1 = semantic_stack.pop(); // type
                 expr2 = semantic_stack.pop(); // array id
                 type = convert_type(expr1.getVal());
@@ -1019,7 +1019,9 @@ public class CodeGenerator {
                 sym_tab.add(new SymTabCell(new Symbol("arr", expr2.getVal()), new ArrayList()));
                 cell = sym_tab.get(sym_tab.size() - 1);
                 cell.getDscp().add(type);
-                dims = value.split(" ");
+                System.out.println(value);
+                dims = cl.split(" ");
+                System.out.println(dims.length);
                 for (String dim : dims)
                     cell.getDscp().add(dim);
                 System.out.println("res.token: " + res.getToken());
@@ -1030,9 +1032,27 @@ public class CodeGenerator {
                 while (semantic_stack.peek().getToken().equals("i32"))
                     exprs.add(semantic_stack.pop());
                 tmp = semantic_stack.pop();
+                cell = get_cell(tmp.getVal());
+                type = (String) cell.getDscp().get(0);
+
                 System.out.println(tmp.getVal());
-                for (Symbol exp : exprs) {
-                    cl = "%var" + variable_count + " = getelementptr inbounds , i64 0, i64 " + exp.getVal();
+                for (int i1 = 0; i1 < exprs.size(); i1++) {
+                    inst = "";
+                    System.out.println(cell.getDscp().size());
+                    for (int j = i1; j < cell.getDscp().size() - 1; j++) {
+                        inst = "[" + (String) cell.getDscp().get(j) + " x " + inst;
+                    }
+                    size = 0;
+                    for (int i = 0; i < inst.length(); i++) {
+                        if (inst.charAt(i) == '[')
+                            size++;
+                    }
+                    inst += type;
+                    for (int i = 0; i < size; i++) {
+                        inst = inst + "]";
+                    }
+                    Symbol exp = exprs.get(i1);
+                    cl = "%var" + variable_count + " = getelementptr inbounds " + inst + ", " + inst + "*" + ", i64 0, i64 " + exp.getVal();
                     code.add(cl);
                     res = new Symbol(tmp.getToken(), "%var" + variable_count);
                     variable_count++;
