@@ -102,7 +102,9 @@ public class CodeGenerator {
     public String assign_type(String id_type, String val_type) {
         System.out.println(id_type);
         System.out.println(val_type);
-        if ((id_type.equals("float") || id_type.equals("real")) && (val_type.equals("i32") || val_type.equals("integer"))) {
+        if ((id_type.equals("arr")) && (val_type.equals("i8*"))) {
+            return val_type;
+        } else if ((id_type.equals("float") || id_type.equals("real")) && (val_type.equals("i32") || val_type.equals("integer"))) {
             return id_type;
         } else if ((id_type.equals("i32") || id_type.equals("integer")) && (val_type.equals("i8") || val_type.equals("boolean") || id_type.equals("char"))) {
             return id_type;
@@ -580,8 +582,10 @@ public class CodeGenerator {
                 System.out.println(expr1.getVal());
                 System.out.println(type1);
                 System.out.println(type2);
-                if (type2.contains("i8*")){
+                if (type2.equals("i8*")) {
+                    System.out.println("hello");
                     code.add(0, "declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1)");
+                    code.add("call void @llvm.memcpy.p0i8.p0i8.i64(i8* %4, i8* getelementptr inbounds ([30 x i8], [30 x i8]* @main.array, i32 0, i32 0), i64 30, i32 16, i1 false)");
                 }
                 type1 = type1.startsWith("arr") && !type1.equals("arr") ? type1.split(" ")[1] : type1;
                 type2 = type2.startsWith("arr") && !type2.equals("arr") ? type2.split(" ")[1] : type2;
@@ -980,24 +984,26 @@ public class CodeGenerator {
                         sym_tab.add(new SymTabCell(new Symbol("func", "printf"), new ArrayList()));
                         sym_tab.get(sym_tab.size() - 1).getDscp().add("i32 (i8*, ...)");
                     }
-                    tmp.setVal("printf");
+                    tmp.setVal("printf." + global_block);
                 } else if (tmp.getVal().equals("read")) {
                     if (type_of_id_in_symtab("scanf") == null) {
                         code.add(0, "declare i32 @scanf(i8*, ...)");
                         sym_tab.add(new SymTabCell(new Symbol("func", "scanf"), new ArrayList()));
                         sym_tab.get(sym_tab.size() - 1).getDscp().add("i32 (i8*, ...)");
                     }
-                    tmp.setVal("scanf");
+                    tmp.setVal("scanf." + global_block);
                 } else if (tmp.getVal().equals("strlen")) {
                     if (type_of_id_in_symtab("strlen") == null) {
                         code.add(0, "declare i64 @strlen(i8*)");
                         sym_tab.add(new SymTabCell(new Symbol("func", "strlen"), new ArrayList()));
                         sym_tab.get(sym_tab.size() - 1).getDscp().add("i64");
                     }
-                    tmp.setVal("strlen");
+                    tmp.setVal("strlen." + global_block);
                 }
+                System.out.println(tmp.getVal().substring(0, tmp.getVal().length() - global_block.length() - 1));
                 cell = get_cell(tmp.getVal().substring(0, tmp.getVal().length() - global_block.length() - 1));
                 System.out.println(tmp.getVal().substring(0, tmp.getVal().length() - global_block.length() - 1));
+                System.out.println(cell.getSymbol().getVal());
                 if (cell == null || !cell.getSymbol().getToken().equals("func")) {
                     throw new Exception("The function is not defined.");
                 }
