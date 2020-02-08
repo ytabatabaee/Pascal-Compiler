@@ -905,41 +905,29 @@ public class CodeGenerator {
                             value = "@.const_s";
                             break;
                     }
-                    if (expr1.getVal().equals("scanf")) {
-                        cl = "%var" + variable_count + " = alloca " + type1 + ", align " + type_size(type1);
-                        code.add(cl);
-                        inst = type1 + "* %var" + variable_count;
-                        variable_count++;
-                    }
                     cl = "%var" + variable_count + " = " + "getelementptr inbounds [" + size + " x i8], [" + size + " x i8]* " + value + ", i32 0, i32 0";
                     code.add(cl);
                     inst = "i8* %var" + variable_count + ", " + inst;
                     variable_count++;
                 }
                 cl = "call " + type + " @" + expr1.getVal() + "(" + inst;
-                if (expr1.getVal().equals("scanf")) {
-                    cl += ")";
-                    code.add(cl);
-                    cl = exprs.get(0).getVal() + " = load " + type1 + ", " + type1 + "* %var" + (variable_count - 2);
-                    code.add(cl);
-                } else {
-                    for (Symbol exp : exprs) {
-                        flag1 = exp.getToken().equals("id");
-                        type1 = flag1 ? type_of_id_in_symtab(exp.getVal()) : exp.getToken();
-                        val1 = exp.getVal();
-                        if (flag1) {
-                            cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
-                            code.add(cl);
-                            val1 = "%var" + variable_count;
-                            variable_count++;
-                        }
-                        cl += type1 + " " + val1 + ", ";
+                for (Symbol exp : exprs) {
+                    flag1 = exp.getToken().equals("id");
+                    type1 = flag1 ? type_of_id_in_symtab(exp.getVal()) : exp.getToken();
+                    val1 = exp.getVal();
+                    if (flag1 && !expr1.getVal().equals("scanf")) {
+                        code.add("%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1));
+                        val1 = "%var" + variable_count;
+                        variable_count++;
                     }
-                    if (exprs.size() > 0)
-                        cl = cl.substring(0, cl.length() - 2);
-                    cl += ")";
-                    code.add(cl);
+                    if (val1.equals(exp.getVal()))
+                        type1 += "*";
+                    cl += type1 + " " + val1 + ", ";
                 }
+                if (exprs.size() > 0)
+                    cl = cl.substring(0, cl.length() - 2);
+                cl += ")";
+                code.add(cl);
 
                 return;
 
