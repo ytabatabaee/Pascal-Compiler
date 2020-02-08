@@ -999,7 +999,7 @@ public class CodeGenerator {
             case "set_array_type":
                 cl = code.get(code.size() - 1); // func def
                 code.remove(cl);
-                value = cl.replace(']', ' ').replace('[', ' ').replace('x', ' ');
+                value = cl.replace("]", "").replace("[", "").replace("x", "");
                 expr1 = semantic_stack.pop(); // type
                 expr2 = semantic_stack.pop(); // array id
                 type = convert_type(expr1.getVal());
@@ -1020,9 +1020,10 @@ public class CodeGenerator {
                 cell = sym_tab.get(sym_tab.size() - 1);
                 cell.getDscp().add(type);
                 System.out.println(value);
-                dims = cl.split(" ");
+                dims = value.split("\\s+");
                 System.out.println(dims.length);
                 for (String dim : dims)
+//                    System.out.println(dim);
                     cell.getDscp().add(dim);
                 System.out.println("res.token: " + res.getToken());
                 semantic_stack.push(res);
