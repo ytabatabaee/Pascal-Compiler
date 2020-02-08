@@ -14,7 +14,7 @@ begin
     begin
         print(index) ;
         index := index + 1 ;
-    end 
+    end; 
 
     return 0 ;
 end 

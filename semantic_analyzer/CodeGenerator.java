@@ -1041,7 +1041,7 @@ public class CodeGenerator {
                     inst = "";
                     System.out.println(cell.getDscp().size());
                     for (int j = i1; j < cell.getDscp().size() - 1; j++) {
-                        inst = "[" + (String) cell.getDscp().get(j) + " x " + inst;
+                        inst = "[" + (String) cell.getDscp().get(j + 1) + " x " + inst;
                     }
                     size = 0;
                     for (int i = 0; i < inst.length(); i++) {
@@ -1055,7 +1055,7 @@ public class CodeGenerator {
                     Symbol exp = exprs.get(i1);
                     cl = "%var" + variable_count + " = getelementptr inbounds " + inst + ", " + inst + "*" + ", i64 0, i64 " + exp.getVal();
                     code.add(cl);
-                    res = new Symbol(tmp.getToken(), "%var" + variable_count);
+                    res = new Symbol(type, "%var" + variable_count);
                     variable_count++;
                     semantic_stack.push(res);
                 }

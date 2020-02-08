@@ -1,4 +1,3 @@
-
 function product(a : integer ; b : integer) : integer
 begin
     result : integer := a * b ;
@@ -23,13 +22,13 @@ begin
     arr : array [10] of integer ;
     index : integer := 0 ;
 
-    while index < 10 do 
+    while (index < 10) do 
     begin
-        arr[index] := power(index, array[index]) ;
+        arr[index] := index;
+        arr[index] := product(index, arr[index]) ;
         print(arr[index]) ;
-    end 
-
-    
+        index := index + 1;
+    end; 
 
     return 0 ;
-end 
+end

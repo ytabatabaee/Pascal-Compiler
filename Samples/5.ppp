@@ -1,0 +1,9 @@
+function main() : integer
+begin
+	a : integer ;
+	b : integer ;
+	read(a);
+	read(b);
+    	write(a+b) ;
+	return 0 ;
+end 
