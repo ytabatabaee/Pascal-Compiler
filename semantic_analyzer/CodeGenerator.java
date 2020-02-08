@@ -1144,7 +1144,7 @@ public class CodeGenerator {
                 while (true) {
                     type = semantic_stack.peek().getToken();
                     type = type.equals("id") ? type_of_id_in_symtab(semantic_stack.peek().getVal()) : type;
-                    type = type.startsWith("arr") ? type.split(" ")[1] : type;
+//                    type = type.startsWith("arr") ? type.split(" ")[1] : type;
                     if (!type.equals("i32"))
                         break;
                     exprs.add(semantic_stack.pop());
