@@ -617,7 +617,7 @@ public class CodeGenerator {
                 if (type2.equals("i8*")) {
                     System.out.println("hello");
                     code.add(0, "declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1)");
-                    code.add("%var" + variable_count + " = bitcast array_size " + tmp.getVal() + " to i8*");
+                    code.add("%var" + variable_count + " = bitcast [" + get_cell(tmp.getVal()).getDscp().get(1) + " x i8]* " + tmp.getVal() + " to i8*");
                     variable_count++;
                     code.add("call void @llvm.memcpy.p0i8.p0i8.i64(i8* " + "%var" + variable_count + ", i8* " + expr1.getVal() + "), i64 30, i32 16, i1 false)");
                 }
