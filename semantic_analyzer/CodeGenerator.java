@@ -15,6 +15,7 @@ public class CodeGenerator {
     private int if_count;
     private int loop_count;
     private int string_count;
+    private String global_block;
 
     public CodeGenerator(Scanner scanner) {
         this.scanner = scanner;
@@ -29,6 +30,7 @@ public class CodeGenerator {
         code.add("@.const_c = private constant [3 x i8] c\"%c\\00\"");
         code.add("@.const_f = private constant [3 x i8] c\"%f\\00\"");
         code.add("@.const_l = private constant [4 x i8] c\"%ld\\00\"");
+        global_block = "";
     }
 
     public String resolve_type(String type1, String type2) {
@@ -133,7 +135,10 @@ public class CodeGenerator {
         switch (func) {
             case "push_id":
                 tmp = scanner.get_current();
-                tmp.setVal("%" + tmp.getVal());
+                if (!global_block.equals(""))
+                    tmp.setVal("%" + tmp.getVal() + "." + global_block);
+                else
+                    tmp.setVal("%" + tmp.getVal());
                 System.out.println("token: " + tmp.getToken());
                 System.out.println("val: " + tmp.getVal());
                 semantic_stack.push(tmp);
@@ -562,6 +567,7 @@ public class CodeGenerator {
                 res = new Symbol(type, expr2.getVal());
                 sym_tab.add(new SymTabCell(new Symbol(type, expr2.getVal()), new ArrayList()));
                 System.out.println("res.token: " + res.getToken());
+                System.out.println(res.getVal());
                 semantic_stack.push(res);
                 break;
 
@@ -846,6 +852,7 @@ public class CodeGenerator {
             case "start_function":
                 tmp = semantic_stack.pop();
                 tmp.setVal(tmp.getVal().substring(1)); //removes the % before the name
+                global_block = tmp.getVal();
                 cl = "@" + tmp.getVal() + "(";
                 code.add(cl);
                 sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
@@ -871,6 +878,7 @@ public class CodeGenerator {
 
             case "close_function":
                 code.add("}");
+                global_block = "";
                 break;
 
             case "jump_to_then":
@@ -937,7 +945,11 @@ public class CodeGenerator {
 
             case "return_id":
                 tmp = scanner.get_current(); // return value (id)
-                tmp.setVal("%" + tmp.getVal());
+
+                if (!global_block.equals(""))
+                    tmp.setVal("%" + tmp.getVal() + "." + global_block);
+                else
+                    tmp.setVal("%" + tmp.getVal());
                 System.out.println("token: " + tmp.getToken());
                 System.out.println("val: " + tmp.getVal());
                 // set the right type for it with symtab; check if exists
@@ -1070,6 +1082,7 @@ public class CodeGenerator {
             case "start_proc":
                 tmp = semantic_stack.pop();
                 tmp.setVal(tmp.getVal().substring(1)); //removes the % before the name
+                //global_block = tmp.getVal();
                 cl = "@" + tmp.getVal() + "(";
                 code.add(cl);
                 sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
@@ -1080,6 +1093,7 @@ public class CodeGenerator {
                 cl = code.get(code.size() - 1); // func def
                 code.remove(cl);
                 cl = "define void" + " " + cl + ") {";
+                //global_block = tmp.getVal();
                 code.add(cl);
                 break;
 
