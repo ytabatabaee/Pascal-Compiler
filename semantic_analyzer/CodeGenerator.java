@@ -932,13 +932,13 @@ public class CodeGenerator {
                     flag1 = exp.getToken().equals("id");
                     type1 = flag1 ? type_of_id_in_symtab(exp.getVal()) : exp.getToken();
                     val1 = exp.getVal();
-                    if (flag1 && !expr1.getVal().equals("scanf")) {
+                    if (flag1 && !expr1.getVal().equals("scanf") && !expr1.getVal().equals("printf")) {
                         code.add("%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1));
                         val1 = "%var" + variable_count;
                         variable_count++;
                     }
-                    if (val1.equals(exp.getVal())) // It has problem with printf
-                        type1 += "*";
+//                    if (val1.equals(exp.getVal())) // It has problem with printf
+//                        type1 += "*";
                     cl += type1 + " " + val1 + ", ";
                 }
                 if (exprs.size() > 0)
