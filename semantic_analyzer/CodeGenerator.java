@@ -619,7 +619,7 @@ public class CodeGenerator {
                     code.add(0, "declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1)");
                     code.add("%var" + variable_count + " = bitcast [" + get_cell(tmp.getVal()).getDscp().get(1) + " x i8]* " + tmp.getVal() + " to i8*");
                     variable_count++;
-                    code.add("call void @llvm.memcpy.p0i8.p0i8.i64(i8* " + "%var" + (variable_count - 1) + ", i8* " + expr1.getVal() + "), i64 30, i32 16, i1 false)");
+                    code.add("call void @llvm.memcpy.p0i8.p0i8.i64(i8* " + "%var" + (variable_count - 1) + ", i8* " + expr1.getVal() + "), i64 " + get_cell(tmp.getVal()).getDscp().get(1) + ", i32 16, i1 false)");
                 }
                 type1 = type1.startsWith("arr") && !type1.equals("arr") ? type1.split(" ")[1] : type1;
                 type2 = type2.startsWith("arr") && !type2.equals("arr") ? type2.split(" ")[1] : type2;
