@@ -1342,7 +1342,7 @@
         "start": 67,
         "end": 68,
         "token": "ARRAY_INDEX",
-        "func": "",
+        "func": "build_index",
         "anchorX": 303.79999999999984,
         "anchorY": 649.9333333333332,
         "isGraph": true,
@@ -2017,8 +2017,8 @@
         "end": 108,
         "token": "TYPE",
         "func": "set_array_type",
-        "anchorX": 698.0000000000025,
-        "anchorY": 368.5999999999988,
+        "anchorX": 675.2000000000023,
+        "anchorY": 369.7999999999987,
         "isGraph": true,
         "isGlobal": false
       }
@@ -2064,7 +2064,7 @@
         "start": 109,
         "end": 110,
         "token": "INT_CONST",
-        "func": "push_const_integer",
+        "func": "push_integer_const",
         "anchorX": 250.26666666666665,
         "anchorY": 252.79999999999987,
         "isGraph": false,
@@ -2094,7 +2094,7 @@
         "start": 111,
         "end": 110,
         "token": "INT_CONST",
-        "func": "push_const_integer",
+        "func": "push_integer_const",
         "anchorX": 450.0,
         "anchorY": 182.99999999999994,
         "isGraph": false,
@@ -2718,7 +2718,7 @@
         "token": "R_BRACKET",
         "func": "",
         "anchorX": 544.3999999999997,
-        "anchorY": 279.1999999999994,
+        "anchorY": 279.19999999999936,
         "isGraph": false,
         "isGlobal": false
       }

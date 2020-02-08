@@ -1,35 +1,5 @@
-function product(a : integer ; b : integer) : integer
-begin
-    result : integer := a * b ;
-    return result ;
-end
-
-function print(input : integer) : integer
-begin
-    write("the number is : ") ;
-    write(input) ;
-    write("\n") ;
-    return 0;
-end
-
-
-// this is a comment 
-<-- hi 
-i am a comment -->
-
 function main() : integer
 begin
-    
-    arr : array [10] of integer ;
-    index : integer := 0 ;
-
-    while (index < 10) do 
-    begin
-        arr[index] := index;
-        arr[index] := product(index, arr[index]) ;
-        print(arr[index]) ;
-        index := index + 1;
-    end; 
-
-    return 0 ;
+	a : array [20]  of char;
+                 a[10] := 'a';
 end

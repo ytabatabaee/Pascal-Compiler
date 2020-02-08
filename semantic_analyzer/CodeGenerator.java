@@ -146,6 +146,12 @@ public class CodeGenerator {
                 semantic_stack.push(tmp);
                 break;
 
+            case "push_char_const":
+                tmp = scanner.get_current();
+                tmp.setToken("i8");
+                semantic_stack.push(tmp);
+                break;
+
             case "push_string_const":
                 tmp = scanner.get_current();
                 cl = "@.const" + string_count;
@@ -970,6 +976,7 @@ public class CodeGenerator {
                 break;
 
             case "set_array_dim":
+                cl = "";
                 while (semantic_stack.peek().getToken().equals("i32"))
                     exprs.add(semantic_stack.pop());
                 for (Symbol exp : exprs) {
@@ -1000,6 +1007,9 @@ public class CodeGenerator {
                 sym_tab.add(new SymTabCell(new Symbol(type, expr2.getVal()), new ArrayList()));
                 System.out.println("res.token: " + res.getToken());
                 semantic_stack.push(res);
+                break;
+
+            case "build_index":
                 break;
 
         }
