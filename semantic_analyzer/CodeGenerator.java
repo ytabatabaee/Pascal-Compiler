@@ -99,7 +99,7 @@ public class CodeGenerator {
         return null;
     }
 
-    public String assign_type(String id_type, String val_type) {
+    public String assign_type(String id_type, String val_type, String[] vals) {
         System.out.println(id_type);
         System.out.println(val_type);
         if ((id_type.equals("arr")) && (val_type.equals("i8*"))) {
@@ -113,11 +113,9 @@ public class CodeGenerator {
         } else if (id_type.equals(val_type)) {
             return id_type;
         } else if ((id_type.equals("i32") || id_type.equals("integer")) && (val_type.equals("i64") || val_type.equals("long"))) {
-            code.add("%var" + variable_count + " = trunc i64 %var" + (variable_count + 1) + " to i32");
-            semantic_stack.pop();
+            code.add("%var" + variable_count + " = trunc i64 %var" + (variable_count - 1) + " to i32");
+            vals[0] = "%var" + variable_count;
             variable_count++;
-            Symbol res = new Symbol("i32", "%var" + variable_count);
-            semantic_stack.push(res);
             return id_type;
         }
         return null;
@@ -135,7 +133,7 @@ public class CodeGenerator {
         String type, type1 = "", type2, inst, value, cl = null, val1, val2;
         boolean flagi1, flagi2, flaga1, flaga2;
         SymTabCell cell;
-        String[] dims;
+        String[] dims, vals;
         ArrayList<Symbol> exprs = new ArrayList<>();
         res = new Symbol(" ", " ");
         int size;
@@ -626,10 +624,13 @@ public class CodeGenerator {
                 type1 = type1.startsWith("arr") && !type1.equals("arr") ? type1.split(" ")[1] : type1;
                 type2 = type2.startsWith("arr") && !type2.equals("arr") ? type2.split(" ")[1] : type2;
                 type2 = type2.equals("func") ? (String) get_cell(expr1.getVal()).getDscp().get(0) : type2;
-                type = assign_type(type1, type2);
+                vals = new String[1];
+                vals[0] = expr1.getVal();
+                type = assign_type(type1, type2, vals);
+                val1 = vals[0];
                 if (type == null)
                     throw new Exception("You can't assign a value with this type to that variable.");
-                cl = "store " + type + " " + expr1.getVal() + ", " + type + "* " + tmp.getVal() + ", align " + type_size(type);
+                cl = "store " + type + " " + val1 + ", " + type + "* " + tmp.getVal() + ", align " + type_size(type);
                 code.add(cl);
                 break;
 
