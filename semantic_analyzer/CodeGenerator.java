@@ -987,7 +987,8 @@ public class CodeGenerator {
                     }
                     tmp.setVal("scanf");
                 }
-                cell = get_cell(tmp.getVal());
+                cell = get_cell(tmp.getVal().substring(0, tmp.getVal().length() - global_block.length() - 1));
+                System.out.println(tmp.getVal().substring(0, tmp.getVal().length() - global_block.length() - 1));
                 if (cell == null || !cell.getSymbol().getToken().equals("func")) {
                     throw new Exception("The function is not defined.");
                 }
@@ -999,7 +1000,7 @@ public class CodeGenerator {
                 while (!semantic_stack.peek().getToken().equals("func"))
                     exprs.add(semantic_stack.pop());
                 expr1 = semantic_stack.pop(); // func name
-                cell = get_cell(expr1.getVal());
+                cell = get_cell(expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1));
                 type = (String) cell.getDscp().get(0);
                 inst = "";
                 if (expr1.getVal().equals("printf") || expr1.getVal().equals("scanf")) {
@@ -1030,7 +1031,7 @@ public class CodeGenerator {
                     inst = "i8* %var" + variable_count + ", " + inst;
                     variable_count++;
                 }
-                cl = "call " + type + " @" + expr1.getVal() + "(" + inst;
+                cl = "call " + type + " @" + expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1) + "(" + inst;
                 for (Symbol exp : exprs) {
                     flagi1 = exp.getToken().equals("id");
                     type1 = flagi1 ? type_of_id_in_symtab(exp.getVal()) : exp.getToken();
