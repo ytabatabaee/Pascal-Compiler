@@ -1086,6 +1086,13 @@ public class CodeGenerator {
                     inst = "i8* %var" + variable_count + ", " + inst;
                     variable_count++;
                 }
+                if (expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("strlen")){
+                    value = "0";
+                    size = 0; // todo set the right size
+                    cl = "%var" + variable_count + " = " + "getelementptr inbounds [" + size + " x i8], [" + size + " x i8]* " + value + ", i32 0, i32 0";
+                    code.add(cl);
+                    variable_count++;
+                }
                 cl = "call " + type + " @" + expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1) + "(" + inst;
                 for (Symbol exp : exprs) {
                     flagi1 = exp.getToken().equals("id");
