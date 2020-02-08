@@ -407,6 +407,10 @@ public class CodeGenerator {
                 flagi2 = expr2.getToken().equals("id");
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flaga1 = type1.startsWith("arr");
+                flaga2 = type2.startsWith("arr");
+                type1 = flaga1 ? type1.split(" ")[1] : type1;
+                type2 = flaga2 ? type2.split(" ")[1] : type2;
                 val1 = expr1.getVal();
                 val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
@@ -416,7 +420,19 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                cl = "%var" + variable_count + " = " + "and " + " " + "i32" + " " + expr1.getVal() + ", " + expr2.getVal();
+                if (flagi1 || flaga1) {
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                if (flagi2 || flaga2) {
+                    cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
+                    code.add(cl);
+                    val2 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + "and " + " " + "i32" + " " + val1 + ", " + val2;
                 code.add(cl);
                 res = new Symbol("i32", "%var" + variable_count);
                 variable_count++;
@@ -431,6 +447,10 @@ public class CodeGenerator {
                 flagi2 = expr2.getToken().equals("id");
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flaga1 = type1.startsWith("arr");
+                flaga2 = type2.startsWith("arr");
+                type1 = flaga1 ? type1.split(" ")[1] : type1;
+                type2 = flaga2 ? type2.split(" ")[1] : type2;
                 val1 = expr1.getVal();
                 val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
@@ -440,13 +460,13 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                if (flagi1) {
+                if (flagi1 || flaga1) {
                     cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
-                if (flagi2) {
+                if (flagi2 || flaga2) {
                     cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
@@ -466,6 +486,10 @@ public class CodeGenerator {
                 flagi2 = expr2.getToken().equals("id");
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flaga1 = type1.startsWith("arr");
+                flaga2 = type2.startsWith("arr");
+                type1 = flaga1 ? type1.split(" ")[1] : type1;
+                type2 = flaga2 ? type2.split(" ")[1] : type2;
                 val1 = expr1.getVal();
                 val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
@@ -475,13 +499,13 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                if (flagi1) {
+                if (flagi1 || flaga1) {
                     cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
-                if (flagi2) {
+                if (flagi2 || flaga2) {
                     cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
@@ -498,6 +522,8 @@ public class CodeGenerator {
                 expr1 = semantic_stack.pop();
                 flagi1 = expr1.getToken().equals("id");
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                flaga1 = type1.startsWith("arr");
+                type1 = flaga1 ? type1.split(" ")[1] : type1;
                 val1 = expr1.getVal();
                 if (type1 == null) {
                     throw new Exception("You didn't define this variable.");
@@ -505,7 +531,7 @@ public class CodeGenerator {
                 if (!(type1.equals("i32") || type1.equals("float"))) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                if (flagi1) {
+                if (flagi1 || flaga1) {
                     cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
@@ -548,11 +574,10 @@ public class CodeGenerator {
                 System.out.println(expr1.getVal());
                 System.out.println(type1);
                 System.out.println(type2);
-                type1 = type1.equals("arr") ? (String) get_cell(tmp.getVal())
-                        .getDscp()
-                        .get(0) : type1;
+                type1 = type1.startsWith("arr") ? type1.split(" ")[1] : type1;//(String) get_cell(tmp.getVal()).getDscp().get(0) : type1;
                 System.out.println("t1: " + type1);
-                type2 = type2.equals("arr") || type2.equals("func") ? (String) get_cell(expr1.getVal()).getDscp().get(0) : type2;
+                type2 = type2.startsWith("arr") ? type2.split(" ")[1] : type2;
+                type2 = type2.equals("func") ? (String) get_cell(expr1.getVal()).getDscp().get(0) : type2;
                 type = assign_type(type1, type2);
                 if (type == null)
                     throw new Exception("You can't assign a value with this type to that variable.");
