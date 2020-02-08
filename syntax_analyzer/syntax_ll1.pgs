@@ -964,7 +964,7 @@
         "token": "L_PAREN",
         "func": "",
         "anchorX": 293.9999999999999,
-        "anchorY": 264.6666666666611,
+        "anchorY": 264.6666666666609,
         "isGraph": false,
         "isGlobal": false
       },
@@ -1012,9 +1012,9 @@
         "start": 51,
         "end": 52,
         "token": "ARRAY_INDEX",
-        "func": "",
+        "func": "build_index",
         "anchorX": 516.1999999999999,
-        "anchorY": 85.99999999999977,
+        "anchorY": 85.9999999999997,
         "isGraph": true,
         "isGlobal": false
       }
