@@ -580,9 +580,11 @@ public class CodeGenerator {
                 System.out.println(expr1.getVal());
                 System.out.println(type1);
                 System.out.println(type2);
-                type1 = type1.startsWith("arr") ? type1.split(" ")[1] : type1;//(String) get_cell(tmp.getVal()).getDscp().get(0) : type1;
-                System.out.println("t1: " + type1);
-                type2 = type2.startsWith("arr") ? type2.split(" ")[1] : type2;
+                if (type2.contains("i8*")){
+                    code.add(0, "declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1)");
+                }
+                type1 = type1.startsWith("arr") && !type1.equals("arr") ? type1.split(" ")[1] : type1;
+                type2 = type2.startsWith("arr") && !type2.equals("arr") ? type2.split(" ")[1] : type2;
                 type2 = type2.equals("func") ? (String) get_cell(expr1.getVal()).getDscp().get(0) : type2;
                 type = assign_type(type1, type2);
                 if (type == null)
