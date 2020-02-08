@@ -97,8 +97,17 @@ public class CodeGenerator {
     }
 
     public String assign_type(String id_type, String val_type) {
-        if (id_type.equals(val_type))
+        System.out.println(id_type);
+        System.out.println(val_type);
+        if ((id_type.equals("float") || id_type.equals("real")) && (val_type.equals("i32") || val_type.equals("integer"))) {
             return id_type;
+        } else if ((id_type.equals("i32") || id_type.equals("integer")) && (val_type.equals("i8") || val_type.equals("boolean") || id_type.equals("char"))) {
+            return id_type;
+        } else if ((id_type.equals("i64") || id_type.equals("long")) && (val_type.equals("i32") || val_type.equals("integer"))) {
+            return id_type;
+        } else if (id_type.equals(val_type)) {
+            return id_type;
+        }
         return null;
     }
 
@@ -117,6 +126,7 @@ public class CodeGenerator {
         ArrayList<Symbol> exprs = new ArrayList<>();
         res = new Symbol(" ", " ");
         int size;
+        ArrayList<Integer> indexes = new ArrayList<>();
 
         switch (func) {
             case "push_id":
@@ -1010,6 +1020,17 @@ public class CodeGenerator {
                 break;
 
             case "build_index":
+                while (semantic_stack.peek().getToken().equals("i32"))
+                    exprs.add(semantic_stack.pop());
+                tmp = semantic_stack.pop();
+                System.out.println(tmp.getVal());
+                for (Symbol exp : exprs) {
+                    cl = "%var" + variable_count + " = getelementptr inbounds , i64 0, i64 " + exp.getVal();
+                    code.add(cl);
+                    res = new Symbol(tmp.getToken(), "%var" + variable_count);
+                    variable_count++;
+                    semantic_stack.push(res);
+                }
                 break;
 
         }

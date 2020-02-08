@@ -1,5 +1,5 @@
 function main() : integer
 begin
-	a : array [20]  of char;
-                 a[10] := 'a';
+	a : array [20, 10]  of integer;
+                 a[10, 3] := 'a';
 end
