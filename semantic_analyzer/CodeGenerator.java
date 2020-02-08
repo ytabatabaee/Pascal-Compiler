@@ -53,6 +53,7 @@ public class CodeGenerator {
             case "long":
                 return "i64";
             case "char":
+            case "boolean":
                 return "i8";
         }
         return null;
@@ -159,6 +160,18 @@ public class CodeGenerator {
 
             case "push_char_const":
                 tmp = scanner.get_current();
+                tmp.setToken("i8");
+                int ascii = (int) (tmp.getVal().charAt(0));
+                tmp.setVal(ascii + "");
+                semantic_stack.push(tmp);
+                break;
+
+            case "push_bool_const":
+                tmp = scanner.get_current();
+                if (tmp.getVal().equals("true"))
+                    tmp.setVal("1");
+                else if (tmp.getVal().equals("false"))
+                    tmp.setVal("0");
                 tmp.setToken("i8");
                 semantic_stack.push(tmp);
                 break;
@@ -511,9 +524,16 @@ public class CodeGenerator {
                 tmp = semantic_stack.pop(); // left-hand-side var
                 type1 = tmp.getToken().equals("id") ? type_of_id_in_symtab(tmp.getVal()) : tmp.getToken();
                 type2 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type = assign_type(type1, type2);
+                System.out.println(tmp.getVal());
+                System.out.println(expr1.getVal());
                 System.out.println(type1);
                 System.out.println(type2);
+                type1 = type1.equals("arr") ? (String) get_cell(tmp.getVal())
+                        .getDscp()
+                        .get(0) : type1;
+                System.out.println("t1: " + type1);
+                type2 = type2.equals("arr") || type2.equals("func") ? (String) get_cell(expr1.getVal()).getDscp().get(0) : type2;
+                type = assign_type(type1, type2);
                 if (type == null)
                     throw new Exception("You can't assign a value with this type to that variable.");
                 cl = "store " + type + " " + expr1.getVal() + ", " + type + "* " + tmp.getVal() + ", align " + type_size(type);
@@ -1015,7 +1035,7 @@ public class CodeGenerator {
                 size = 16;
                 cl += ", align " + size;
                 code.add(cl);
-                res = new Symbol("arr", "%" + expr2.getVal());
+                res = new Symbol("arr", expr2.getVal());
                 sym_tab.add(new SymTabCell(new Symbol("arr", expr2.getVal()), new ArrayList()));
                 cell = sym_tab.get(sym_tab.size() - 1);
                 cell.getDscp().add(type);
@@ -1030,8 +1050,13 @@ public class CodeGenerator {
                 break;
 
             case "build_index":
-                while (semantic_stack.peek().getToken().equals("i32"))
+                while (true) {
+                    type = semantic_stack.peek().getToken();
+                    type = type.equals("id") ? type_of_id_in_symtab(semantic_stack.peek().getVal()) : type;
+                    if (!type.equals("i32"))
+                        break;
                     exprs.add(semantic_stack.pop());
+                }
                 tmp = semantic_stack.pop();
                 cell = get_cell(tmp.getVal());
                 type = (String) cell.getDscp().get(0);
