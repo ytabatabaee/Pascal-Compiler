@@ -1041,7 +1041,7 @@ public class CodeGenerator {
                     inst = "";
                     System.out.println(cell.getDscp().size());
                     for (int j = i1; j < cell.getDscp().size() - 1; j++) {
-                        inst = "[" + (String) cell.getDscp().get(j + 1) + " x " + inst;
+                        inst += "[" + (String) cell.getDscp().get(j + 1) + " x ";
                     }
                     size = 0;
                     for (int i = 0; i < inst.length(); i++) {
