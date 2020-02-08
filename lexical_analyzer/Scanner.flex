@@ -122,7 +122,7 @@ comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
  "string"       { return sym("string"); }
  "while"        { return sym("while"); }
  "var"          { return sym("var"); }
- "true"|"false" { return sym("bool_const", yytext()); }
+ "true"|"false" { return sym("boolean_const", yytext()); }
 
  {whitespace}   { /* do nothing */ }
  {comment}      { /* do nothing */ }

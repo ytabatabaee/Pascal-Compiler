@@ -978,7 +978,7 @@ public class Scanner {
             // fall through
           case 97: break;
           case 42: 
-            { return sym("bool_const", yytext());
+            { return sym("boolean_const", yytext());
             } 
             // fall through
           case 98: break;
