@@ -937,8 +937,8 @@ public class CodeGenerator {
                         val1 = "%var" + variable_count;
                         variable_count++;
                     }
-//                    if (val1.equals(exp.getVal())) // It has problem with printf
-//                        type1 += "*";
+                    if (val1.equals(exp.getVal()) && expr1.getVal().equals("scanf")) // It has problem with printf
+                        type1 += "*";
                     cl += type1 + " " + val1 + ", ";
                 }
                 if (exprs.size() > 0)
