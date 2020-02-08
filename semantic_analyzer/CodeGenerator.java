@@ -123,6 +123,7 @@ public class CodeGenerator {
         String type, type1 = "", type2, inst, value, cl = null, val1, val2;
         boolean flag1, flag2;
         SymTabCell cell;
+        String[] dims;
         ArrayList<Symbol> exprs = new ArrayList<>();
         res = new Symbol(" ", " ");
         int size;
@@ -990,7 +991,7 @@ public class CodeGenerator {
                 while (semantic_stack.peek().getToken().equals("i32"))
                     exprs.add(semantic_stack.pop());
                 for (Symbol exp : exprs) {
-                    cl += "[" + exp.getVal() + " x ";
+                    cl = "[" + exp.getVal() + " x " + cl;
                 }
                 code.add(cl);
                 break;
@@ -998,6 +999,7 @@ public class CodeGenerator {
             case "set_array_type":
                 cl = code.get(code.size() - 1); // func def
                 code.remove(cl);
+                value = cl = cl.replace(']', ' ').replace('[', ' ').replace('x', ' ');
                 expr1 = semantic_stack.pop(); // type
                 expr2 = semantic_stack.pop(); // array id
                 type = convert_type(expr1.getVal());
@@ -1014,7 +1016,12 @@ public class CodeGenerator {
                 cl += ", align " + size;
                 code.add(cl);
                 res = new Symbol("arr", "%" + expr2.getVal());
-                sym_tab.add(new SymTabCell(new Symbol(type, expr2.getVal()), new ArrayList()));
+                sym_tab.add(new SymTabCell(new Symbol("arr", expr2.getVal()), new ArrayList()));
+                cell = sym_tab.get(sym_tab.size() - 1);
+                cell.getDscp().add(type);
+                dims = value.split(" ");
+                for (String dim : dims)
+                    cell.getDscp().add(dim);
                 System.out.println("res.token: " + res.getToken());
                 semantic_stack.push(res);
                 break;
