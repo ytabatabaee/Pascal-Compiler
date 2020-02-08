@@ -1090,12 +1090,12 @@ public class CodeGenerator {
                     flaga1 = type1.startsWith("arr") && !type1.equals("arr");
                     type1 = flaga1 ? type1.split(" ")[1] : type1;
                     val1 = exp.getVal();
-                    if ((flagi1 || flaga1) && !expr1.getVal().equals("scanf") && !expr1.getVal().equals("printf")) {
+                    if ((flagi1 || flaga1) && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("scanf") && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("printf")) {
                         code.add("%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1));
                         val1 = "%var" + variable_count;
                         variable_count++;
                     }
-                    if (val1.equals(exp.getVal()) && expr1.getVal().equals("scanf")) // It has problem with printf
+                    if (val1.equals(exp.getVal()) && expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("scanf")) // It has problem with printf
                         type1 += "*";
                     cl += type1 + " " + val1 + ", ";
                 }
