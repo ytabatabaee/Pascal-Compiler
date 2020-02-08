@@ -1103,7 +1103,7 @@ public class CodeGenerator {
                     type1 = flaga1 ? type1.split(" ")[1] : type1;
                     type1 = type1.equals("arr") ? (String) get_cell(exp.getVal()).getDscp().get(0) : type1;
                     val1 = exp.getVal();
-                    if ((flagi1 || flaga1) && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("scanf") && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("printf") && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("strlen")) {
+                    if ((flagi1 || flaga1) && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("scanf") /*&& !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("printf") */&& !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("strlen")) {
                         code.add("%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1));
                         val1 = "%var" + variable_count;
                         variable_count++;
