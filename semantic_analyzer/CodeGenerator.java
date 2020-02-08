@@ -500,7 +500,7 @@ public class CodeGenerator {
                 size = type_size(expr1.getVal());
                 cl = expr2.getVal() + " = alloca " + type + ", align " + size;
                 code.add(cl);
-                res = new Symbol(type, "%" + expr2.getVal());
+                res = new Symbol(type, expr2.getVal());
                 sym_tab.add(new SymTabCell(new Symbol(type, expr2.getVal()), new ArrayList()));
                 System.out.println("res.token: " + res.getToken());
                 semantic_stack.push(res);
@@ -937,7 +937,7 @@ public class CodeGenerator {
                         val1 = "%var" + variable_count;
                         variable_count++;
                     }
-                    if (val1.equals(exp.getVal()))
+                    if (val1.equals(exp.getVal())) // It has problem with printf
                         type1 += "*";
                     cl += type1 + " " + val1 + ", ";
                 }

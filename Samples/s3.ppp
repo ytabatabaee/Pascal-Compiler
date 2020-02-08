@@ -10,7 +10,7 @@ function main() : integer
 begin
     index : integer := 0 ;
 
-    while index <> 20 do 
+    while (index <> 20) do 
     begin
         print(index) ;
         index := index + 1 ;
