@@ -1086,7 +1086,7 @@ public class CodeGenerator {
                         inst = inst + "]";
                     }
                     Symbol exp = exprs.get(i1);
-                    cl = "%var" + variable_count + " = getelementptr inbounds " + inst + ", " + inst + "*" + ", i64 0, i64 " + exp.getVal();
+                    cl = "%var" + variable_count + " = getelementptr inbounds " + inst + ", " + inst + "* " + tmp.getVal() + ", i64 0, i64 " + exp.getVal();
                     code.add(cl);
                     res = new Symbol(type, "%var" + variable_count);
                     variable_count++;
