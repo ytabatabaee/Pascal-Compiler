@@ -1,5 +1,10 @@
 function main() : integer
 begin
-	a : array [20, 10]  of integer;
-                 a[10, 3] := 'a';
+  a : array [20]  of char;
+    a := "fresh2refresh.com";
+    len : integer;
+    len := strlen(a);
+    write("string length = ");
+    write(len);
+    return 0;
 end

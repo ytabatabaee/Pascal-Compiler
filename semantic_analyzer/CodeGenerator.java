@@ -562,8 +562,7 @@ public class CodeGenerator {
                 if (type1 == null) {
                     throw new Exception("You didn't define this variable.");
                 }
-                type = resolve_type(type1, type2);
-                if (!type.equals("i32")) {
+                if (!type1.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flagi1 || flaga1) {
@@ -1078,7 +1077,7 @@ public class CodeGenerator {
                 for (Symbol exp : exprs) {
                     flagi1 = exp.getToken().equals("id");
                     type1 = flagi1 ? type_of_id_in_symtab(exp.getVal()) : exp.getToken();
-                    flaga1 = type1.startsWith("arr");
+                    flaga1 = type1.startsWith("arr") && !type1.equals("arr");
                     type1 = flaga1 ? type1.split(" ")[1] : type1;
                     val1 = exp.getVal();
                     if ((flagi1 || flaga1) && !expr1.getVal().equals("scanf") && !expr1.getVal().equals("printf")) {
