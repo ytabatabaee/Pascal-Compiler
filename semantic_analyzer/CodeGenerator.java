@@ -199,10 +199,10 @@ public class CodeGenerator {
                 flagi2 = expr2.getToken().equals("id");
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
-                flaga1 = type1.equals("arr");
-                flaga2 = type2.equals("arr");
-                type1 = flaga1 ? (String) get_cell(expr1.getVal()).getDscp().get(0) : type1;
-                type2 = flaga2 ? (String) get_cell(expr2.getVal()).getDscp().get(0) : type2;
+                flaga1 = type1.startsWith("arr");
+                flaga2 = type2.startsWith("arr");
+                type1 = flaga1 ? type1.split(" ")[1] : type1;
+                type2 = flaga2 ? type2.split(" ")[1] : type2;
                 val1 = expr1.getVal();
                 val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
@@ -242,6 +242,10 @@ public class CodeGenerator {
                 flagi2 = expr2.getToken().equals("id");
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flaga1 = type1.startsWith("arr");
+                flaga2 = type2.startsWith("arr");
+                type1 = flaga1 ? type1.split(" ")[1] : type1;
+                type2 = flaga2 ? type2.split(" ")[1] : type2;
                 val1 = expr1.getVal();
                 val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
@@ -255,13 +259,13 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                if (flagi1) {
+                if (flagi1 || flaga1) {
                     cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
-                if (flagi2) {
+                if (flagi2 || flaga2) {
                     cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
@@ -281,6 +285,10 @@ public class CodeGenerator {
                 flagi2 = expr2.getToken().equals("id");
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flaga1 = type1.startsWith("arr");
+                flaga2 = type2.startsWith("arr");
+                type1 = flaga1 ? type1.split(" ")[1] : type1;
+                type2 = flaga2 ? type2.split(" ")[1] : type2;
                 val1 = expr1.getVal();
                 val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
@@ -294,13 +302,13 @@ public class CodeGenerator {
                 else {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                if (flagi1) {
+                if (flagi1 || flaga1) {
                     cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
-                if (flagi2) {
+                if (flagi2 || flaga2) {
                     cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
@@ -320,6 +328,10 @@ public class CodeGenerator {
                 flagi2 = expr2.getToken().equals("id");
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flaga1 = type1.startsWith("arr");
+                flaga2 = type2.startsWith("arr");
+                type1 = flaga1 ? type1.split(" ")[1] : type1;
+                type2 = flaga2 ? type2.split(" ")[1] : type2;
                 val1 = expr1.getVal();
                 val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
@@ -329,13 +341,13 @@ public class CodeGenerator {
                 if (!(type.equals("i32") || type.equals("float"))) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                if (flagi1) {
+                if (flagi1 || flaga1) {
                     cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
-                if (flagi2) {
+                if (flagi2 || flaga2) {
                     cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
@@ -355,6 +367,10 @@ public class CodeGenerator {
                 flagi2 = expr2.getToken().equals("id");
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flaga1 = type1.startsWith("arr");
+                flaga2 = type2.startsWith("arr");
+                type1 = flaga1 ? type1.split(" ")[1] : type1;
+                type2 = flaga2 ? type2.split(" ")[1] : type2;
                 val1 = expr1.getVal();
                 val2 = expr2.getVal();
                 if (type1 == null || type2 == null) {
@@ -364,13 +380,13 @@ public class CodeGenerator {
                 if (!type.equals("i32")) {
                     throw new Exception("This operation with these types is not possible.");
                 }
-                if (flagi1) {
+                if (flagi1 || flaga1) {
                     cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
                 }
-                if (flagi2) {
+                if (flagi2 || flaga2) {
                     cl = "%var" + variable_count + " = load " + type2 + ", " + type2 + "* " + val2 + ", align " + type_size(type2);
                     code.add(cl);
                     val2 = "%var" + variable_count;
@@ -1088,7 +1104,7 @@ public class CodeGenerator {
                     Symbol exp = exprs.get(i1);
                     cl = "%var" + variable_count + " = getelementptr inbounds " + inst + ", " + inst + "* " + tmp.getVal() + ", i64 0, i64 " + exp.getVal();
                     code.add(cl);
-                    res = new Symbol(type, "%var" + variable_count);
+                    res = new Symbol("arr " + type, "%var" + variable_count);
                     variable_count++;
                     semantic_stack.push(res);
                 }
