@@ -550,6 +550,34 @@ public class CodeGenerator {
                 variable_count++;
                 semantic_stack.push(res);
                 break;
+                
+
+            case "not":
+                expr1 = semantic_stack.pop();
+                flagi1 = expr1.getToken().equals("id");
+                type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                flaga1 = type1.startsWith("arr");
+                type1 = flaga1 ? type1.split(" ")[1] : type1;
+                val1 = expr1.getVal();
+                if (type1 == null) {
+                    throw new Exception("You didn't define this variable.");
+                }
+                type = resolve_type(type1, type2);
+                if (!type.equals("i32")) {
+                    throw new Exception("This operation with these types is not possible.");
+                }
+                if (flagi1 || flaga1) {
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }
+                cl = "%var" + variable_count + " = " + "xor" + " " + "i32" + " " + val1 + ", -1";
+                code.add(cl);
+                res = new Symbol("i32", "%var" + variable_count);
+                variable_count++;
+                semantic_stack.push(res);
+                break;
 
             case "push_type":
                 res = scanner.get_current();
@@ -978,21 +1006,21 @@ public class CodeGenerator {
                 // tmp.getToken dar vaghe bayad type a function to symtab bashe
                 tmp = semantic_stack.pop(); // func name
                 tmp.setVal(tmp.getVal().substring(1)); //removes the % before the name
-                if (tmp.getVal().equals("write")) {
+                if (tmp.getVal().equals("write." + global_block)) {
                     if (type_of_id_in_symtab("printf") == null) {
                         code.add(0, "declare i32 @printf(i8*, ...)");
                         sym_tab.add(new SymTabCell(new Symbol("func", "printf"), new ArrayList()));
                         sym_tab.get(sym_tab.size() - 1).getDscp().add("i32 (i8*, ...)");
                     }
                     tmp.setVal("printf." + global_block);
-                } else if (tmp.getVal().equals("read")) {
+                } else if (tmp.getVal().equals("read." + global_block)) {
                     if (type_of_id_in_symtab("scanf") == null) {
                         code.add(0, "declare i32 @scanf(i8*, ...)");
                         sym_tab.add(new SymTabCell(new Symbol("func", "scanf"), new ArrayList()));
                         sym_tab.get(sym_tab.size() - 1).getDscp().add("i32 (i8*, ...)");
                     }
                     tmp.setVal("scanf." + global_block);
-                } else if (tmp.getVal().equals("strlen")) {
+                } else if (tmp.getVal().equals("strlen." + global_block)) {
                     if (type_of_id_in_symtab("strlen") == null) {
                         code.add(0, "declare i64 @strlen(i8*)");
                         sym_tab.add(new SymTabCell(new Symbol("func", "strlen"), new ArrayList()));
@@ -1018,7 +1046,7 @@ public class CodeGenerator {
                 cell = get_cell(expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1));
                 type = (String) cell.getDscp().get(0);
                 inst = "";
-                if (expr1.getVal().equals("printf") || expr1.getVal().equals("scanf")) {
+                if (expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("printf") || expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("scanf")) {
                     value = "";
                     size = 3;
                     type1 = exprs.get(0).getToken().equals("id") ? type_of_id_in_symtab(exprs.get(0).getVal()) : exprs.get(0).getToken();
