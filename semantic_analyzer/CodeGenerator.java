@@ -1044,13 +1044,14 @@ public class CodeGenerator {
                 // set the right type for it with symtab; check if exists
                 type = tmp.getToken().equals("id") ? type_of_id_in_symtab(tmp.getVal()) : tmp.getToken();
                 type = type.startsWith("arr") ? type.split(" ")[1] : type;
-                /* if (flagi1 || flaga1) {
-                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
+                val1 = tmp.getVal();
+                if (tmp.getToken().equals("id")) {
+                    cl = "%var" + variable_count + " = load " + type + ", " + type + "* " + val1 + ", align " + type_size(type);
                     code.add(cl);
                     val1 = "%var" + variable_count;
                     variable_count++;
-                }*/
-                cl = "ret " + type + " " + tmp.getVal();
+                }
+                cl = "ret " + type + " " + val1;
                 code.add(cl);
                 // todo bayad check konim ke type a func ba type a return yeki bashe
                 break;
@@ -1290,7 +1291,15 @@ public class CodeGenerator {
                         inst = inst + "]";
                     }
                     Symbol exp = exprs.get(i1);
-                    cl = "%var" + variable_count + " = getelementptr inbounds " + inst + ", " + inst + "* " + tmp.getVal() + ", i64 0, i64 " + exp.getVal();
+                    val1 = exp.getVal();
+                    type = exp.getToken().equals("id") ? type_of_id_in_symtab(exp.getVal()) : type;
+                    if (exp.getToken().equals("id")) {
+                        cl = "%var" + variable_count + " = load " + type + ", " + type + "* " + val1 + ", align " + type_size(type);
+                        code.add(cl);
+                        val1 = "%var" + variable_count;
+                        variable_count++;
+                    }
+                    cl = "%var" + variable_count + " = getelementptr inbounds " + inst + ", " + inst + "* " + tmp.getVal() + ", i64 0, " + type + " " + val1;
                     code.add(cl);
                     res = new Symbol("arr " + type, "%var" + variable_count);
                     variable_count++;
