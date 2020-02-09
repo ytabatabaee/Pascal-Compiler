@@ -608,12 +608,14 @@ public class CodeGenerator {
             case "assign":
                 expr1 = semantic_stack.pop(); // expr
                 tmp = semantic_stack.pop(); // left-hand-side var
+                flagi1 = expr1.getToken().equals("id");
                 type1 = tmp.getToken().equals("id") ? type_of_id_in_symtab(tmp.getVal()) : tmp.getToken();
-                type2 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                System.out.println(tmp.getVal());
-                System.out.println(expr1.getVal());
-                System.out.println(type1);
-                System.out.println(type2);
+                type2 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+//                System.out.println(tmp.getVal());
+//                System.out.println(expr1.getVal());
+//                System.out.println(type1);
+//                System.out.println(type2);
+
                 if (type2.equals("i8*")) {
                     System.out.println("hello");
                     code.add(0, "declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1)");
@@ -627,6 +629,12 @@ public class CodeGenerator {
                 type2 = type2.equals("func") ? (String) get_cell(expr1.getVal()).getDscp().get(0) : type2;
                 vals = new String[1];
                 vals[0] = expr1.getVal();
+                if (flagi1) {
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + vals[0] + ", align " + type_size(type1);
+                    code.add(cl);
+                    vals[0] = "%var" + variable_count;
+                    variable_count++;
+                }
                 type = assign_type(type1, type2, vals);
                 val1 = vals[0];
                 if (type == null)
