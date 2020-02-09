@@ -96,7 +96,7 @@ public class Parser {
         }
     }
 
-    public void call_cg(String semantic) {
+    public void call_cg(String semantic) throws Exception{
         if (semantic.equals("NoSem"))
             return;
         String[] functions = semantic.substring(1).split("[;]");

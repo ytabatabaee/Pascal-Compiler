@@ -1182,12 +1182,13 @@ public class CodeGenerator {
             case "close_proc":
                 code.add("ret void");
                 code.add("}");
+                global_block = "";
                 break;
 
             case "start_proc":
                 tmp = semantic_stack.pop();
                 tmp.setVal(tmp.getVal().substring(1)); //removes the % before the name
-                //global_block = tmp.getVal();
+                global_block = tmp.getVal();
                 cl = "@" + tmp.getVal() + "(";
                 code.add(cl);
                 sym_tab.add(new SymTabCell(new Symbol("func", tmp.getVal()), new ArrayList()));
@@ -1198,7 +1199,6 @@ public class CodeGenerator {
                 cl = code.get(code.size() - 1); // func def
                 code.remove(cl);
                 cl = "define void" + " " + cl + ") {";
-                //global_block = tmp.getVal();
                 code.add(cl);
                 break;
 
