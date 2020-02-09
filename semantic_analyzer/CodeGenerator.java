@@ -364,7 +364,11 @@ public class CodeGenerator {
                     throw new Exception("You didn't define this variable.");
                 }
                 type = resolve_type(type1, type2);
-                if (!(type.equals("i32") || type.equals("float"))) {
+                if (type.equals("float"))
+                    inst = "fdiv";
+                else if (type.equals("i32"))
+                    inst = "sdiv";
+                else {
                     throw new Exception("This operation with these types is not possible.");
                 }
                 if (flagi1 || flaga1) {
@@ -379,9 +383,9 @@ public class CodeGenerator {
                     val2 = "%var" + variable_count;
                     variable_count++;
                 }
-                cl = "%var" + variable_count + " = " + "fdiv" + " " + "float" + " " + val1 + ", " + val2;
+                cl = "%var" + variable_count + " = " + inst + " " + type + " " + val1 + ", " + val2;
                 code.add(cl);
-                res = new Symbol("float", "%var" + variable_count);
+                res = new Symbol(type, "%var" + variable_count);
                 variable_count++;
                 semantic_stack.push(res);
                 break;
