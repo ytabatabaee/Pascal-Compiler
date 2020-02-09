@@ -16,10 +16,14 @@ public class CodeGenerator {
     private int loop_count;
     private int string_count;
     private String global_block;
+    private Stack<Integer> if_stack;
+    private Stack<Integer> loop_stack;
 
     public CodeGenerator(Scanner scanner) {
         this.scanner = scanner;
         semantic_stack = new Stack<>();
+        if_stack = new Stack<>();
+        loop_stack = new Stack<>();
         code = new ArrayList<>();
         sym_tab = new ArrayList<>();
         variable_count = 1;
@@ -32,6 +36,14 @@ public class CodeGenerator {
         code.add("@.const_l = private constant [4 x i8] c\"%ld\\00\"");
         global_block = "";
     }
+
+//    public String to_ieee(String num) {
+//        return "0x" + Integer.toHexString(Float.floatToIntBits(Float.parseFloat(num)));
+//    }
+//
+//    public float to_float(String ieee) {
+//        return Float.intBitsToFloat(Integer.parseInt(ieee));
+//    }
 
     public String resolve_type(String type1, String type2) {
         if (type1.equals("i32") && type2.equals("i32"))
@@ -167,6 +179,7 @@ public class CodeGenerator {
             case "push_real_const":
                 tmp = scanner.get_current();
                 tmp.setToken("float");
+//                tmp.setVal(to_ieee(tmp.getVal()));
                 semantic_stack.push(tmp);
                 break;
 
@@ -937,63 +950,67 @@ public class CodeGenerator {
 
             case "jump_to_then":
                 tmp = semantic_stack.pop();
-                cl = "br i1 " + tmp.getVal() + ", label %if.then" + if_count + ", label %if.else" + if_count;
+                if_stack.push(if_count);
+                if_count++;
+                cl = "br i1 " + tmp.getVal() + ", label %if.then" + if_stack.peek() + ", label %if.else" + if_stack.peek();
                 code.add(cl);
-                cl = "br label %if.then" + if_count;
+                cl = "br label %if.then" + if_stack.peek();
                 code.add(cl);
-                cl = "if.then" + if_count + ":";
+                cl = "if.then" + if_stack.peek() + ":";
                 code.add(cl);
                 break;
 
             case "jump_to_endif_then":
-                cl = "br label %if.end" + if_count;
+                cl = "br label %if.end" + if_stack.peek();
                 code.add(cl);
-                cl = "br label %if.else" + if_count;
+                cl = "br label %if.else" + if_stack.peek();
                 code.add(cl);
-                cl = "if.else" + if_count + ":";
+                cl = "if.else" + if_stack.peek() + ":";
                 code.add(cl);
-                cl = "br label %if.end" + if_count;
+                cl = "br label %if.end" + if_stack.peek();
                 code.add(cl);
-                cl = "if.end" + if_count + ":";
+                cl = "if.end" + if_stack.peek() + ":";
                 code.add(cl);
                 break;
 
             case "jump_to_endif_else":
-                code.remove("if.end" + if_count + ":");
-                code.remove("br label %if.end" + if_count);
-                cl = "br label %if.end" + if_count;
+                code.remove("if.end" + if_stack.peek() + ":");
+                code.remove("br label %if.end" + if_stack.peek());
+                cl = "br label %if.end" + if_stack.peek();
                 code.add(cl);
-                cl = "if.end" + if_count + ":";
+                cl = "if.end" + if_stack.peek() + ":";
+                if_stack.pop();
                 code.add(cl);
-                if_count++;
                 break;
 
 
             case "start_loop":
-                cl = "br label %while.start" + loop_count;
+                loop_stack.push(loop_count);
+                loop_count++;
+                cl = "br label %while.start" + loop_stack.peek();
                 code.add(cl);
-                cl = "while.start" + loop_count + ":";
+                cl = "while.start" + loop_stack.peek() + ":";
                 code.add(cl);
                 break;
 
             case "loop_body":
                 tmp = semantic_stack.pop();
-                cl = "br i1 " + tmp.getVal() + ", label %while.body" + loop_count + ", label %while.end" + loop_count;
+                cl = "br i1 " + tmp.getVal() + ", label %while.body" + loop_stack.peek() + ", label %while.end" + loop_stack.peek();
                 code.add(cl);
-                cl = "br label %while.body" + loop_count;
+                cl = "br label %while.body" + loop_stack.peek();
                 code.add(cl);
-                cl = "while.body" + loop_count + ":";
+                cl = "while.body" + loop_stack.peek() + ":";
                 code.add(cl);
                 break;
 
             case "end_loop":
-                cl = "br label %while.start" + loop_count;
+                cl = "br label %while.start" + loop_stack.peek();
                 code.add(cl);
-                cl = "br label %while.end" + loop_count;
+                cl = "br label %while.end" + loop_stack.peek();
                 code.add(cl);
-                cl = "while.end" + loop_count + ":";
+                cl = "while.end" + loop_stack.peek() + ":";
                 code.add(cl);
-                loop_count++;
+                loop_stack.pop();
                 break;
 
 
