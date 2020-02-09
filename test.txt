@@ -1,10 +1,6 @@
 function main() : integer
 begin
-  a : array [20]  of char;
-    a := "fresh2refresh.com";
-    len : integer;
-    len := strlen(a);
-    write("string length = ");
-    write(len);
+    a : long := 1221331;
+    write(a);
     return 0;
 end

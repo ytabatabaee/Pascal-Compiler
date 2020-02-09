@@ -103,6 +103,7 @@ comment             = {dash_comment} | {regular_comment} | {multi_line_comment}
  /* Keywords */
  "char"         { return sym("char"); }
  "integer"      { return sym("integer"); }
+ "long"      { return sym("long"); }
  "boolean"      { return sym("boolean"); }
  "real"         { return sym("real"); }
  "array"        { return sym("array"); }
