@@ -119,7 +119,7 @@ public class CodeGenerator {
             return val_type;
         } else if ((id_type.equals("float") || id_type.equals("real")) && (val_type.equals("i32") || val_type.equals("integer"))) {
             return id_type;
-        } else if ((id_type.equals("i32") || id_type.equals("integer")) && (val_type.equals("i8") || val_type.equals("boolean") || id_type.equals("char"))) {
+        } else if ((id_type.equals("i32") || id_type.equals("integer")) && (val_type.equals("i8") || val_type.equals("boolean") || val_type.equals("char"))) {
             return id_type;
         } else if ((id_type.equals("i64") || id_type.equals("long")) && (val_type.equals("i32") || val_type.equals("integer"))) {
             return id_type;
@@ -127,6 +127,16 @@ public class CodeGenerator {
             return id_type;
         } else if ((id_type.equals("i32") || id_type.equals("integer")) && (val_type.equals("i64") || val_type.equals("long"))) {
             code.add("%var" + variable_count + " = trunc i64 %var" + (variable_count - 1) + " to i32");
+            vals[0] = "%var" + variable_count;
+            variable_count++;
+            return id_type;
+        } else if ((id_type.equals("i8") || id_type.equals("char") || id_type.equals("boolean")) && (val_type.equals("i64") || val_type.equals("long"))) {
+            code.add("%var" + variable_count + " = trunc i64 %var" + (variable_count - 1) + " to i8");
+            vals[0] = "%var" + variable_count;
+            variable_count++;
+            return id_type;
+        } else if ((id_type.equals("i8") || id_type.equals("char") || id_type.equals("boolean")) && (val_type.equals("i32") || val_type.equals("integer"))) {
+            code.add("%var" + variable_count + " = trunc i32 %var" + (variable_count - 1) + " to i8");
             vals[0] = "%var" + variable_count;
             variable_count++;
             return id_type;
