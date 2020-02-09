@@ -12,6 +12,7 @@ public class CodeGenerator {
     private Stack<Symbol> semantic_stack;
     private ArrayList<String> code;
     private ArrayList<SymTabCell> sym_tab;
+    private ArrayList<String> func_args;
     private int variable_count;
     private int if_count;
     private int loop_count;
@@ -27,6 +28,7 @@ public class CodeGenerator {
         loop_stack = new Stack<>();
         code = new ArrayList<>();
         sym_tab = new ArrayList<>();
+        func_args = new ArrayList<>();
         variable_count = 1;
         if_count = 1;
         loop_count = 1;
@@ -95,6 +97,7 @@ public class CodeGenerator {
     public SymTabCell get_cell(String id) {
         for (SymTabCell cell : sym_tab) {
             Symbol symbol = cell.getSymbol();
+            System.out.println(symbol.getVal());
             if (id.equals(symbol.getVal())) {
                 return cell;
             }
@@ -231,8 +234,8 @@ public class CodeGenerator {
             case "add":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                flagi1 = expr1.getToken().equals("id");
-                flagi2 = expr2.getToken().equals("id");
+                flagi1 = expr1.getToken().equals("id") && !func_args.contains(expr1.getVal());
+                flagi2 = expr2.getToken().equals("id") && !func_args.contains(expr2.getVal());
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
                 flaga1 = type1.startsWith("arr");
@@ -274,10 +277,10 @@ public class CodeGenerator {
             case "subtract":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                flagi1 = expr1.getToken().equals("id");
-                flagi2 = expr2.getToken().equals("id");
-                type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flagi1 = expr1.getToken().equals("id") && !func_args.contains(expr1.getVal());
+                flagi2 = expr2.getToken().equals("id") && !func_args.contains(expr2.getVal());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
                 flaga1 = type1.startsWith("arr");
                 flaga2 = type2.startsWith("arr");
                 type1 = flaga1 ? type1.split(" ")[1] : type1;
@@ -317,10 +320,10 @@ public class CodeGenerator {
             case "mult":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                flagi1 = expr1.getToken().equals("id");
-                flagi2 = expr2.getToken().equals("id");
-                type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
-                type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
+                flagi1 = expr1.getToken().equals("id") && !func_args.contains(expr1.getVal());
+                flagi2 = expr2.getToken().equals("id") && !func_args.contains(expr2.getVal());
+                type1 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
+                type2 = expr1.getToken().equals("id") ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
                 flaga1 = type1.startsWith("arr");
                 flaga2 = type2.startsWith("arr");
                 type1 = flaga1 ? type1.split(" ")[1] : type1;
@@ -360,8 +363,8 @@ public class CodeGenerator {
             case "divide":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                flagi1 = expr1.getToken().equals("id");
-                flagi2 = expr2.getToken().equals("id");
+                flagi1 = expr1.getToken().equals("id") && !func_args.contains(expr1.getVal());
+                flagi2 = expr2.getToken().equals("id") && !func_args.contains(expr2.getVal());
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
                 flaga1 = type1.startsWith("arr");
@@ -403,8 +406,8 @@ public class CodeGenerator {
             case "mod":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                flagi1 = expr1.getToken().equals("id");
-                flagi2 = expr2.getToken().equals("id");
+                flagi1 = expr1.getToken().equals("id") && !func_args.contains(expr1.getVal());
+                flagi2 = expr2.getToken().equals("id") && !func_args.contains(expr2.getVal());
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
                 flaga1 = type1.startsWith("arr");
@@ -443,8 +446,8 @@ public class CodeGenerator {
             case "and":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                flagi1 = expr1.getToken().equals("id");
-                flagi2 = expr2.getToken().equals("id");
+                flagi1 = expr1.getToken().equals("id") && !func_args.contains(expr1.getVal());
+                flagi2 = expr2.getToken().equals("id") && !func_args.contains(expr2.getVal());
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
                 flaga1 = type1.startsWith("arr");
@@ -483,8 +486,8 @@ public class CodeGenerator {
             case "or":
                 expr2 = semantic_stack.pop();
                 expr1 = semantic_stack.pop();
-                flagi1 = expr1.getToken().equals("id");
-                flagi2 = expr2.getToken().equals("id");
+                flagi1 = expr1.getToken().equals("id") && !func_args.contains(expr1.getVal());
+                flagi2 = expr2.getToken().equals("id") && !func_args.contains(expr2.getVal());
                 type1 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
                 type2 = flagi2 ? type_of_id_in_symtab(expr2.getVal()) : expr2.getToken();
                 flaga1 = type1.startsWith("arr");
@@ -636,7 +639,7 @@ public class CodeGenerator {
             case "assign":
                 expr1 = semantic_stack.pop(); // expr
                 tmp = semantic_stack.pop(); // left-hand-side var
-                flagi1 = expr1.getToken().equals("id");
+                flagi1 = expr1.getToken().equals("id") && !func_args.contains(expr1.getVal());
                 type1 = tmp.getToken().equals("id") ? type_of_id_in_symtab(tmp.getVal()) : tmp.getToken();
                 type2 = flagi1 ? type_of_id_in_symtab(expr1.getVal()) : expr1.getToken();
 //                System.out.println(tmp.getVal());
@@ -1041,6 +1044,12 @@ public class CodeGenerator {
                 // set the right type for it with symtab; check if exists
                 type = tmp.getToken().equals("id") ? type_of_id_in_symtab(tmp.getVal()) : tmp.getToken();
                 type = type.startsWith("arr") ? type.split(" ")[1] : type;
+                /* if (flagi1 || flaga1) {
+                    cl = "%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1);
+                    code.add(cl);
+                    val1 = "%var" + variable_count;
+                    variable_count++;
+                }*/
                 cl = "ret " + type + " " + tmp.getVal();
                 code.add(cl);
                 // todo bayad check konim ke type a func ba type a return yeki bashe
@@ -1137,11 +1146,12 @@ public class CodeGenerator {
                 }
                 cl = "call " + type + " @" + expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1) + "(" + inst;
                 for (Symbol exp : exprs) {
-                    flagi1 = exp.getToken().equals("id");
+                    flagi1 = exp.getToken().equals("id") && !func_args.contains(exp.getVal());
                     type1 = flagi1 ? type_of_id_in_symtab(exp.getVal()) : exp.getToken();
                     flaga1 = type1.startsWith("arr") && !type1.equals("arr");
                     type1 = flaga1 ? type1.split(" ")[1] : type1;
                     type1 = type1.equals("arr") ? (String) get_cell(exp.getVal()).getDscp().get(0) : type1;
+                    type1 = type1.equals("id") ? type_of_id_in_symtab(exp.getVal()) : type1;
                     val1 = exp.getVal();
                     if ((flagi1 || flaga1) && !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("scanf") /*&& !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("printf") */&& !expr1.getVal().substring(0, expr1.getVal().length() - global_block.length() - 1).equals("strlen")) {
                         code.add("%var" + variable_count + " = load " + type1 + ", " + type1 + "* " + val1 + ", align " + type_size(type1));
@@ -1154,11 +1164,13 @@ public class CodeGenerator {
                 }
                 if (exprs.size() > 0)
                     cl = cl.substring(0, cl.length() - 2);
-                cl = "%var" + variable_count + " = " + cl;
+                if (type != "void"){
+                    cl = "%var" + variable_count + " = " + cl;
+                    res = new Symbol(type, "%var" + variable_count);
+                    variable_count++;
+                    semantic_stack.push(res);
+                }
                 cl += ")";
-                res = new Symbol(type, "%var" + variable_count);
-                variable_count++;
-                semantic_stack.push(res);
                 code.add(cl);
                 return;
 
@@ -1177,6 +1189,9 @@ public class CodeGenerator {
                 cl = code.get(code.size() - 1);
                 code.remove(cl);
                 code.add(cl + parts[3].replace(",", "") + " " + parts[0]);
+                func_args.add(parts[0]);
+                sym_tab.add(new SymTabCell(new Symbol(parts[3], parts[0]), new ArrayList<>()));
+                System.out.println(parts[0]);
                 break;
 
             case "close_proc":
