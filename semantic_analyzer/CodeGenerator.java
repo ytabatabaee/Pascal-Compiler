@@ -1,5 +1,6 @@
 package semantic_analyzer;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -1278,6 +1279,11 @@ public class CodeGenerator {
         System.out.println("++++++++++++++++++++++++++++++");
         for (String c : code)
             System.out.println(c);
+        FileWriter writer = new FileWriter("res.ll");
+        for(String c: code) {
+            writer.write(c + "\n");
+        }
+        writer.close();
         System.out.println("++++++++++++++++++++++++++++++");
         System.out.println("_______________________");
 
