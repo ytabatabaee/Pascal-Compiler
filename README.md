@@ -1,5 +1,5 @@
 # Mini Pascal Compiler
-In this project we developed a mini compiler for Pascal programming language as our Compiler Design (*CE-414*) course project. 
+In this project we developed a mini compiler for Pascal programming language as our Compiler Design course project. 
 
 ## Built With
 
